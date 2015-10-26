@@ -82,10 +82,18 @@ nnoremap <Leader>c :set cursorline!<CR>
 
 hi SpellBad cterm=NONE ctermbg=darkred ctermfg=yellow guibg=darkred guifg=yellow
 
+" Tell Vim which characters to show for expanded TABs,
+" trailing whitespace, and end-of-lines. VERY useful!
+set listchars=trail:_
+set list
+
+" Also highlight all tabs and trailing whitespace characters.
+highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
+match ExtraWhitespace /\s\+$\|\t/
+
 set incsearch
 set hlsearch
 
-set nolist
 set timeout
 set timeoutlen=400
 set ttimeoutlen=100
