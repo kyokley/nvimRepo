@@ -26,8 +26,11 @@
 let $MYVIMRC = $HOME."/.nvim/init.vim"
 
 filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+call plug#begin('~/.nvim/plugged')
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+Plug 'scrooloose/syntastic'
+Plug 'tpope/vim-fugitive'
+call plug#end()
 filetype plugin indent on
 
 syntax on
