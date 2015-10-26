@@ -34,11 +34,13 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 Plug 'tommcdo/vim-exchange'
-Plug 'sjl/gundo.vim'
+Plug 'simnalamburt/vim-mundo', {'on': 'GundoToggle'}
 Plug 'nvie/vim-flake8'
 Plug 'Bogdanp/quicksilver.vim'
 Plug 'mhinz/vim-signify'
 Plug 'kien/ctrlp.vim'
+Plug 'mileszs/ack.vim'
+Plug 'FelikZ/ctrlp-py-matcher'
 call plug#end()
 filetype plugin indent on
 
@@ -255,7 +257,7 @@ let g:QSIgnore = ".*\.pyc$;.*\.swp$"
 if !has('python')
     echo 'In order to use pymatcher plugin, you need +python compiled vim'
 else
-    let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+    "let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 endif
 
 " ctrlp
@@ -265,7 +267,7 @@ nnoremap <leader>t :let g:ctrlp_working_path_mode = 'c'<CR>:CtrlP<CR>:let g:ctrl
 nnoremap <leader>p :let g:ctrlp_working_path_mode = 'r'<CR>:CtrlP<CR>
 " Set delay to prevent extra search
 let g:ctrlp_lazy_update = 0
-let g:ctrlp_clear_cache_on_exit = 1
+let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_max_files = 0
 " If ag is available use it as filename list generator instead of 'find'
 let g:ackprg = 'ag --nogroup --nocolor --column'
