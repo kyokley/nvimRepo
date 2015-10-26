@@ -30,6 +30,15 @@ call plug#begin('~/.nvim/plugged')
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-abolish'
+Plug 'tommcdo/vim-exchange'
+Plug 'sjl/gundo.vim'
+Plug 'nvie/vim-flake8'
+Plug 'Bogdanp/quicksilver.vim'
+Plug 'mhinz/vim-signify'
+Plug 'kien/ctrlp.vim'
 call plug#end()
 filetype plugin indent on
 
@@ -47,7 +56,6 @@ set nosmartindent
 set smarttab
 set showmatch
 set scrolloff=5
-set ttyfast
 set visualbell
 set autochdir
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.o,*.obj,*.git
@@ -58,7 +66,6 @@ highlight MatchParen ctermbg=4
 
 set cul
 
-set t_Co=256
 hi CursorLine cterm=NONE ctermbg=18 ctermfg=white guibg=darkblue guifg=white
 hi LineNr cterm=NONE ctermbg=NONE ctermfg=yellow guibg=NONE guifg=yellow
 hi search cterm=NONE ctermbg=lightblue ctermfg=black guibg=lightblue guifg=black
