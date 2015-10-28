@@ -42,6 +42,7 @@ Plug 'kien/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'majutsushi/tagbar'
+Plug 'bling/vim-bufferline'
 Plug '~/.nvim/manual/togglecomment'
 call plug#end()
 filetype plugin indent on
