@@ -83,15 +83,6 @@ nnoremap <Leader>c :set cursorline!<CR>
 
 hi SpellBad cterm=NONE ctermbg=darkred ctermfg=yellow guibg=darkred guifg=yellow
 
-" Tell Vim which characters to show for expanded TABs,
-" trailing whitespace, and end-of-lines. VERY useful!
-set listchars=trail:_
-set list
-
-" Also highlight all tabs and trailing whitespace characters.
-highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
-match ExtraWhitespace /\s\+$\|\t/
-
 set incsearch
 set hlsearch
 
@@ -195,6 +186,8 @@ augroup EditVim
     au FileType git,*commit* setlocal spell
     au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
         
+    au VimEnter * set title
+    au BufEnter * let &titlestring = "nvim " . expand("%:p")
     "recalculate the trailing whitespace warning when idle, and after saving
     autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning   
@@ -206,6 +199,15 @@ augroup filetype_python
     au FileType python set foldlevel=99
     au FileType python set nosmartindent
     au FileType python map <buffer> <leader>8 :call Flake8()<CR>
+    " Tell Vim which characters to show for expanded TABs,
+    " trailing whitespace, and end-of-lines. VERY useful!
+    au FileType python set listchars=trail:_
+    au FileType python set list
+
+    " Also highlight all tabs and trailing whitespace characters.
+    au FileType python highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
+    au FileType python match ExtraWhitespace /\s\+$\|\t/
+
     "au FileType python colo molokai
 augroup END
 
