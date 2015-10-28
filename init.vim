@@ -41,6 +41,7 @@ Plug 'mhinz/vim-signify'
 Plug 'kien/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'majutsushi/tagbar'
 Plug '~/.nvim/manual/togglecomment'
 call plug#end()
 filetype plugin indent on
@@ -558,7 +559,7 @@ def RemoveBreakpoints():
 
     vim.command( "normal %dG" % nCurrentLine)
 
-vim.command( "noremap <S-F12> :py RemoveBreakpoints()<cr>")
+vim.command( "noremap <F24> :py RemoveBreakpoints()<cr>")
 EOF
 "vim:syntax=vim
 
