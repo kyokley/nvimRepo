@@ -44,6 +44,8 @@ Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-bufferline'
 Plug '~/.nvim/manual/togglecomment'
+Plug '~/.nvim/manual/pyfold'
+Plug '~/.nvim/manual/visincr'
 call plug#end()
 filetype plugin indent on
 
