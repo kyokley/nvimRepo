@@ -42,7 +42,10 @@ Plug 'kien/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'majutsushi/tagbar'
+Plug 'bling/vim-bufferline'
 Plug '~/.nvim/manual/togglecomment'
+Plug '~/.nvim/manual/pyfold'
+Plug '~/.nvim/manual/visincr'
 call plug#end()
 filetype plugin indent on
 
@@ -320,9 +323,6 @@ let g:syntastic_mode_map = { 'mode': 'active',
                            \ 'active_filetypes': [],
                            \ 'passive_filetypes': [] }
 
-"VCSCommand Settings
-let g:VCSCommandDeleteOnHide = 1
-
 "Flake8
 let g:flake8_show_quickfix=0
 let g:flake8_show_in_gutter=1
@@ -382,7 +382,8 @@ set statusline+=%#warningmsg#
 set statusline+=%{StatuslineTabWarning()}
 set statusline+=%*
 
-set statusline+=%{StatuslineTrailingSpaceWarning()}\ 
+set statusline+=%{StatuslineTrailingSpaceWarning()}\ " Space at the end of the line left intentionally
+set statusline+=%{StatuslineLongLineWarning()}\ " Space at the end of the line left intentionally
 
 set statusline+=%c,     "cursor column
 set statusline+=%l/%L   "cursor line/total lines
