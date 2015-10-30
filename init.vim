@@ -65,6 +65,7 @@ set autochdir
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.o,*.obj,*.git
 set nowrapscan
 set textwidth=0
+set mouse=""
 
 highlight MatchParen ctermbg=4
 
