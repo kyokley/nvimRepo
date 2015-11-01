@@ -13,6 +13,8 @@ sudo update-alternatives --config vim
 sudo update-alternatives --config editor
 
 mkdir ~/.config
-ln -s ~/.nvim ~/.config/nvim
+if [ ! -h ~/.config/nvim ]; then
+    ln -s ~/.nvim ~/.config/nvim
+fi
 sudo pip install neovim
 nvim -c ':PlugInstall'
