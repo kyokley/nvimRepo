@@ -4,22 +4,22 @@
 " F5 toggles undo tree
 " F10 toggles paste mode
 " <leader>h clears highlighting and signify symbols
-" 
+"
 " jj <Esc>
 " JJ <Esc>
 " kk <Esc>
 " KK <Esc>
-" 
+"
 " Shift-L :bnext
 " Shift-H :bprev
 " Shift-J 20 lines down
 " Shift-K 20 lines up
-" 
+"
 " Ctrl-j Move down a window
 " Ctrl-k Move up a window
 " Ctrl-h Move left a window
 " Ctrl-l Move right a window
-" 
+"
 " <Tab> Jump to next word
 " Shift-<Tab> Jump back a word
 "
@@ -190,12 +190,12 @@ augroup EditVim
     au FileType svn,*commit* setlocal spell
     au FileType git,*commit* setlocal spell
     au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
-        
+
     au VimEnter * set title
     au BufEnter * let &titlestring = "nvim " . expand("%:p")
     "recalculate the trailing whitespace warning when idle, and after saving
     autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
-    autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning   
+    autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning
 augroup END
 
 augroup filetype_python
@@ -613,4 +613,3 @@ function! InitializeDirectories()
   endfor
 endfunction
 call InitializeDirectories()
-
