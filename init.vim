@@ -40,7 +40,6 @@ Plug 'Bogdanp/quicksilver.vim'
 Plug 'mhinz/vim-signify'
 Plug 'kien/ctrlp.vim'
 Plug 'mileszs/ack.vim'
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-bufferline'
 Plug '~/.nvim/manual/togglecomment'
@@ -278,13 +277,6 @@ highlight DiffText        cterm=bold ctermbg=Red ctermfg=Yellow
 "QuickSilver Config
 let g:QSMatchFn = 'fuzzy'
 let g:QSIgnore = ".*\.pyc$;.*\.swp$"
-
-" PyMatcher for CtrlP
-if !has('python')
-    echo 'In order to use pymatcher plugin, you need +python compiled vim'
-else
-    "let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-endif
 
 " ctrlp
 let g:ctrlp_working_path_mode = 'r'
