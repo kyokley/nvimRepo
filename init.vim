@@ -42,6 +42,14 @@ Plug 'kien/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-bufferline'
+
+function! BuildYCM(info)
+  if a:info.status == 'installed' || a:info.force
+    !./install.py
+  endif
+endfunction
+Plug 'Valloric/YouCompleteMe', {'do': function('BuildYCM')}
+
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
 Plug '~/.nvim/manual/visincr'
