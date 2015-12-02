@@ -239,6 +239,16 @@ augroup CursorLineOnlyInActiveWindow
   autocmd WinLeave * setlocal nocursorline
 augroup END
 
+function! RaiseExceptionForUnresolvedErrors()
+    if search('\v^[<=>]{7}( .*|$)', 'nw') != 0
+        throw 'Found unresolved conflicts'
+    endif
+    if search('\s\+$', 'nw') != 0
+        throw 'Found trailing whitespace'
+    endif
+endfunction
+autocmd BufWritePre * call RaiseExceptionForUnresolvedErrors()
+
 function! s:DiffWithSaved()
   let filetype=&ft
   diffthis
