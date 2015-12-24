@@ -551,8 +551,6 @@ def SetBreakpoint():
 vim.command( 'noremap <F12> :py SetBreakpoint()<cr>')
 
 def RemoveBreakpoints():
-    import re
-
     nCurrentLine = int( vim.eval( 'line(".")'))
 
     nLines = []
