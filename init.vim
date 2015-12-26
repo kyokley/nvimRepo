@@ -332,9 +332,9 @@ let g:syntastic_check_on_open=1
 let g:syntastic_python_checkers=["pyflakes"]
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_quiet_messages = {'level': 'warnings'}
-let g:syntastic_mode_map = { 'mode': 'active',
-                           \ 'active_filetypes': [],
-                           \ 'passive_filetypes': [] }
+let g:syntastic_mode_map = {'mode': 'active',
+                           \'active_filetypes': [],
+                           \'passive_filetypes': []}
 
 "Flake8
 let g:flake8_show_quickfix=0
