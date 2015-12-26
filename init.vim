@@ -193,7 +193,9 @@ runtime ftplugin/man.vim
 augroup EditVim
     autocmd!
     au InsertEnter * highlight LineNr ctermbg=red   guibg=red
+    au InsertEnter * hi CursorLine ctermbg=red guibg=red
     au InsertLeave * highlight LineNr ctermbg=NONE guibg=NONE
+    au InsertLeave * hi CursorLine ctermbg=darkblue guibg=darkblue
     au FileType svn,*commit* setlocal spell
     au FileType git,*commit* setlocal spell
     au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
