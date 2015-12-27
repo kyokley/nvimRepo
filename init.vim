@@ -192,8 +192,8 @@ runtime ftplugin/man.vim
 " AutoCommands!
 augroup EditVim
     autocmd!
-    au InsertEnter * highlight LineNr ctermbg=red   guibg=red
-    au InsertEnter * hi CursorLine ctermbg=red guibg=red
+    au InsertEnter * highlight LineNr ctermbg=darkred   guibg=darkred
+    au InsertEnter * hi CursorLine ctermbg=darkred guibg=darkred
     au InsertLeave * highlight LineNr ctermbg=NONE guibg=NONE
     au InsertLeave * hi CursorLine ctermbg=18 guibg=darkblue
     au FileType svn,*commit* setlocal spell
