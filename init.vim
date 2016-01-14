@@ -577,11 +577,6 @@ vim.command( "noremap <F24> :py RemoveBreakpoints()<cr>")
 EOF
 "vim:syntax=vim
 
-for i in range(97,122)
-        let c = nr2char(i)
-        exec "set <M-".c.">=\<Esc>".c
-endfor
-
 set nobackup
 
 if version >= 703
