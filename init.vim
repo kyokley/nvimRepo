@@ -256,7 +256,7 @@ function! RaiseExceptionForUnresolvedErrors()
         new
         silent put p
         silent exe '%!pyflakes'
-        silent exe '%s/<stdin>/' . s:file_name . '/'
+        silent exe '%s/<stdin>/' . s:file_name . '/e'
 
         unlet! s:temp_name
         let s:un_res = search('undefined name', 'nw')
