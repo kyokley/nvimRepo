@@ -251,12 +251,12 @@ function! RaiseExceptionForUnresolvedErrors()
     endif
     if &filetype == 'python'
         let s:file_name = expand('%:t')
-        let s:temp_name = s:file_name . '_vim_' . strftime("%T") . '_bak'
-        silent exe 'w !pyflakes &> ' . s:temp_name
+        silent %yank p
 
         new
-        silent exe 'r ' . s:temp_name
-        silent exe '!rm ' . s:temp_name
+        silent put p
+        silent exe '%!pyflakes'
+        silent exe '%s/<stdin>/' . s:file_name . '/'
 
         unlet! s:temp_name
         let s:un_res = search('undefined name', 'nw')
