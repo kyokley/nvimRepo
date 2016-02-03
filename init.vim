@@ -254,7 +254,8 @@ function! RaiseExceptionForUnresolvedErrors()
         silent %yank p
 
         new
-        silent put p
+        silent 0put p
+        silent $,$d
         silent exe '%!pyflakes'
         silent exe '%s/<stdin>/' . s:file_name . '/e'
 
