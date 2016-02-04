@@ -251,15 +251,15 @@ function! RaiseExceptionForUnresolvedErrors()
     endif
     if &filetype == 'python'
         let s:file_name = expand('%:t')
-        silent %yank p
 
+        silent %yank p
         new
         silent 0put p
         silent $,$d
-        silent exe '%!pyflakes'
+        silent %!pyflakes
         silent exe '%s/<stdin>/' . s:file_name . '/e'
+        unlet! s:file_name
 
-        unlet! s:temp_name
         let s:un_res = search('undefined name', 'nw')
         if s:un_res != 0
             let s:message = 'Syntax error! ' . getline(s:un_res)
