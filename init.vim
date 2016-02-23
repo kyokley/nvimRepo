@@ -44,6 +44,7 @@ Plug 'majutsushi/tagbar'
 Plug 'bling/vim-bufferline'
 Plug 'vim-scripts/JavaScript-Indent'
 Plug 'jelera/vim-javascript-syntax'
+Plug 'hdima/python-syntax'
 
 function! BuildYCM(info)
   if a:info.status == 'installed' || a:info.force
@@ -146,6 +147,7 @@ noremap <leader>s :norm @s<CR><CR>
 " Add some mappings
 noremap ,# :call CommentLineToEnd('#')<CR>+
 noremap ,* :call CommentLinePincer('/* ', ' */')<CR>+
+
 "Allow command to accept a count
 noremap <silent> <S-j> @='20j'<CR>
 noremap <silent> <S-k> @='20k'<CR>
@@ -225,6 +227,7 @@ augroup filetype_python
     au FileType python highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
     au FileType python match ExtraWhitespace /\s\+$\|\t/
     au BufWritePost,cursorhold * filetype detect
+    let python_highlight_all = 1
     "au FileType python colo molokai
 augroup END
 
