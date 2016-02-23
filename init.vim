@@ -42,6 +42,8 @@ Plug 'kien/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-bufferline'
+Plug 'vim-scripts/JavaScript-Indent'
+Plug 'jelera/vim-javascript-syntax'
 
 function! BuildYCM(info)
   if a:info.status == 'installed' || a:info.force
