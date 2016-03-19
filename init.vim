@@ -34,7 +34,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 Plug 'tommcdo/vim-exchange'
-Plug 'simnalamburt/vim-mundo', {'on': 'GundoToggle'}
+Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 Plug 'nvie/vim-flake8'
 Plug 'Bogdanp/quicksilver.vim'
 Plug 'mhinz/vim-signify'
@@ -120,7 +120,7 @@ nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <F3> :NERDTreeToggle<CR>
 let g:tagbar_autofocus = 1
 nnoremap <F4> :TagbarToggle<CR>
-nnoremap <F5> :GundoToggle<CR>
+nnoremap <F5> :MundoToggle<CR>
 nnoremap <F6> :set nolist!<CR>
 nnoremap <silent> <leader>h :noh<CR>:silent! call flake8#Flake8UnplaceMarkers()<CR>:sign unplace *<CR>
 nnoremap <silent> <leader>g :redir @g<CR>:g//<CR>:redir END<CR>:new<CR>:put! g<CR>
