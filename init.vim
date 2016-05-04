@@ -143,6 +143,9 @@ let @u = ':silent! s/\(\S\)\s\{2,\}/\1 /g:silent! s/\S\zs\s\+\ze[:\])]//g'
 noremap <leader>u :norm @u<CR>
 
 " A macro to capitalize SQL keywords
+" The following is WIP. Ignore it for the time being
+let @_ = ":silent! s/\('\)\@<![^']*\zs\<\(case\|when\|then\|else\|end\|type\|using\|foreign\|references\|cascade\|if\|check\|coalesce\|boolean\|union\|false\|true\|integer\|text\|serial\|primary\|key\|into\|insert\|drop\|limit\|unique\|index\|default\|column\|add\|table\|create\|alter\|delete\|interval\|set\|begin\|order by\|group by\|commit\|update\|rollback\|as\|select\|distinct\|from\|null\|or\|is\|inner\|right\|outer\|join\|in\|not\|exists\|on\|where\|and\|constraint\)\>\ze[^']*\('\)\@!\c/\U&/g"
+
 let @s = ':silent! s/\<\(case\|when\|then\|else\|end\|type\|using\|foreign\|references\|cascade\|if\|check\|coalesce\|boolean\|union\|false\|true\|integer\|text\|serial\|primary\|key\|into\|insert\|drop\|limit\|unique\|index\|default\|column\|add\|table\|create\|alter\|delete\|interval\|set\|begin\|order by\|group by\|commit\|update\|rollback\|as\|select\|distinct\|from\|null\|or\|is\|inner\|right\|outer\|join\|in\|not\|exists\|on\|where\|and\|constraint\)\>\c/\U&/g'
 noremap <leader>s :norm @s<CR><CR>
 
@@ -583,15 +586,8 @@ def SetBreakpoint():
     strWhite = re.search( '^(\s*)', strLine).group(1)
 
     vim.current.buffer.append(
-       "%(space)sipdb.set_trace() %(mark)s Breakpoint %(mark)s" %
+       "%(space)simport ipdb; ipdb.set_trace() %(mark)s Breakpoint %(mark)s" %
          {'space':strWhite, 'mark': '#' * 30}, nLine - 1)
-
-    for strLine in vim.current.buffer:
-        if strLine == "import ipdb":
-            break
-    else:
-        vim.current.buffer.append('import ipdb', 0)
-        vim.command( 'normal j1')
 
 vim.command( 'noremap <F12> :py SetBreakpoint()<cr>')
 
@@ -601,7 +597,7 @@ def RemoveBreakpoints():
     nLines = []
     nLine = 1
     for strLine in vim.current.buffer:
-        if strLine == "import ipdb" or strLine.lstrip()[:16] == "ipdb.set_trace()":
+        if strLine == "import ipdb" or strLine.lstrip()[:29] == "import ipdb; ipdb.set_trace()":
             nLines.append( nLine)
         nLine += 1
 
