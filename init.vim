@@ -144,9 +144,7 @@ noremap <leader>u :norm @u<CR>
 
 " A macro to capitalize SQL keywords
 " The following is WIP. Ignore it for the time being
-let @_ = ":silent! s/\('\)\@<![^']*\zs\<\(case\|when\|then\|else\|end\|type\|using\|foreign\|references\|cascade\|if\|check\|coalesce\|boolean\|union\|false\|true\|integer\|text\|serial\|primary\|key\|into\|insert\|drop\|limit\|unique\|index\|default\|column\|add\|table\|create\|alter\|delete\|interval\|set\|begin\|order by\|group by\|commit\|update\|rollback\|as\|select\|distinct\|from\|null\|or\|is\|inner\|right\|outer\|join\|in\|not\|exists\|on\|where\|and\|constraint\)\>\ze[^']*\('\)\@!\c/\U&/g"
-
-let @s = ':silent! s/\<\(case\|when\|then\|else\|end\|type\|using\|foreign\|references\|cascade\|if\|check\|coalesce\|boolean\|union\|false\|true\|integer\|text\|serial\|primary\|key\|into\|insert\|drop\|limit\|unique\|index\|default\|column\|add\|table\|create\|alter\|delete\|interval\|set\|begin\|order by\|group by\|commit\|update\|rollback\|as\|select\|distinct\|from\|null\|or\|is\|inner\|right\|outer\|join\|in\|not\|exists\|on\|where\|and\|constraint\)\>\c/\U&/g'
+let @s = ":silent! s/\\('\\)\\@<![^']\\{-}\\zs\\<\\(case\\|when\\|then\\|else\\|end\\|type\\|using\\|foreign\\|references\\|cascade\\|if\\|check\\|coalesce\\|boolean\\|union\\|false\\|true\\|integer\\|text\\|serial\\|primary\\|key\\|into\\|insert\\|drop\\|limit\\|unique\\|index\\|default\\|column\\|add\\|table\\|create\\|alter\\|delete\\|interval\\|set\\|begin\\|order by\\|group by\\|commit\\|update\\|rollback\\|as\\|select\\|distinct\\|from\\|null\\|or\\|is\\|inner\\|right\\|outer\\|join\\|in\\|not\\|exists\\|on\\|where\\|and\\|constraint\\)\\>\\ze[^']\\{-}\\('\\)\\@!\\c/\\U&/g"
 noremap <leader>s :norm @s<CR><CR>
 
 " Add some mappings
@@ -583,10 +581,10 @@ python << EOF
 import vim
 def SetBreakpoint():
     import re
-    nLine = int( vim.eval( 'line(".")'))
+    nLine = int(vim.eval('line(".")'))
 
     strLine = vim.current.line
-    strWhite = re.search( '^(\s*)', strLine).group(1)
+    strWhite = re.search('^(\s*)', strLine).group(1)
 
     vim.current.buffer.append(
        "%(space)simport ipdb; ipdb.set_trace() %(mark)s Breakpoint %(mark)s" %
@@ -595,7 +593,7 @@ def SetBreakpoint():
 vim.command( 'noremap <F12> :py SetBreakpoint()<cr>')
 
 def RemoveBreakpoints():
-    nCurrentLine = int( vim.eval( 'line(".")'))
+    nCurrentLine = int(vim.eval('line(".")'))
 
     nLines = []
     nLine = 1
@@ -607,14 +605,14 @@ def RemoveBreakpoints():
     nLines.reverse()
 
     for nLine in nLines:
-        vim.command( "normal %dG" % nLine)
-        vim.command( "normal dd")
+        vim.command("normal %dG" % nLine)
+        vim.command("normal dd")
         if nLine < nCurrentLine:
             nCurrentLine -= 1
 
-    vim.command( "normal %dG" % nCurrentLine)
+    vim.command("normal %dG" % nCurrentLine)
 
-vim.command( "noremap <F24> :py RemoveBreakpoints()<cr>")
+vim.command("noremap <F24> :py RemoveBreakpoints()<cr>")
 EOF
 "vim:syntax=vim
 
