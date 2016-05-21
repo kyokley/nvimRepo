@@ -274,7 +274,7 @@ function! RaiseExceptionForUnresolvedErrors()
         silent %!pyflakes
         silent exe '%s/<stdin>/' . s:file_name . '/e'
 
-        let s:un_res = search('undefined name', 'nw')
+        let s:un_res = search('\(unable to detect \)\@<!undefined name', 'nw')
         if s:un_res != 0
             let s:message = 'Syntax error! ' . getline(s:un_res)
             bd!
