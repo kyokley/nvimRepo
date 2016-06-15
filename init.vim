@@ -302,6 +302,13 @@ function! RaiseExceptionForUnresolvedErrors()
             throw s:message
         endif
 
+        let s:is_res = search('EOL while scanning string literal', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
         bd!
     endif
 endfunction
