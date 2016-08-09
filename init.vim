@@ -196,8 +196,6 @@ noremap <leader>fc /\v^[<=>]{7}( .*\|$)<CR>
 nnoremap ,v :source $MYVIMRC<CR>
 nnoremap ,e :e $MYVIMRC<CR>
 
-runtime ftplugin/man.vim
-
 " AutoCommands!
 augroup EditVim
     autocmd!
@@ -423,6 +421,8 @@ set completeopt=menuone
 let g:ycm_add_preview_to_completeopt = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
+
+let g:bufferline_rotate = 1
 
 "statusline setup
 set statusline=
