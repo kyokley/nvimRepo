@@ -213,6 +213,7 @@ augroup EditVim
     "recalculate the trailing whitespace warning when idle, and after saving
     autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning
+    au BufWritePost * filetype detect
 augroup END
 
 augroup filetype_python
@@ -230,7 +231,6 @@ augroup filetype_python
     " Also highlight all tabs and trailing whitespace characters.
     au FileType python highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
     au FileType python match ExtraWhitespace /\s\+$\|\t/
-    au BufWritePost,cursorhold * filetype detect
     let python_highlight_all = 1
     "au FileType python colo molokai
 augroup END
@@ -243,6 +243,19 @@ augroup filetype_cs
     au FileType cs set foldtext=substitute(getline(v:foldstart),'{.*','{...}',)
     au FileType cs set foldlevelstart=2
     au FileType cs set smartindent
+augroup END
+
+augroup filetype_text
+    autocmd!
+    au FileType text setlocal textwidth=80
+    au FileType text setlocal smartindent
+    au FileType text setlocal spell spelllang=en_us
+    au FileType text setlocal noexpandtab
+augroup END
+
+augroup filetype_help
+    autocmd!
+    au FileType help setlocal nospell
 augroup END
 
 augroup CursorLineOnlyInActiveWindow
