@@ -45,14 +45,8 @@ Plug 'bling/vim-bufferline'
 Plug 'kyokley/JavaScript-Indent'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'hdima/python-syntax'
-"Plug 'tweekmonster/braceless.vim'
-
-function! BuildYCM(info)
-  if a:info.status == 'installed' || a:info.force
-    !./install.py
-  endif
-endfunction
-Plug 'Valloric/YouCompleteMe', {'do': function('BuildYCM')}
+Plug 'davidhalter/jedi-vim'
+Plug 'ervandew/supertab'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
@@ -436,6 +430,9 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 
 let g:bufferline_rotate = 1
+
+"SuperTab
+let g:SuperTabDefaultCompletionType = "context"
 
 "statusline setup
 set statusline=
