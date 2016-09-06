@@ -431,6 +431,9 @@ let g:ycm_autoclose_preview_window_after_insertion = 1
 
 let g:bufferline_rotate = 1
 
+" Jedi
+let g:jedi#documentation_command = ''
+
 "SuperTab
 let g:SuperTabDefaultCompletionType = "context"
 
