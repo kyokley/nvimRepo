@@ -207,7 +207,6 @@ augroup EditVim
     "recalculate the trailing whitespace warning when idle, and after saving
     autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning
-    au BufWritePost * filetype detect
 augroup END
 
 augroup filetype_python
