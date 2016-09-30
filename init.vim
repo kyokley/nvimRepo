@@ -292,6 +292,13 @@ function! RaiseExceptionForUnresolvedErrors()
             throw s:message
         endif
 
+        let s:ui_res = search('expected an indented block', 'nw')
+        if s:ui_res != 0
+            let s:message = 'Syntax error! ' . getline(s:ui_res)
+            bd!
+            throw s:message
+        endif
+
         let s:is_res = search('invalid syntax', 'nw')
         if s:is_res != 0
             let s:message = 'Syntax error! ' . getline(s:is_res)
