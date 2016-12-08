@@ -51,6 +51,7 @@ Plug 'ervandew/supertab'
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
 Plug '~/.nvim/manual/visincr'
+Plug '~/.nvim/manual/django-custom'
 call plug#end()
 filetype plugin indent on
 
