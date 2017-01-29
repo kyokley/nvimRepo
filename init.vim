@@ -450,6 +450,9 @@ let g:jedi#documentation_command = ''
 "SuperTab
 let g:SuperTabDefaultCompletionType = "context"
 
+"NVim configs
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
+
 "statusline setup
 set statusline=
 set statusline =%#identifier#
