@@ -452,6 +452,7 @@ let g:SuperTabDefaultCompletionType = "context"
 
 "NVim configs
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
+set inccommand=split
 
 "statusline setup
 set statusline=
