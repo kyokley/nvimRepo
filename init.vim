@@ -47,6 +47,8 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'hdima/python-syntax'
 Plug 'davidhalter/jedi-vim'
 Plug 'ervandew/supertab'
+Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
+Plug 'zchee/deoplete-jedi'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
@@ -453,6 +455,7 @@ let g:SuperTabDefaultCompletionType = "context"
 "NVim configs
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
 set inccommand=split
+let g:deoplete#enable_at_startup = 1
 
 "statusline setup
 set statusline=
