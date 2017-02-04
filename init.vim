@@ -216,6 +216,7 @@ augroup filetype_python
     autocmd!
     au FileType python set foldmethod=indent
     au FileType python set foldlevel=99
+    au FileType python set omnifunc=pythoncomplete#Complete
     "au FileType python set nosmartindent
     "au FileType python BracelessEnable +indent +highlight-cc2
     au FileType python map <buffer> <leader>8 :call Flake8()<CR>
@@ -455,7 +456,12 @@ let g:SuperTabDefaultCompletionType = "context"
 "NVim configs
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
 set inccommand=split
+
+" Deoplete setup
 let g:deoplete#enable_at_startup = 1
+if !exists('g:deoplete#omni#input_patterns')
+    let g:deoplete#omni#input_patterns = {}
+endif
 
 "statusline setup
 set statusline=
