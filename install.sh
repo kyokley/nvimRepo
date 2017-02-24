@@ -3,7 +3,7 @@
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt-get update
 sudo apt-get install neovim xclip aptitude
-sudo aptitude install python-pip
+sudo aptitude install python-pip python3-pip
 
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
@@ -18,4 +18,5 @@ if [ ! -h ~/.config/nvim ]; then
     ln -s ~/.nvim ~/.config/nvim
 fi
 sudo pip install neovim
+sudo pip3 install neovim
 nvim -c ':PlugInstall'
