@@ -345,6 +345,26 @@ function! RaiseExceptionForUnresolvedErrors()
         endif
 
         bd!
+
+        silent %yank p
+        new
+        silent 0put p
+        silent $,$d
+        silent %!bandit -
+        silent exe '%s/<stdin>/' . s:file_name . '/e'
+
+        let s:is_res = search('^>> Issue:', 'nw')
+        if s:is_res != 0
+            let s:res_end = s:is_res + 2
+            for item in getline(s:is_res, s:res_end)
+                echohl ErrorMsg | echo item | echohl None
+            endfor
+
+            bd!
+            throw 'Bandit Error'
+        endif
+
+        bd!
     endif
 endfunction
 autocmd BufWritePre * call RaiseExceptionForUnresolvedErrors()
