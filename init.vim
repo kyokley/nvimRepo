@@ -350,7 +350,7 @@ function! RaiseExceptionForUnresolvedErrors()
         new
         silent 0put p
         silent $,$d
-        silent %!bandit -
+        silent %!bandit -lll -
         silent exe '%s/<stdin>/' . s:file_name . '/e'
 
         let s:is_res = search('^>> Issue:', 'nw')
