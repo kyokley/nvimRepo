@@ -17,6 +17,8 @@ mkdir ~/.config
 if [ ! -h ~/.config/nvim ]; then
     ln -s ~/.nvim ~/.config/nvim
 fi
+
 sudo pip install neovim
 sudo pip3 install neovim
+sudo pip install bandit
 nvim -c ':PlugInstall'
