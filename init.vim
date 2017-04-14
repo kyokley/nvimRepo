@@ -49,6 +49,7 @@ Plug 'davidhalter/jedi-vim'
 Plug 'ervandew/supertab'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'zchee/deoplete-jedi'
+Plug 'chrisbra/csv.vim'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
@@ -345,6 +346,26 @@ function! RaiseExceptionForUnresolvedErrors()
         endif
 
         bd!
+
+        silent %yank p
+        new
+        silent 0put p
+        silent $,$d
+        silent %!bandit -lll -
+        silent exe '%s/<stdin>/' . s:file_name . '/e'
+
+        let s:is_res = search('^>> Issue:', 'nw')
+        if s:is_res != 0
+            let s:res_end = s:is_res + 2
+            for item in getline(s:is_res, s:res_end)
+                echohl ErrorMsg | echo item | echohl None
+            endfor
+
+            bd!
+            throw 'Bandit Error'
+        endif
+
+        bd!
     endif
 endfunction
 autocmd BufWritePre * call RaiseExceptionForUnresolvedErrors()
@@ -566,7 +587,7 @@ function! StatuslineCurrentHighlight()
 endfunction
 
 "recalculate the tab warning flag when idle and after writing
-autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
+"autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
 
 "return '[&et]' if &et is set wrong
 "return '[mixed-indenting]' if spaces and tabs are used to indent
@@ -594,7 +615,7 @@ function! StatuslineTabWarning()
 endfunction
 
 "recalculate the long line warning when idle and after saving
-autocmd cursorhold,bufwritepost * unlet! b:statusline_long_line_warning
+"autocmd cursorhold,bufwritepost * unlet! b:statusline_long_line_warning
 
 "return a warning for "long lines" where "long" is either &textwidth or 80 (if
 "no &textwidth is set)
