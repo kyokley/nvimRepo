@@ -286,6 +286,8 @@ function! RaiseExceptionForUnresolvedErrors()
         new
         silent 0put p
         silent $,$d
+        " TODO:
+        " Any way to make this handle pyflakes3????
         silent %!pyflakes
         silent exe '%s/<stdin>/' . s:file_name . '/e'
 
