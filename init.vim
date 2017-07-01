@@ -720,7 +720,6 @@ if version >= 703
 endif
 
 function! InitializeDirectories()
-  let separator = "."
   let parent = $HOME
   let prefix = '.vim'
   let dir_list = {
