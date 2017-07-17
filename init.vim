@@ -38,7 +38,7 @@ Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 Plug 'nvie/vim-flake8'
 Plug 'Bogdanp/quicksilver.vim'
 Plug 'mhinz/vim-signify'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'mileszs/ack.vim'
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-bufferline'
@@ -479,6 +479,7 @@ let g:SuperTabDefaultCompletionType = "context"
 "NVim configs
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
 set inccommand=split
+set guicursor=
 
 " Deoplete setup
 let g:deoplete#enable_at_startup = 1
