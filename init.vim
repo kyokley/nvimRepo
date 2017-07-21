@@ -251,10 +251,16 @@ augroup END
 
 augroup filetype_text
     autocmd!
-    au FileType text setlocal textwidth=80
     au FileType text setlocal smartindent
     au FileType text setlocal spell spelllang=en_us
     au FileType text setlocal noexpandtab
+augroup END
+
+augroup filetype_md
+    autocmd!
+    au FileType markdown setlocal smartindent
+    au FileType markdown setlocal spell spelllang=en_us
+    au FileType markdown setlocal noexpandtab
 augroup END
 
 augroup filetype_help
