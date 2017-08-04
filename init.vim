@@ -186,7 +186,8 @@ nnoremap <Tab> w
 vnoremap <Tab> w
 nnoremap <S-Tab> b
 vnoremap <S-Tab> b
-vnoremap gb :<C-U>!svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
+vnoremap gb :<C-U>te svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p<CR>
+nnoremap gl :<C-U>te svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line(".") <CR>,<C-R>=line(".") <CR>p \| awk '{print $1}' \| xargs svn log -r<CR><CR>
 nnoremap <leader>a <Esc>:LAck!
 nnoremap <C>a <Esc>:LAck!
 noremap <leader>fc /\v^[<=>]{7}( .*\|$)<CR>
