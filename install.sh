@@ -1,5 +1,8 @@
 #!/bin/bash
 
+export NON_ROOT_USER=yokley
+
+git submodule update --init --recursive
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt-get update
 sudo apt-get install neovim xclip aptitude
@@ -27,3 +30,4 @@ cd color_blame
 sudo pip install -r requirements.txt
 sudo python setup.py install
 cd ..
+sudo chown $NON_ROOT_USER:$NON_ROOT_USER -R .git
