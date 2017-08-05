@@ -186,8 +186,8 @@ nnoremap <Tab> w
 vnoremap <Tab> w
 nnoremap <S-Tab> b
 vnoremap <S-Tab> b
-nnoremap gb :<C-U>te svn blame <C-R>=expand("%:p") <CR> \| color_svn_blame \| less <CR>
-vnoremap gb :<C-U>te svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p \| color_svn_blame \| less <CR>
+nnoremap gb :<C-U>te svn blame <C-R>=expand("%:p") <CR> \| color_svn_blame \| less <CR><CR>
+vnoremap gb :<C-U>te svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p \| color_svn_blame \| less <CR><CR>
 nnoremap gl :<C-U>te svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line(".") <CR>,<C-R>=line(".") <CR>p \| awk '{print $1}' \| xargs svn log -r<CR><CR>
 nnoremap <leader>a <Esc>:LAck!
 nnoremap <C>a <Esc>:LAck!
