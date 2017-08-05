@@ -22,3 +22,8 @@ sudo pip install neovim
 sudo pip3 install neovim
 sudo pip install bandit
 nvim -c ':PlugInstall'
+
+cd color_blame
+sudo pip install -r requirements.txt
+sudo python setup.py install
+cd ..
