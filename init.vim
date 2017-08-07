@@ -192,7 +192,7 @@ noremap <leader>fc /\v^[<=>]{7}( .*\|$)<CR>
 
 nnoremap sb :<C-U>te svn blame <C-R>=expand("%:p") <CR> \| color_svn_blame \| less +<C-R>=line("w0") <CR><CR>
 vnoremap sb :<C-U>te svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p \| color_svn_blame \| less <CR><CR>
-nnoremap sl :<C-U>te svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line(".") <CR>p \| awk '{print $1}' \| xargs svn log -r<CR><CR>
+nnoremap sl :<C-U>te svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line(".") <CR>p \| awk '{print $1}' \| xargs svn log $T -r<CR><CR>
 nnoremap gb :<C-U>te git blame <C-R>=expand("%:p") <CR> \| color_git_blame \| less +<C-R>=line("w0") <CR><CR>
 vnoremap gb :<C-U>te git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p \| color_git_blame \| less <CR><CR>
 nnoremap gl :<C-U>te git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line(".") <CR>p \| awk '{print $1}' \| xargs git show <CR><CR>
