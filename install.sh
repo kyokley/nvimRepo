@@ -28,7 +28,7 @@ sudo pip install bandit
 nvim -c ':PlugInstall'
 
 cd color_blame
-sudo pip install -r requirements.txt
+sudo pip install -r requirements.txt --force --upgrade
 sudo python setup.py install
 cd ..
 sudo chown $NON_ROOT_USER:$NON_ROOT_USER -R .git
