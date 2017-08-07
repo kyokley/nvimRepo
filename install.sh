@@ -29,6 +29,6 @@ nvim -c ':PlugInstall'
 
 cd color_blame
 sudo pip install -r requirements.txt --force --upgrade
-sudo python setup.py install
+sudo python setup.py install --force
 cd ..
 sudo chown $NON_ROOT_USER:$NON_ROOT_USER -R .git
