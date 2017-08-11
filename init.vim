@@ -504,6 +504,10 @@ if !exists('g:deoplete#omni#input_patterns')
     let g:deoplete#omni#input_patterns = {}
 endif
 
+" Python configs
+let g:python_host_prog = '/home/yokley/.pyenv/versions/neovim2/bin/python'
+let g:python3_host_prog = '/home/yokley/.pyenv/versions/neovim3/bin/python'
+
 "statusline setup
 set statusline=
 set statusline =%#identifier#
