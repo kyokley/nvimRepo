@@ -50,6 +50,9 @@ Plug 'ervandew/supertab'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'zchee/deoplete-jedi'
 Plug 'chrisbra/csv.vim'
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
@@ -285,6 +288,9 @@ augroup CursorLineOnlyInActiveWindow
   autocmd WinLeave * setlocal nocursorline
 augroup END
 
+let g:python2_dir = '/home/yokley/.pyenv/versions/neovim2/bin/'
+let g:python3_dir = '/home/yokley/.pyenv/versions/neovim3/bin/'
+
 function! RaiseExceptionForUnresolvedErrors()
     let s:file_name = expand('%:t')
 
@@ -305,7 +311,7 @@ function! RaiseExceptionForUnresolvedErrors()
         silent $,$d
         " TODO:
         " Any way to make this handle pyflakes3????
-        silent %!pyflakes
+        silent exe '%!' . g:python2_dir . 'pyflakes'
         silent exe '%s/<stdin>/' . s:file_name . '/e'
 
         let s:un_res = search('\(unable to detect \)\@<!undefined name', 'nw')
@@ -465,14 +471,23 @@ let NERDChristmasTree=1
 let NERDTreeHijackNetrw=1
 let NERDTreeIgnore=['\.pyc$', '\.swp$']
 
+" Python configs
+let g:python_host_prog = g:python2_dir . 'python'
+let g:python3_host_prog = g:python3_dir . 'python'
+
 "Syntastic Settings
 let g:syntastic_check_on_open=1
-let g:syntastic_python_checkers=["pyflakes"]
+let g:syntastic_python_checkers=['bandit', 'pyflakes']
+let g:syntastic_python_pyflakes_exec = g:python2_dir . 'pyflakes'
+let g:syntastic_python_bandit_exec = g:python2_dir . 'bandit'
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_mode_map = {'mode': 'active',
                            \'active_filetypes': [],
                            \'passive_filetypes': []}
+let g:syntastic_python_bandit_quiet_messages = { "level" : [] }
+let g:syntastic_stl_format = "[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]"
+let g:syntastic_aggregate_errors = 1
 
 "Flake8
 let g:flake8_show_quickfix=0
@@ -504,9 +519,14 @@ if !exists('g:deoplete#omni#input_patterns')
     let g:deoplete#omni#input_patterns = {}
 endif
 
-" Python configs
-let g:python_host_prog = '/home/yokley/.pyenv/versions/neovim2/bin/python'
-let g:python3_host_prog = '/home/yokley/.pyenv/versions/neovim3/bin/python'
+" Automatically start language servers.
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'python': ['pyls'],
+    \ }
+" nnoremap <leader> l :call LanguageClient_setLoggingLevel('DEBUG')<CR>
+" nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 
 "statusline setup
 set statusline=
