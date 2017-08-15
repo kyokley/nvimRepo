@@ -376,7 +376,7 @@ function! RaiseExceptionForUnresolvedErrors()
         new
         silent 0put p
         silent $,$d
-        silent %!bandit -lll -
+        silent exe '%!' . g:python2_dir . 'bandit -lll -'
         silent exe '%s/<stdin>/' . s:file_name . '/e'
 
         let s:is_res = search('^>> Issue:', 'nw')
