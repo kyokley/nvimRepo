@@ -28,7 +28,7 @@ let $MYVIMRC = $HOME."/.nvim/init.vim"
 filetype off
 call plug#begin('~/.nvim/plugged')
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'scrooloose/syntastic'
+Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
