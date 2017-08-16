@@ -203,6 +203,162 @@ nnoremap gl :<C-U>te git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("."
 nnoremap ,v :source $MYVIMRC<CR>
 nnoremap ,e :e $MYVIMRC<CR>
 
+" Signify Settings
+highlight DiffAdd           cterm=bold ctermbg=none ctermfg=Green
+highlight DiffDelete        cterm=bold ctermbg=none ctermfg=Red
+highlight DiffChange        cterm=bold ctermbg=none ctermfg=Yellow
+highlight DiffText        cterm=bold ctermbg=Red ctermfg=Yellow
+
+"QuickSilver Config
+let g:QSMatchFn = 'fuzzy'
+let g:QSIgnore = ".*\.pyc$;.*\.swp$"
+
+" ctrlp
+let g:ctrlp_working_path_mode = 'r'
+let g:ctrlp_map = '<c-p>'
+nnoremap <leader>t :let g:ctrlp_working_path_mode = 'c'<CR>:CtrlP<CR>:let g:ctrlp_working_path_mode = 'r'<CR>
+nnoremap <leader>p :let g:ctrlp_working_path_mode = 'r'<CR>:CtrlP<CR>
+" Set delay to prevent extra search
+let g:ctrlp_lazy_update = 0
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_max_files = 0
+" If ag is available use it as filename list generator instead of 'find'
+let g:ackprg = 'ag --nogroup --nocolor --column'
+set grepprg=ag\ --nogroup\ --nocolor
+let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --ignore ''**/*.pyc'' --hidden -g ""'
+
+"let g:ctrlp_user_command = {
+"    \ 'types': {
+"      \ 1: ['.git', 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'],
+"      \ 2: ['.svn', 'ag %s -i --nocolor --nogroup --ignore ''.svn'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'],
+"      \ },
+"    \ 'fallback': 'find %s -type f'
+"    \ }
+
+let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:50,results:100'
+
+"NERDTree
+let NERDChristmasTree=1
+let NERDTreeHijackNetrw=1
+let NERDTreeIgnore=['\.pyc$', '\.swp$']
+
+" Python configs
+let g:python2_dir = '/home/yokley/.pyenv/versions/neovim2/bin/'
+let g:python3_dir = '/home/yokley/.pyenv/versions/neovim3/bin/'
+
+let g:python_host_prog = g:python2_dir . 'python'
+let g:python3_host_prog = g:python3_dir . 'python'
+
+"Syntastic Settings
+let g:syntastic_check_on_open=1
+let g:syntastic_python_checkers=['bandit', 'pyflakes']
+let g:syntastic_python_pyflakes_exec = g:python2_dir . 'pyflakes'
+let g:syntastic_python_bandit_exec = g:python2_dir . 'bandit'
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_quiet_messages = {'level': 'warnings'}
+let g:syntastic_mode_map = {'mode': 'active',
+                           \'active_filetypes': [],
+                           \'passive_filetypes': []}
+let g:syntastic_python_bandit_quiet_messages = { "level" : [] }
+let g:syntastic_stl_format = "[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]"
+let g:syntastic_aggregate_errors = 1
+
+"Flake8
+let g:flake8_show_quickfix=0
+let g:flake8_show_in_gutter=1
+let g:flake8_show_in_file=1
+
+"YCM
+set completeopt=menuone
+let g:ycm_add_preview_to_completeopt = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+
+let g:bufferline_rotate = 1
+
+" Jedi
+let g:jedi#documentation_command = ''
+
+"SuperTab
+let g:SuperTabDefaultCompletionType = "context"
+
+"NVim configs
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
+set inccommand=split
+set guicursor=
+
+" Deoplete setup
+let g:deoplete#enable_at_startup = 1
+if !exists('g:deoplete#omni#input_patterns')
+    let g:deoplete#omni#input_patterns = {}
+endif
+
+" Automatically start language servers.
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'python': ['pyls'],
+    \ }
+" nnoremap <leader> l :call LanguageClient_setLoggingLevel('DEBUG')<CR>
+" nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+
+"statusline setup
+set statusline=
+set statusline =%#identifier#
+set statusline+=[%t]    "tail of the filename
+set statusline+=%*
+
+"read only flag
+set statusline+=%#identifier#
+set statusline+=%r
+set statusline+=%*
+
+"modified flag
+set statusline+=%#identifier#
+set statusline+=%m
+set statusline+=%*
+
+"display a warning if fileformat isnt unix
+set statusline+=%#warningmsg#
+set statusline+=%{&ff!='unix'?'['.&ff.']':''}
+set statusline+=%*
+
+"display a warning if file encoding isnt utf-8
+set statusline+=%#warningmsg#
+set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
+set statusline+=%*
+
+set statusline+=%h      "help file flag
+set statusline+=%y      "filetype
+
+set statusline+=%{fugitive#statusline()}
+
+"display a warning if &paste is set
+set statusline+=%#error#
+set statusline+=%{&paste?'[paste]':''}
+set statusline+=%*
+
+set statusline+=%=      "left/right separator
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%{StatuslineConflictWarning()}
+set statusline+=%*
+"
+"display a warning if &et is wrong, or we have mixed-indenting
+set statusline+=%#warningmsg#
+set statusline+=%{StatuslineTabWarning()}
+set statusline+=%*
+
+set statusline+=%{StatuslineTrailingSpaceWarning()}\ " Space at the end of the line left intentionally
+set statusline+=%{StatuslineLongLineWarning()}\ " Space at the end of the line left intentionally
+
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L   "cursor line/total lines
+set statusline+=\ %P    "percent through file
+set laststatus=2
+
+
 " AutoCommands!
 augroup EditVim
     autocmd!
@@ -288,8 +444,6 @@ augroup CursorLineOnlyInActiveWindow
   autocmd WinLeave * setlocal nocursorline
 augroup END
 
-let g:python2_dir = '/home/yokley/.pyenv/versions/neovim2/bin/'
-let g:python3_dir = '/home/yokley/.pyenv/versions/neovim3/bin/'
 
 function! RaiseExceptionForUnresolvedErrors()
     let s:file_name = expand('%:t')
@@ -431,158 +585,6 @@ function! MyPrev()
         execute ":bprev"
     endif
 endfunction
-
-" Signify Settings
-highlight DiffAdd           cterm=bold ctermbg=none ctermfg=Green
-highlight DiffDelete        cterm=bold ctermbg=none ctermfg=Red
-highlight DiffChange        cterm=bold ctermbg=none ctermfg=Yellow
-highlight DiffText        cterm=bold ctermbg=Red ctermfg=Yellow
-
-"QuickSilver Config
-let g:QSMatchFn = 'fuzzy'
-let g:QSIgnore = ".*\.pyc$;.*\.swp$"
-
-" ctrlp
-let g:ctrlp_working_path_mode = 'r'
-let g:ctrlp_map = '<c-p>'
-nnoremap <leader>t :let g:ctrlp_working_path_mode = 'c'<CR>:CtrlP<CR>:let g:ctrlp_working_path_mode = 'r'<CR>
-nnoremap <leader>p :let g:ctrlp_working_path_mode = 'r'<CR>:CtrlP<CR>
-" Set delay to prevent extra search
-let g:ctrlp_lazy_update = 0
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_max_files = 0
-" If ag is available use it as filename list generator instead of 'find'
-let g:ackprg = 'ag --nogroup --nocolor --column'
-set grepprg=ag\ --nogroup\ --nocolor
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --ignore ''**/*.pyc'' --hidden -g ""'
-
-"let g:ctrlp_user_command = {
-"    \ 'types': {
-"      \ 1: ['.git', 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'],
-"      \ 2: ['.svn', 'ag %s -i --nocolor --nogroup --ignore ''.svn'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'],
-"      \ },
-"    \ 'fallback': 'find %s -type f'
-"    \ }
-
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:50,results:100'
-
-"NERDTree
-let NERDChristmasTree=1
-let NERDTreeHijackNetrw=1
-let NERDTreeIgnore=['\.pyc$', '\.swp$']
-
-" Python configs
-let g:python_host_prog = g:python2_dir . 'python'
-let g:python3_host_prog = g:python3_dir . 'python'
-
-"Syntastic Settings
-let g:syntastic_check_on_open=1
-let g:syntastic_python_checkers=['bandit', 'pyflakes']
-let g:syntastic_python_pyflakes_exec = g:python2_dir . 'pyflakes'
-let g:syntastic_python_bandit_exec = g:python2_dir . 'bandit'
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_quiet_messages = {'level': 'warnings'}
-let g:syntastic_mode_map = {'mode': 'active',
-                           \'active_filetypes': [],
-                           \'passive_filetypes': []}
-let g:syntastic_python_bandit_quiet_messages = { "level" : [] }
-let g:syntastic_stl_format = "[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]"
-let g:syntastic_aggregate_errors = 1
-
-"Flake8
-let g:flake8_show_quickfix=0
-let g:flake8_show_in_gutter=1
-let g:flake8_show_in_file=1
-
-"YCM
-set completeopt=menuone
-let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-
-let g:bufferline_rotate = 1
-
-" Jedi
-let g:jedi#documentation_command = ''
-
-"SuperTab
-let g:SuperTabDefaultCompletionType = "context"
-
-"NVim configs
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
-set inccommand=split
-set guicursor=
-
-" Deoplete setup
-let g:deoplete#enable_at_startup = 1
-if !exists('g:deoplete#omni#input_patterns')
-    let g:deoplete#omni#input_patterns = {}
-endif
-
-" Automatically start language servers.
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ 'python': ['pyls'],
-    \ }
-" nnoremap <leader> l :call LanguageClient_setLoggingLevel('DEBUG')<CR>
-" nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-
-"statusline setup
-set statusline=
-set statusline =%#identifier#
-set statusline+=[%t]    "tail of the filename
-set statusline+=%*
-
-"read only flag
-set statusline+=%#identifier#
-set statusline+=%r
-set statusline+=%*
-
-"modified flag
-set statusline+=%#identifier#
-set statusline+=%m
-set statusline+=%*
-
-"display a warning if fileformat isnt unix
-set statusline+=%#warningmsg#
-set statusline+=%{&ff!='unix'?'['.&ff.']':''}
-set statusline+=%*
-
-"display a warning if file encoding isnt utf-8
-set statusline+=%#warningmsg#
-set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
-set statusline+=%*
-
-set statusline+=%h      "help file flag
-set statusline+=%y      "filetype
-
-set statusline+=%{fugitive#statusline()}
-
-"display a warning if &paste is set
-set statusline+=%#error#
-set statusline+=%{&paste?'[paste]':''}
-set statusline+=%*
-
-set statusline+=%=      "left/right separator
-
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%{StatuslineConflictWarning()}
-set statusline+=%*
-"
-"display a warning if &et is wrong, or we have mixed-indenting
-set statusline+=%#warningmsg#
-set statusline+=%{StatuslineTabWarning()}
-set statusline+=%*
-
-set statusline+=%{StatuslineTrailingSpaceWarning()}\ " Space at the end of the line left intentionally
-set statusline+=%{StatuslineLongLineWarning()}\ " Space at the end of the line left intentionally
-
-set statusline+=%c,     "cursor column
-set statusline+=%l/%L   "cursor line/total lines
-set statusline+=\ %P    "percent through file
-set laststatus=2
 
 function! StatuslineConflictWarning()
     if !exists("b:statusline_conflict_warning")
