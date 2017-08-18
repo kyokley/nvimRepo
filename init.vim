@@ -468,6 +468,8 @@ function! RaiseExceptionForUnresolvedErrors()
         silent exe '%!' . g:python2_dir . 'pyflakes'
         silent exe '%s/<stdin>/' . s:file_name . '/e'
 
+        " TODO:
+        " Come back and see if I can combine some of these regex checks
         let s:un_res = search('\(unable to detect \)\@<!undefined name', 'nw')
         if s:un_res != 0
             let s:message = 'Syntax error! ' . getline(s:un_res)
