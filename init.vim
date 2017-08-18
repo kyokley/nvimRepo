@@ -510,6 +510,104 @@ function! RaiseExceptionForUnresolvedErrors()
             throw s:message
         endif
 
+        let s:is_res = search('redefinition of unused', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
+        let s:is_res = search('list comprehension redefines', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
+        let s:is_res = search('shadowed by loop variable', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
+        let s:is_res = search('syntax error', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
+        let s:is_res = search('referenced before assignment', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
+        let s:is_res = search('duplicate argument', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
+        let s:is_res = search('repeated with different values', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
+        let s:is_res = search('imports must occur at the beginning of the file', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
+        let s:is_res = search('outside function', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
+        let s:is_res = search('not properly in loop', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
+        let s:is_res = search('outside loop', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
+        let s:is_res = search('two starred expressions in assignment', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
+        let s:is_res = search('too many expressions in star-unpacking assignment', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
+        let s:is_res = search('assertion is always true', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
         let s:is_res = search('trailing comma not allowed without surrounding parentheses', 'nw')
         if s:is_res != 0
             let s:message = 'Syntax error! ' . getline(s:is_res)
