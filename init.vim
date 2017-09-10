@@ -617,6 +617,13 @@ function! RaiseExceptionForUnresolvedErrors()
             throw s:message
         endif
 
+        let s:is_res = search('keyword argument repeated', 'nw')
+        if s:is_res != 0
+            let s:message = 'Syntax error! ' . getline(s:is_res)
+            bd!
+            throw s:message
+        endif
+
         let s:is_res = search('problem decoding source', 'nw')
         if s:is_res != 0
             let s:message = 'pyflakes error! Check results manually! ' . getline(s:is_res)
