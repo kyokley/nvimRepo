@@ -170,7 +170,7 @@ noremap <S-Left> :bprev<CR>
 noremap <S-Right> :bnext<CR>
 
 " Handle terminal windows
-autocmd BufWinEnter,WinEnter term://* startinsert
+autocmd TermOpen,BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
 tnoremap <Esc> <C-\><C-n>
 tnoremap <C-h> <C-\><C-n><C-w>h
@@ -178,6 +178,10 @@ tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
 
+" Implement the following bd overrides after finishing up my fork of bufkill
+"cnoreabbrev bd <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'BD' : 'bdelete')<CR>
+"cnoreabbrev bun <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'BUN' : 'bunload')<CR>
+"cnoreabbrev bw <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'BW' : 'bwipeout')<CR>
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
