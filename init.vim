@@ -53,7 +53,6 @@ Plug 'chrisbra/csv.vim'
 "Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'qpkorr/vim-bufkill'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
@@ -179,6 +178,7 @@ tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
 
 " Implement the following bd overrides after finishing up my fork of bufkill
+cnoremap BD call BufKill()<CR>
 "cnoreabbrev bd <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'BD' : 'bdelete')<CR>
 "cnoreabbrev bun <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'BUN' : 'bunload')<CR>
 "cnoreabbrev bw <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'BW' : 'bwipeout')<CR>
@@ -671,7 +671,7 @@ endfunction
 com! DiffSaved call s:DiffWithSaved()
 
 function! MyNext()
-    if exists( '*tabpagenr' ) && tabpagenr('$') != 1
+    if exists('*tabpagenr') && tabpagenr('$') != 1
         " Tab support && tabs open
         if winnr() == winnr('$')
             execute ":bnext"
@@ -685,7 +685,7 @@ function! MyNext()
 endfunction
 
 function! MyPrev()
-    if exists( '*tabpagenr' ) && tabpagenr('$') != '1'
+    if exists('*tabpagenr') && tabpagenr('$') != '1'
         " Tab support and tabs open
         if winnr() == 1
             execute ":bprev"
@@ -822,6 +822,18 @@ function! s:Median(nums)
         return nums[i]
     else
         return (nums[l/2] + nums[(l/2)-1]) / 2
+    endif
+endfunction
+
+function! BufKill()
+    let s:current_index = bufnr('%')
+    let s:last_index = bufnr('$')
+
+    if s:last_index == 1
+        execute 'q'
+    else
+        bnext
+        execute s:current_index . 'bd'
     endif
 endfunction
 
