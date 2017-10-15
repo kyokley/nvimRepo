@@ -443,6 +443,11 @@ augroup filetype_term
     au TermOpen * setlocal nonumber
 augroup END
 
+augroup filetype_git
+    autocmd!
+    au FileType help setlocal nospell
+augroup END
+
 augroup CursorLineOnlyInActiveWindow
   autocmd!
   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
