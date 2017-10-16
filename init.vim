@@ -443,9 +443,10 @@ augroup filetype_term
     au TermOpen * setlocal nonumber
 augroup END
 
+" TODO: Consolidate settings for filetypes in the edit augroup
 augroup filetype_git
     autocmd!
-    au FileType help setlocal nospell
+    au FileType git setlocal nospell
 augroup END
 
 augroup CursorLineOnlyInActiveWindow
