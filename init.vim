@@ -53,6 +53,7 @@ Plug 'chrisbra/csv.vim'
 "Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'tomlion/vim-solidity'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
