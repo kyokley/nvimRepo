@@ -55,6 +55,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tomlion/vim-solidity'
 Plug 'luochen1990/rainbow'
+Plug 'easymotion/vim-easymotion'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
