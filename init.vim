@@ -45,12 +45,12 @@ Plug 'bling/vim-bufferline'
 Plug 'kyokley/JavaScript-Indent'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'hdima/python-syntax'
-"Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 Plug 'ervandew/supertab'
 Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'zchee/deoplete-jedi'
 Plug 'chrisbra/csv.vim'
-"Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'tomlion/vim-solidity'
