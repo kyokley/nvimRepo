@@ -196,7 +196,7 @@ vnoremap <leader>sb :<C-U>tabnew \| te svn blame <C-R>=expand("%:p") <CR> \| sed
 nnoremap <leader>sl :<C-U>tabnew \| te svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line(".") <CR>p \| awk '{print $1}' \| xargs svn log $T -r<CR><CR>
 nnoremap <leader>gb :<C-U>tabnew \| te git blame <C-R>=expand("%:p") <CR> \| color_git_blame \| less +<C-R>=line("w0") <CR><CR>
 vnoremap <leader>gb :<C-U>tabnew \| te git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p \| color_git_blame \| less <CR><CR>
-nnoremap <leader>gl :<C-U>tabnew \| te git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line(".") <CR>p \| awk '{print $1}' \| xargs git show <CR><CR>
+nnoremap <leader>gl :<C-U>tabnew \| te git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line(".") <CR>p \| awk '{print $1}' \| tr -d '^' \| xargs git show <CR><CR>
 
 nnoremap ,v :source $MYVIMRC<CR>
 nnoremap ,e :e $MYVIMRC<CR>
@@ -307,28 +307,28 @@ let g:LanguageClient_serverCommands = {
 " Rainbow Config
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-	\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-	\	'ctermfgs': ['darkyellow', 'blue', 'darkmagenta', 'darkgreen'],
-	\	'operators': '_,_',
-	\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-	\	'separately': {
-	\		'*': {},
-	\		'tex': {
-	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-	\		},
-	\		'lisp': {
-	\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-	\		},
-	\		'vim': {
-	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-	\		},
-	\		'html': {
-	\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-	\		},
-	\		'css': 0,
+    \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+    \   'ctermfgs': ['darkyellow', 'blue', 'darkmagenta', 'darkgreen'],
+    \   'operators': '_,_',
+    \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+    \   'separately': {
+    \       '*': {},
+    \       'tex': {
+    \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+    \       },
+    \       'lisp': {
+    \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+    \       },
+    \       'vim': {
+    \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+    \       },
+    \       'html': {
+    \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+    \       },
+    \       'css': 0,
     \       'diff': 0,
-	\	}
-	\}
+    \   }
+    \}
 
 "statusline setup
 set statusline=
