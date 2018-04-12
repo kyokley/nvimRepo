@@ -122,16 +122,11 @@ imap <right> <nop>
 
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <F3> :NERDTreeToggle<CR>
-let g:tagbar_autofocus = 1
 nnoremap <F4> :TagbarToggle<CR>
 nnoremap <F5> :MundoToggle<CR>
 nnoremap <F6> :set nolist!<CR>
 nnoremap <silent> <leader>h :noh<CR>:silent! call flake8#Flake8UnplaceMarkers()<CR>:sign unplace *<CR>
 nnoremap <silent> <leader>g :redir @g<CR>:g//<CR>:redir END<CR>:new<CR>:put! g<CR>
-
-nnoremap <F10> :set invpaste paste?<Enter>
-inoremap <F10> <C-O><F10>
-set pastetoggle=<F10>
 
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
@@ -180,11 +175,6 @@ tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
 
-" Implement the following bd overrides after finishing up my fork of bufkill
-cnoremap BD call BufKill()<CR>
-"cnoreabbrev bd <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'BD' : 'bdelete')<CR>
-"cnoreabbrev bun <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'BUN' : 'bunload')<CR>
-"cnoreabbrev bw <c-r>=(getcmdtype()==':' && getcmdpos()==1 ? 'BW' : 'bwipeout')<CR>
 noremap <C-j> <C-w>j
 noremap <C-k> <C-w>k
 noremap <C-l> <C-w>l
@@ -249,6 +239,9 @@ let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:50,results:100'
 let NERDChristmasTree=1
 let NERDTreeHijackNetrw=1
 let NERDTreeIgnore=['\.pyc$', '\.swp$']
+
+"Tagbar
+let g:tagbar_autofocus = 1
 
 " Python configs
 let g:python2_dir = '/home/yokley/.pyenv/versions/neovim2/bin/'
@@ -858,18 +851,6 @@ function! s:Median(nums)
         return nums[i]
     else
         return (nums[l/2] + nums[(l/2)-1]) / 2
-    endif
-endfunction
-
-function! BufKill()
-    let s:current_index = bufnr('%')
-    let s:last_index = bufnr('$')
-
-    if s:last_index == 1
-        execute 'q'
-    else
-        bnext
-        execute s:current_index . 'bd'
     endif
 endfunction
 
