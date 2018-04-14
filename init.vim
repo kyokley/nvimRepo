@@ -478,192 +478,73 @@ augroup CursorLineOnlyInActiveWindow
   autocmd WinLeave * setlocal nocursorline
 augroup END
 
+function! s:FindError(file_name, bad_str, error_msg, ...)
+    " Sometimes need to remove a temporary buffer
+    let l:remove_temp_buffer = get(a:000, 0, 0)
+
+    let l:line = search(a:bad_str, 'nw')
+    if l:line != 0
+        if match(getline(l:line), '\c' . a:file_name) == -1
+            let l:message = a:error_msg . ' ' . a:file_name . ':' . l:line
+        else
+            let l:message = a:error_msg . ' ' . getline(l:line)
+        endif
+
+        if l:remove_temp_buffer
+            bd!
+        endif
+
+        throw l:message
+    endif
+endfunction
 
 function! RaiseExceptionForUnresolvedErrors()
     let s:file_name = expand('%:t')
 
-    let s:conflict_line = search('\v^[<=>]{7}( .*|$)', 'nw')
-    if s:conflict_line != 0
-        throw 'Found unresolved conflicts in ' . s:file_name . ':' . s:conflict_line
-    endif
+    " Check for unresolved VCS conflicts
+    call s:FindError(s:file_name, '\v^[<=>]{7}( .*|$)', 'Found unresolved conflicts in')
 
-    let s:whitespace_line = search('\s\+$', 'nw')
-    if s:whitespace_line != 0
-        throw 'Found trailing whitespace in ' . s:file_name . ':' . s:whitespace_line
-    endif
+    " Check for trailing whitespace
+    call s:FindError(s:file_name, '\s\+$', 'Found trailing whitespace in')
 
     if &filetype == 'python'
         silent %yank p
         new
         silent 0put p
         silent $,$d
+
         " TODO:
         " Any way to make this handle pyflakes3????
         silent exe '%!' . g:python2_dir . 'pyflakes'
         silent exe '%s/<stdin>/' . s:file_name . '/e'
 
-        " TODO:
-        " Come back and see if I can combine some of these regex checks
-        let s:un_res = search('\(unable to detect \)\@<!undefined name', 'nw')
-        if s:un_res != 0
-            let s:message = 'Syntax error! ' . getline(s:un_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:ui_res = search('unexpected indent', 'nw')
-        if s:ui_res != 0
-            let s:message = 'Syntax error! ' . getline(s:ui_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:ui_res = search('expected an indented block', 'nw')
-        if s:ui_res != 0
-            let s:message = 'Syntax error! ' . getline(s:ui_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('invalid syntax', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('unindent does not match any outer indentation level', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('EOL while scanning string literal', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('redefinition of unused', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('list comprehension redefines', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('shadowed by loop variable', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('syntax error', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('referenced before assignment', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('duplicate argument', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('repeated with different values', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('imports must occur at the beginning of the file', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('outside function', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('not properly in loop', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('outside loop', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('two starred expressions in assignment', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('too many expressions in star-unpacking assignment', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('assertion is always true', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('trailing comma not allowed without surrounding parentheses', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('keyword argument repeated', 'nw')
-        if s:is_res != 0
-            let s:message = 'Syntax error! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
-
-        let s:is_res = search('problem decoding source', 'nw')
-        if s:is_res != 0
-            let s:message = 'pyflakes error! Check results manually! ' . getline(s:is_res)
-            bd!
-            throw s:message
-        endif
+        try
+            call s:FindError(s:file_name, '\(unable to detect \)\@<!undefined name', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'unexpected indent', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'expected an indented block', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'invalid syntax', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'unindent does not match any outer indentation level', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'EOL while scanning string literal', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'redefinition of unused', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'list comprehension redefines', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'shadowed by loop variable', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'syntax error', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'referenced before assignment', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'duplicate argument', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'repeated with different values', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'imports must occur at the beginning of the file', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'outside function', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'not properly in loop', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'outside loop', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'two starred expressions in assignment', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'too many expressions in star-unpacking assignment', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'assertion is always true', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'trailing comma not allowed without surrounding parentheses', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'keyword argument repeated', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'problem decoding source', 'Syntax error!', 1)
+        catch
+            throw v:exception
+        endtry
 
         bd!
 
