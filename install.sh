@@ -25,6 +25,10 @@ fi
 sudo pip install neovim
 sudo pip3 install neovim
 sudo pip install bandit
+
+# Need to be sure to install python language server libs
+# Run pip install python-language-server[all]
+
 nvim -c ':PlugInstall'
 
 cd color_blame
