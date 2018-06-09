@@ -308,7 +308,7 @@ let g:LanguageClient_serverCommands = {
 let g:rainbow_active = 1
 let g:rainbow_conf = {
     \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-    \   'ctermfgs': ['darkyellow', 'blue', 'darkmagenta', 'darkgreen'],
+    \   'ctermfgs': ['darkyellow', 'blue', 'lightred', 'darkmagenta', 'darkgreen'],
     \   'operators': '_,_',
     \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
     \   'separately': {
