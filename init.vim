@@ -56,6 +56,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'tomlion/vim-solidity'
 Plug 'luochen1990/rainbow'
 Plug 'easymotion/vim-easymotion'
+Plug 'flazz/vim-colorschemes'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
@@ -89,6 +90,7 @@ highlight MatchParen ctermbg=4
 
 set cul
 
+colo CandyPaper
 hi CursorLine cterm=NONE ctermbg=18 ctermfg=white guibg=darkblue guifg=white
 hi colorcolumn cterm=NONE ctermbg=black guibg=black
 hi LineNr cterm=NONE ctermbg=NONE ctermfg=yellow guibg=NONE guifg=yellow
@@ -308,7 +310,7 @@ let g:LanguageClient_serverCommands = {
 let g:rainbow_active = 1
 let g:rainbow_conf = {
     \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-    \   'ctermfgs': ['darkyellow', 'blue', 'lightred', 'darkmagenta', 'darkgreen'],
+    \   'ctermfgs': ['darkmagenta', 'darkgreen', 'darkyellow', 'blue', 'lightred'],
     \   'operators': '_,_',
     \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
     \   'separately': {
