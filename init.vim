@@ -100,6 +100,8 @@ hi visual cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
 hi statusline cterm=NONE ctermbg=4 ctermfg=white
 hi statuslinenc cterm=NONE ctermbg=black ctermfg=white
 
+hi TermCursorNC ctermbg=1 ctermfg=15
+
 nnoremap <Leader>c :set cursorline!<CR>
 
 hi SpellBad cterm=NONE ctermbg=darkred ctermfg=yellow guibg=darkred guifg=yellow
