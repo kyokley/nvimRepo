@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export NON_ROOT_USER=yokley
+export NON_ROOT_USER=$USER
 sudo chown $NON_ROOT_USER:$NON_ROOT_USER -R .git
 
 git submodule update --init --recursive
