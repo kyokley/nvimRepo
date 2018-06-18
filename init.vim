@@ -51,8 +51,6 @@ Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'zchee/deoplete-jedi'
 Plug 'chrisbra/csv.vim'
 Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'tomlion/vim-solidity'
 Plug 'luochen1990/rainbow'
 Plug 'easymotion/vim-easymotion'
@@ -101,6 +99,8 @@ hi PmenuSel cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
 hi visual cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
 hi statusline cterm=NONE ctermbg=4 ctermfg=white
 hi statuslinenc cterm=NONE ctermbg=black ctermfg=white
+
+hi TermCursorNC ctermbg=1 ctermfg=15
 
 nnoremap <Leader>c :set cursorline!<CR>
 
