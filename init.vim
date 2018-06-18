@@ -246,8 +246,8 @@ let NERDTreeIgnore=['\.pyc$', '\.swp$']
 let g:tagbar_autofocus = 1
 
 " Python configs
-let g:python2_dir = '/home/yokley/.pyenv/versions/neovim2/bin/'
-let g:python3_dir = '/home/yokley/.pyenv/versions/neovim3/bin/'
+let g:python2_dir = $HOME . '/.pyenv/versions/neovim2/bin/'
+let g:python3_dir = $HOME . '/.pyenv/versions/neovim3/bin/'
 
 let g:python_host_prog = g:python2_dir . 'python'
 let g:python3_host_prog = g:python3_dir . 'python'
