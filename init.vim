@@ -335,7 +335,7 @@ let g:rainbow_conf = {
 "statusline setup
 set statusline=
 set statusline =%#identifier#
-set statusline+=[%t]    "tail of the filename
+set statusline+=[%n:%t]    "tail of the filename
 set statusline+=%*
 
 "read only flag
@@ -360,6 +360,7 @@ set statusline+=%*
 
 set statusline+=%h      "help file flag
 set statusline+=%y      "filetype
+set statusline+=%{GetPyStatus()}
 
 set statusline+=%{fugitive#statusline()}
 
@@ -426,6 +427,7 @@ augroup filetype_python
     au FileType python match ExtraWhitespace /\s\+$\|\t/
     let python_highlight_all = 1
     "au FileType python colo molokai
+    autocmd cursorhold,bufwritepost python call g:PyStatus()
 augroup END
 
 augroup filetype_htmldjango
@@ -714,6 +716,57 @@ function! StatuslineLongLineWarning()
         endif
     endif
     return b:statusline_long_line_warning
+endfunction
+
+function! g:DetectPyVersion()
+    " Try compiling with py2
+    "if !exists("b:is_py2") || b:is_py2 == 0
+        silent! exe '!' . g:python_host_prog . ' -m py_compile %'
+        if v:shell_error == 0
+            let b:is_py2 = 1
+        else
+            let b:is_py2 = 0
+        endif
+    "endif
+
+    "if !exists("b:is_py3") || b:is_py3 == 0
+        silent! exe '!' . g:python3_host_prog . ' -m py_compile %'
+        if v:shell_error == 0
+            let b:is_py3 = 1
+        else
+            let b:is_py3 = 0
+        endif
+    "endif
+endfunction
+
+function! g:PyStatus()
+    let b:py_status = ''
+
+    if &filetype == 'python'
+        call g:DetectPyVersion()
+
+        if exists("b:is_py2") && exists("b:is_py3")
+            if b:is_py2 && b:is_py3
+                let b:py_status = '[py2/3]'
+            elseif b:is_py2
+                let b:py_status = '[py2]'
+            elseif b:is_py3
+                let b:py_status = '[py3]'
+            else
+                let b:py_status = ''
+            endif
+        endif
+    endif
+    return b:py_status
+
+endfunction
+
+function! g:GetPyStatus()
+    if exists("b:py_status")
+        return b:py_status
+    else
+        return ''
+    endif
 endfunction
 
 "return a list containing the lengths of the long lines in this buffer
