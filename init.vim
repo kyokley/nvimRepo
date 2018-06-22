@@ -511,15 +511,19 @@ function! RaiseExceptionForUnresolvedErrors()
     " Check for trailing whitespace
     call s:FindError(s:file_name, '\s\+$', 'Found trailing whitespace in')
 
-    if &filetype == 'python'
+    if &filetype == 'python' && exists("b:is_py2") && exists("b:is_py3")
+        if b:is_py2
+            let pyflakes_cmd = '%!' . g:python2_dir . 'pyflakes'
+        elseif b:is_py3
+            let pyflakes_cmd = '%!' . g:python3_dir . 'pyflakes'
+        endif
+
         silent %yank p
         new
         silent 0put p
         silent $,$d
 
-        " TODO:
-        " Any way to make this handle pyflakes3????
-        silent exe '%!' . g:python2_dir . 'pyflakes'
+        silent exe pyflakes_cmd
         silent exe '%s/<stdin>/' . s:file_name . '/e'
 
         try
@@ -712,6 +716,7 @@ function! StatuslineLongLineWarning()
     return b:statusline_long_line_warning
 endfunction
 
+" TODO: Rename python detection functions
 function! g:DetectPyVersion()
     silent! exe '!' . g:python_host_prog . ' -m py_compile %'
     if v:shell_error == 0
@@ -736,14 +741,14 @@ function! g:PyStatus()
         call g:DetectPyVersion()
 
         if exists("b:is_py2") && exists("b:is_py3")
-            if b:is_py2 && b:is_py3
+            if b:is_py2 == 1 && b:is_py3 == 1
                 let b:py_status = '[py2/3]'
-            elseif b:is_py2
+            elseif b:is_py2 == 1
                 let b:py_status = '[py2]'
-            elseif b:is_py3
+            elseif b:is_py3 == 1
                 let b:py_status = '[py3]'
             else
-                let b:py_status = ''
+                let b:py_status = '[Err]'
             endif
         endif
     endif
