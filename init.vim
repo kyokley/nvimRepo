@@ -407,6 +407,7 @@ augroup EditVim
     "recalculate the trailing whitespace warning when idle, and after saving
     autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning
+    autocmd bufreadpost,bufwritepost * call g:PyStatus()
 augroup END
 
 augroup filetype_python
@@ -427,7 +428,6 @@ augroup filetype_python
     au FileType python match ExtraWhitespace /\s\+$\|\t/
     let python_highlight_all = 1
     "au FileType python colo molokai
-    autocmd cursorhold,bufwritepost python call g:PyStatus()
 augroup END
 
 augroup filetype_htmldjango
@@ -658,9 +658,6 @@ function! StatuslineCurrentHighlight()
     endif
 endfunction
 
-"recalculate the tab warning flag when idle and after writing
-"autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
-
 "return '[&et]' if &et is set wrong
 "return '[mixed-indenting]' if spaces and tabs are used to indent
 "return an empty string if everything is fine
@@ -685,9 +682,6 @@ function! StatuslineTabWarning()
     endif
     return b:statusline_tab_warning
 endfunction
-
-"recalculate the long line warning when idle and after saving
-"autocmd cursorhold,bufwritepost * unlet! b:statusline_long_line_warning
 
 "return a warning for "long lines" where "long" is either &textwidth or 80 (if
 "no &textwidth is set)
@@ -719,24 +713,20 @@ function! StatuslineLongLineWarning()
 endfunction
 
 function! g:DetectPyVersion()
-    " Try compiling with py2
-    "if !exists("b:is_py2") || b:is_py2 == 0
-        silent! exe '!' . g:python_host_prog . ' -m py_compile %'
-        if v:shell_error == 0
-            let b:is_py2 = 1
-        else
-            let b:is_py2 = 0
-        endif
-    "endif
+    silent! exe '!' . g:python_host_prog . ' -m py_compile %'
+    if v:shell_error == 0
+        let b:is_py2 = 1
+    else
+        let b:is_py2 = 0
+    endif
 
-    "if !exists("b:is_py3") || b:is_py3 == 0
-        silent! exe '!' . g:python3_host_prog . ' -m py_compile %'
-        if v:shell_error == 0
-            let b:is_py3 = 1
-        else
-            let b:is_py3 = 0
-        endif
-    "endif
+    silent! exe '!' . g:python3_host_prog . ' -m py_compile %'
+    if v:shell_error == 0
+        let b:is_py3 = 1
+    else
+        let b:is_py3 = 0
+    endif
+
 endfunction
 
 function! g:PyStatus()
