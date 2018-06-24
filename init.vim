@@ -408,7 +408,7 @@ augroup EditVim
     autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning
     autocmd bufreadpost,bufwritepre * call g:PyStatus()
-    autocmd BufEnter,bufwritepost * call g:SetPyflakeVersion()
+    autocmd BufEnter,bufwritepre * call g:SetPyflakeVersion()
 augroup END
 
 augroup filetype_python
@@ -519,47 +519,45 @@ function! RaiseExceptionForUnresolvedErrors()
         silent 0put p
         silent $,$d
 
-        call g:DetectPyVersion()
-        if exists("b:py_version")
-            try
-                if b:py_version == 'py3'
-                    let pyflakes_cmd = '%!' . g:python3_dir . 'pyflakes'
-                elseif b:py_version == 'py2'
-                    let pyflakes_cmd = '%!' . g:python2_dir . 'pyflakes'
-                else
-                    throw 'Could not determine python version'
-                endif
+        let py_version = g:DetectPyVersion()
+        try
+            if py_version == 'py3'
+                let pyflakes_cmd = '%!' . g:python3_dir . 'pyflakes'
+            elseif py_version == 'py2'
+                let pyflakes_cmd = '%!' . g:python2_dir . 'pyflakes'
+            else
+                throw 'Could not determine python version'
+            endif
 
-                silent exe pyflakes_cmd
-                silent exe '%s/<stdin>/' . s:file_name . '/e'
+            silent exe pyflakes_cmd
+            silent exe '%s/<stdin>/' . s:file_name . '/e'
 
-                call s:FindError(s:file_name, '\(unable to detect \)\@<!undefined name', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'unexpected indent', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'expected an indented block', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'invalid syntax', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'unindent does not match any outer indentation level', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'EOL while scanning string literal', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'redefinition of unused', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'list comprehension redefines', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'shadowed by loop variable', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'syntax error', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'referenced before assignment', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'duplicate argument', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'repeated with different values', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'imports must occur at the beginning of the file', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'outside function', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'not properly in loop', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'outside loop', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'two starred expressions in assignment', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'too many expressions in star-unpacking assignment', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'assertion is always true', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'trailing comma not allowed without surrounding parentheses', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'keyword argument repeated', 'Syntax error!', 1)
-                call s:FindError(s:file_name, 'problem decoding source', 'Syntax error!', 1)
-            catch
-                throw v:exception
-            endtry
-        endif
+            call s:FindError(s:file_name, '\(unable to detect \)\@<!undefined name', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'unexpected indent', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'expected an indented block', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'invalid syntax', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'unindent does not match any outer indentation level', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'EOL while scanning string literal', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'redefinition of unused', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'list comprehension redefines', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'shadowed by loop variable', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'syntax error', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'referenced before assignment', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'duplicate argument', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'repeated with different values', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'imports must occur at the beginning of the file', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'outside function', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'not properly in loop', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'outside loop', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'two starred expressions in assignment', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'too many expressions in star-unpacking assignment', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'assertion is always true', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'trailing comma not allowed without surrounding parentheses', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'keyword argument repeated', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'problem decoding source', 'Syntax error!', 1)
+        catch
+            throw v:exception
+        endtry
 
         bd!
 
@@ -725,30 +723,36 @@ endfunction
 
 " TODO: Rename python detection functions
 function! g:DetectPyVersion()
-    let b:py_version = ''
+    let py_version = ''
 
-    silent! exe '!' . g:python_host_prog . ' -m py_compile %'
+    silent %yank p
+    new
+    silent 0put p
+    silent $,$d
+
+    silent! exe '%!' . g:python_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
     if v:shell_error == 0
-        let b:py_version = 'py2'
+        let py_version = 'py2'
     else
-        silent! exe '!' . g:python3_host_prog . ' -m py_compile %'
+        silent! undo
+        silent! exe '%!' . g:python3_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
         if v:shell_error == 0
-            let b:py_version = 'py3'
+            let py_version = 'py3'
         else
-            let b:py_version = 'Err'
+            let py_version = 'Err'
         endif
     endif
+
+    bd!
+
+    return py_version
 endfunction
 
 function! g:PyStatus()
     let b:py_status = ''
 
     if &filetype == 'python'
-        call g:DetectPyVersion()
-
-        if exists("b:py_version")
-            let b:py_status = '[' . b:py_version . ']'
-        endif
+        let b:py_status = '[' . g:DetectPyVersion() . ']'
     endif
     return b:py_status
 endfunction
@@ -763,7 +767,7 @@ endfunction
 
 function! g:SetPyflakeVersion()
     if &filetype == 'python'
-        if exists("b:py_version") && b:py_version == 'py3'
+        if exists("b:py_status") && b:py_status == '[py3]'
             let g:syntastic_python_pyflakes_exec = g:python3_dir . 'pyflakes'
         else
             let g:syntastic_python_pyflakes_exec = g:python2_dir . 'pyflakes'
