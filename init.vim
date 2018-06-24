@@ -335,7 +335,7 @@ let g:rainbow_conf = {
 "statusline setup
 set statusline=
 set statusline =%#identifier#
-set statusline+=[%n:%t]    "tail of the filename
+set statusline+=[%t]    "tail of the filename
 set statusline+=%*
 
 "read only flag
@@ -360,7 +360,7 @@ set statusline+=%*
 
 set statusline+=%h      "help file flag
 set statusline+=%y      "filetype
-set statusline+=%{GetPyStatus()}
+set statusline+=%{GetPyVersion()}
 
 set statusline+=%{fugitive#statusline()}
 
@@ -407,8 +407,8 @@ augroup EditVim
     "recalculate the trailing whitespace warning when idle, and after saving
     autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning
-    autocmd bufreadpost,bufwritepre * call g:PyStatus()
-    autocmd BufEnter,bufwritepre * call g:SetPyflakeVersion()
+    autocmd bufreadpost,bufwritepre * call s:SetPyVersion()
+    autocmd BufEnter,bufwritepre * call s:SetPyflakeVersion()
 augroup END
 
 augroup filetype_python
@@ -723,7 +723,7 @@ endfunction
 
 " TODO: Rename python detection functions
 function! g:DetectPyVersion()
-    let py_version = ''
+    let l:version = ''
 
     silent %yank p
     new
@@ -732,23 +732,23 @@ function! g:DetectPyVersion()
 
     silent! exe '%!' . g:python_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
     if v:shell_error == 0
-        let py_version = 'py2'
+        let l:version = 'py2'
     else
         silent! undo
         silent! exe '%!' . g:python3_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
         if v:shell_error == 0
-            let py_version = 'py3'
+            let l:version = 'py3'
         else
-            let py_version = 'Err'
+            let l:version = 'Err'
         endif
     endif
 
     bd!
 
-    return py_version
+    return l:version
 endfunction
 
-function! g:PyStatus()
+function! s:SetPyVersion()
     let b:py_status = ''
 
     if &filetype == 'python'
@@ -757,7 +757,7 @@ function! g:PyStatus()
     return b:py_status
 endfunction
 
-function! g:GetPyStatus()
+function! GetPyVersion()
     if exists("b:py_status")
         return b:py_status
     else
@@ -765,7 +765,7 @@ function! g:GetPyStatus()
     endif
 endfunction
 
-function! g:SetPyflakeVersion()
+function! s:SetPyflakeVersion()
     if &filetype == 'python'
         if exists("b:py_status") && b:py_status == '[py3]'
             let g:syntastic_python_pyflakes_exec = g:python3_dir . 'pyflakes'
