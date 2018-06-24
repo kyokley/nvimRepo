@@ -407,7 +407,7 @@ augroup EditVim
     "recalculate the trailing whitespace warning when idle, and after saving
     autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning
-    autocmd bufreadpost,bufwritepre * call s:SetPyVersion()
+    autocmd bufreadpost * call g:SetPyVersion()
     autocmd BufEnter,bufwritepre * call s:SetPyflakeVersion()
 augroup END
 
@@ -514,19 +514,18 @@ function! RaiseExceptionForUnresolvedErrors()
 
     if &filetype == 'python'
 
+        let py_version = GetPyVersion()
+
         silent %yank p
         new
         silent 0put p
         silent $,$d
 
-        let py_version = g:DetectPyVersion()
         try
-            if py_version == 'py3'
+            if py_version == '[py3]'
                 let pyflakes_cmd = '%!' . g:python3_dir . 'pyflakes'
-            elseif py_version == 'py2'
-                let pyflakes_cmd = '%!' . g:python2_dir . 'pyflakes'
             else
-                throw 'Could not determine python version'
+                let pyflakes_cmd = '%!' . g:python2_dir . 'pyflakes'
             endif
 
             silent exe pyflakes_cmd
@@ -721,45 +720,49 @@ function! StatuslineLongLineWarning()
     return b:statusline_long_line_warning
 endfunction
 
-" TODO: Rename python detection functions
 function! g:DetectPyVersion()
-    let l:version = ''
+    let l:version = 'Err'
 
     silent %yank p
     new
     silent 0put p
-    silent $,$d
 
     silent! exe '%!' . g:python_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
+    bd!
     if v:shell_error == 0
         let l:version = 'py2'
-    else
-        silent! undo
-        silent! exe '%!' . g:python3_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
-        if v:shell_error == 0
-            let l:version = 'py3'
-        else
-            let l:version = 'Err'
-        endif
+        return l:version
     endif
 
+    silent %yank p
+    new
+    silent 0put p
+
+    silent! exe '%!' . g:python3_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
     bd!
+    if v:shell_error == 0
+        let l:version = 'py3'
+        return l:version
+    endif
 
     return l:version
 endfunction
 
-function! s:SetPyVersion()
-    let b:py_status = ''
+function! g:SetPyVersion()
+    let b:py_version = ''
 
     if &filetype == 'python'
-        let b:py_status = '[' . g:DetectPyVersion() . ']'
+        let b:py_version = '[' . g:DetectPyVersion() . ']'
     endif
-    return b:py_status
+
+    call s:SetPyflakeVersion()
+    return b:py_version
 endfunction
+com! SetPyVersion call SetPyVersion()
 
 function! GetPyVersion()
-    if exists("b:py_status")
-        return b:py_status
+    if exists("b:py_version")
+        return b:py_version
     else
         return ''
     endif
@@ -767,7 +770,7 @@ endfunction
 
 function! s:SetPyflakeVersion()
     if &filetype == 'python'
-        if exists("b:py_status") && b:py_status == '[py3]'
+        if exists("b:py_version") && b:py_version == '[py3]'
             let g:syntastic_python_pyflakes_exec = g:python3_dir . 'pyflakes'
         else
             let g:syntastic_python_pyflakes_exec = g:python2_dir . 'pyflakes'
