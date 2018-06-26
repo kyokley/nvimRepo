@@ -529,9 +529,12 @@ function! RaiseExceptionForUnresolvedErrors()
             if py_version == '[py3]'
                 let pyflakes_cmd = '%!' . g:python3_dir . 'pyflakes'
                 let bandit_cmd = '%!' . g:python3_dir . 'bandit -lll -'
-            else
+            elseif py_version == '[py2]'
                 let pyflakes_cmd = '%!' . g:python2_dir . 'pyflakes'
                 let bandit_cmd = '%!' . g:python2_dir . 'bandit -lll -'
+            else
+                bd!
+                throw 'Could not determine python version!'
             endif
 
             silent exe pyflakes_cmd
