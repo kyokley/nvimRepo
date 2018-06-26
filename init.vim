@@ -601,34 +601,6 @@ function! s:DiffWithSaved()
 endfunction
 com! DiffSaved call s:DiffWithSaved()
 
-function! MyNext()
-    if exists('*tabpagenr') && tabpagenr('$') != 1
-        " Tab support && tabs open
-        if winnr() == winnr('$')
-            execute ":bnext"
-        else
-            normal gt
-        endif
-    else
-        " No tab support, or no tabs open
-        execute ":bnext"
-    endif
-endfunction
-
-function! MyPrev()
-    if exists('*tabpagenr') && tabpagenr('$') != '1'
-        " Tab support and tabs open
-        if winnr() == 1
-            execute ":bprev"
-        else
-            normal gT
-        endif
-    else
-        " No tab support, or no tabs open
-        execute ":bprev"
-    endif
-endfunction
-
 function! StatuslineConflictWarning()
     if !exists("b:statusline_conflict_warning")
 
