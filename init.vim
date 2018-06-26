@@ -524,8 +524,10 @@ function! RaiseExceptionForUnresolvedErrors()
         try
             if py_version == '[py3]'
                 let pyflakes_cmd = '%!' . g:python3_dir . 'pyflakes'
+                let bandit_cmd = '%!' . g:python3_dir . 'bandit -lll -'
             else
                 let pyflakes_cmd = '%!' . g:python2_dir . 'pyflakes'
+                let bandit_cmd = '%!' . g:python2_dir . 'bandit -lll -'
             endif
 
             silent exe pyflakes_cmd
@@ -564,7 +566,7 @@ function! RaiseExceptionForUnresolvedErrors()
         new
         silent 0put p
         silent $,$d
-        silent exe '%!' . g:python2_dir . 'bandit -lll -'
+        silent exe bandit_cmd
         silent exe '%s/<stdin>/' . s:file_name . '/e'
 
         let s:is_res = search('^>> Issue:', 'nw')
@@ -772,8 +774,10 @@ function! s:SetPyflakeVersion()
     if &filetype == 'python'
         if exists("b:py_version") && b:py_version == '[py3]'
             let g:syntastic_python_pyflakes_exec = g:python3_dir . 'pyflakes'
+            let g:syntastic_python_bandit_exec = g:python3_dir . 'bandit'
         else
             let g:syntastic_python_pyflakes_exec = g:python2_dir . 'pyflakes'
+            let g:syntastic_python_bandit_exec = g:python2_dir . 'bandit'
         endif
     endif
 endfunction
