@@ -360,7 +360,10 @@ set statusline+=%*
 
 set statusline+=%h      "help file flag
 set statusline+=%y      "filetype
-set statusline+=%{GetPyVersion()}
+set statusline+=%{GetPyVersion()!='[Err]'?GetPyVersion():''}
+set statusline+=%#warningmsg#
+set statusline+=%{GetPyVersion()=='[Err]'?'[py2/3\ Err]':''}
+set statusline+=%*
 
 set statusline+=%{fugitive#statusline()}
 
@@ -407,6 +410,7 @@ augroup EditVim
     "recalculate the trailing whitespace warning when idle, and after saving
     autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning
+    autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
     autocmd bufreadpost * call g:SetPyVersion()
     autocmd BufEnter,bufwritepre * call s:SetPyflakeVersion()
 augroup END
@@ -722,9 +726,7 @@ function! StatuslineLongLineWarning()
     return b:statusline_long_line_warning
 endfunction
 
-function! g:DetectPyVersion()
-    let l:version = 'Err'
-
+function! DetectPyVersion()
     silent %yank p
     new
     silent 0put p
@@ -732,8 +734,7 @@ function! g:DetectPyVersion()
     silent! exe '%!' . g:python_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
     bd!
     if v:shell_error == 0
-        let l:version = 'py2'
-        return l:version
+        return 'py2'
     endif
 
     silent %yank p
@@ -743,18 +744,17 @@ function! g:DetectPyVersion()
     silent! exe '%!' . g:python3_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
     bd!
     if v:shell_error == 0
-        let l:version = 'py3'
-        return l:version
+        return 'py3'
     endif
 
-    return l:version
+    return 'Err'
 endfunction
 
 function! g:SetPyVersion()
     let b:py_version = ''
 
     if &filetype == 'python'
-        let b:py_version = '[' . g:DetectPyVersion() . ']'
+        let b:py_version = '[' . DetectPyVersion() . ']'
     endif
 
     call s:SetPyflakeVersion()
