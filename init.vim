@@ -411,8 +411,8 @@ augroup EditVim
     autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
-    autocmd bufreadpost * call g:SetPyVersion()
-    autocmd BufEnter,bufwritepre * call s:SetPyflakeVersion()
+    autocmd bufreadpost *.py call g:SetPyVersion()
+    autocmd BufEnter,bufwritepre *.py call s:SetPyflakeVersion()
 augroup END
 
 augroup filetype_python
