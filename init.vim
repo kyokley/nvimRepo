@@ -725,17 +725,26 @@ function! DetectPyVersion()
     return 'Err'
 endfunction
 
-function! g:SetPyVersion()
+function! g:SetPyVersion(...)
     let b:py_version = ''
 
     if &filetype == 'python'
-        let b:py_version = '[' . DetectPyVersion() . ']'
+        let in_version = get(a:000, 0, '')
+
+        if in_version != 'py2' && in_version != 'py3'
+            let in_version = DetectPyVersion()
+        endif
+
+        let b:py_version = '[' . in_version . ']'
+
+        call s:SetPyflakeVersion()
     endif
 
-    call s:SetPyflakeVersion()
     return b:py_version
 endfunction
 com! SetPyVersion call SetPyVersion()
+com! SetPyVersion2 call SetPyVersion('py2')
+com! SetPyVersion3 call SetPyVersion('py3')
 
 function! GetPyVersion()
     if exists("b:py_version")
