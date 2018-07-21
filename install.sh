@@ -36,8 +36,3 @@ sudo pip install -r requirements.txt --force --upgrade
 sudo python setup.py install --force
 cd ..
 sudo chown $NON_ROOT_USER:$NON_ROOT_USER -R .git
-
-git config --global merge.tool diffconflicts
-git config --global mergetool.diffconflicts.cmd 'vim -c DiffConflicts "$MERGED" "$BASE" "$LOCAL" "$REMOTE"'
-git config --global mergetool.diffconflicts.trustExitCode false
-git config --global mergetool.keepBackup false
