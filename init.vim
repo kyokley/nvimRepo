@@ -272,14 +272,6 @@ let g:flake8_show_quickfix=0
 let g:flake8_show_in_gutter=1
 let g:flake8_show_in_file=1
 
-"YCM
-set completeopt=menuone
-let g:ycm_add_preview_to_completeopt = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-
-let g:bufferline_rotate = 1
-
 " Jedi
 let g:jedi#documentation_command = ''
 
