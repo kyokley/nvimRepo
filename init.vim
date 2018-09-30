@@ -404,8 +404,6 @@ augroup EditVim
     autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
-    autocmd bufreadpost *.py call g:SetPyVersion()
-    autocmd BufEnter,bufwritepre *.py call s:SetPyflakeVersion()
 augroup END
 
 augroup filetype_python
@@ -426,6 +424,8 @@ augroup filetype_python
     au FileType python match ExtraWhitespace /\s\+$\|\t/
     let python_highlight_all = 1
     "au FileType python colo molokai
+    autocmd BufNewFile,bufreadpost *.py call g:SetPyVersion()
+    autocmd BufEnter,bufwritepre *.py call s:SetPyflakeVersion()
 augroup END
 
 augroup filetype_htmldjango
@@ -699,20 +699,20 @@ function! DetectPyVersion()
     new
     silent 0put p
 
-    silent! exe '%!' . g:python_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
+    silent! exe '%!' . g:python3_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
     bd!
     if v:shell_error == 0
-        return 'py2'
+        return 'py3'
     endif
 
     silent %yank p
     new
     silent 0put p
 
-    silent! exe '%!' . g:python3_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
+    silent! exe '%!' . g:python_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
     bd!
     if v:shell_error == 0
-        return 'py3'
+        return 'py2'
     endif
 
     return 'Err'
@@ -749,12 +749,12 @@ endfunction
 
 function! s:SetPyflakeVersion()
     if &filetype == 'python'
-        if exists("b:py_version") && b:py_version == '[py3]'
-            let g:syntastic_python_pyflakes_exec = g:python3_dir . 'pyflakes'
-            let g:syntastic_python_bandit_exec = g:python3_dir . 'bandit'
-        else
+        if exists("b:py_version") && b:py_version == '[py2]'
             let g:syntastic_python_pyflakes_exec = g:python2_dir . 'pyflakes'
             let g:syntastic_python_bandit_exec = g:python2_dir . 'bandit'
+        else
+            let g:syntastic_python_pyflakes_exec = g:python3_dir . 'pyflakes'
+            let g:syntastic_python_bandit_exec = g:python3_dir . 'bandit'
         endif
     endif
 endfunction
