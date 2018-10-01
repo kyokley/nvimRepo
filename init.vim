@@ -56,6 +56,7 @@ Plug 'luochen1990/rainbow'
 Plug 'easymotion/vim-easymotion'
 Plug 'flazz/vim-colorschemes'
 Plug 'whiteinge/diffconflicts'
+Plug 'w0rp/ale'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
@@ -326,6 +327,9 @@ let g:rainbow_conf = {
     \       'diff': 0,
     \   }
     \}
+
+" ALE Config
+let g:ale_set_quickfix = 1
 
 "statusline setup
 set statusline=
