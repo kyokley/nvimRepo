@@ -84,6 +84,8 @@ set wildignore=*.swp,*.bak,*.pyc,*.class,*.o,*.obj,*.git
 set nowrapscan
 set textwidth=0
 set mouse=""
+set autoread
+set background=dark
 
 highlight MatchParen ctermbg=4
 
@@ -411,7 +413,6 @@ augroup filetype_python
     au FileType python set foldmethod=indent
     au FileType python set foldlevel=99
     au FileType python set omnifunc=pythoncomplete#Complete
-    "au FileType python set nosmartindent
     "au FileType python BracelessEnable +indent +highlight-cc2
     au FileType python map <buffer> <leader>8 :call Flake8()<CR>
     " Tell Vim which characters to show for expanded TABs,
@@ -446,14 +447,12 @@ augroup END
 
 augroup filetype_text
     autocmd!
-    au FileType text setlocal smartindent
     au FileType text setlocal spell spelllang=en_us
     au FileType text setlocal noexpandtab
 augroup END
 
 augroup filetype_md
     autocmd!
-    au FileType markdown setlocal smartindent
     au FileType markdown setlocal spell spelllang=en_us
     au FileType markdown setlocal noexpandtab
 augroup END
