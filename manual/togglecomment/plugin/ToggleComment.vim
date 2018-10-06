@@ -19,10 +19,12 @@ function! CommentLineToEnd(commentLeader)
     set cpo&vim
     set paste
     let escCommentLeader = escape(a:commentLeader, '^[.*\~]$')
-    if getline(".") =~ '^\s*' . escCommentLeader
-        execute "normal ^" . strlen(a:commentLeader) . "x"
-    else
-        execute "normal I" . a:commentLeader . "\<ESC>"
+    if getline(".") != ""
+        if getline(".") =~ '^\s*' . escCommentLeader
+            execute "normal ^" . strlen(a:commentLeader) . "x"
+        else
+            execute "normal I" . a:commentLeader . "\<ESC>"
+        endif
     endif
     let &cpo   = save_cpo
     let &paste = save_paste

@@ -155,7 +155,7 @@ let @_ = ":silent! s/\\('\\)\\@<![^']\\{-}\\zs\\<\\(trigger\\|after\\|for\\|each
 noremap <leader>s :norm @i<CR><CR>
 
 " Add some mappings
-noremap ,# :call CommentLineToEnd('#')<CR>+
+noremap ,# :call CommentLineToEnd('# ')<CR>+
 noremap ,* :call CommentLinePincer('/* ', ' */')<CR>+
 
 "Allow command to accept a count
