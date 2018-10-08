@@ -57,6 +57,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'flazz/vim-colorschemes'
 Plug 'whiteinge/diffconflicts'
 Plug 'w0rp/ale'
+Plug 'kshenoy/vim-signature'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
