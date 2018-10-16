@@ -56,8 +56,9 @@ Plug 'luochen1990/rainbow'
 Plug 'easymotion/vim-easymotion'
 Plug 'flazz/vim-colorschemes'
 Plug 'whiteinge/diffconflicts'
-Plug 'w0rp/ale'
 Plug 'kshenoy/vim-signature'
+Plug 'junegunn/vader.vim'
+Plug 'w0rp/ale'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
@@ -331,6 +332,8 @@ let g:rainbow_conf = {
 
 " ALE Config
 let g:ale_set_quickfix = 1
+let g:ale_python_flake8_use_global = 1
+let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
 
 "statusline setup
 set statusline=
@@ -756,9 +759,11 @@ function! s:SetPyflakeVersion()
         if exists("b:py_version") && b:py_version == '[py2]'
             let g:syntastic_python_pyflakes_exec = g:python2_dir . 'pyflakes'
             let g:syntastic_python_bandit_exec = g:python2_dir . 'bandit'
+            let g:ale_python_flake8_executable = g:python2_dir . 'flake8'
         else
             let g:syntastic_python_pyflakes_exec = g:python3_dir . 'pyflakes'
             let g:syntastic_python_bandit_exec = g:python3_dir . 'bandit'
+            let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
         endif
     endif
 endfunction
