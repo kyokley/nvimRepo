@@ -563,6 +563,7 @@ function! RaiseExceptionForUnresolvedErrors()
             call s:FindError(s:file_name, 'trailing comma not allowed without surrounding parentheses', 'Syntax error!', 1)
             call s:FindError(s:file_name, 'keyword argument repeated', 'Syntax error!', 1)
             call s:FindError(s:file_name, 'problem decoding source', 'Syntax error!', 1)
+            call s:FindError(s:file_name, 'unexpected EOF', 'Syntax error!', 1)
         catch
             throw v:exception
         endtry
