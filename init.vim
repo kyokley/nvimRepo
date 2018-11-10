@@ -803,7 +803,7 @@ def SetBreakpoint():
     strWhite = re.search('^(\s*)', strLine).group(1)
 
     vim.current.buffer.append(
-       "%(space)simport pdb; pdb.set_trace() %(mark)s Breakpoint %(mark)s" %
+       "%(space)simport pdb; pdb.set_trace()  # %(mark)s Breakpoint %(mark)s" %
          {'space':strWhite, 'mark': '#' * 30}, nLine - 1)
 
 vim.command( 'noremap <F12> :py SetBreakpoint()<cr>')
