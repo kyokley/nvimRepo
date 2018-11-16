@@ -59,6 +59,7 @@ Plug 'whiteinge/diffconflicts'
 Plug 'kshenoy/vim-signature'
 Plug 'junegunn/vader.vim'
 Plug 'w0rp/ale'
+Plug 'Vimjas/vim-python-pep8-indent'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
