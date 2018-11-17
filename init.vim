@@ -339,6 +339,9 @@ let g:ale_set_quickfix = 1
 let g:ale_python_flake8_use_global = 1
 let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
 
+" Python PEP-8 Indent
+let g:python_pep8_indent_hang_closing = 0
+
 "statusline setup
 set statusline=
 set statusline =%#identifier#
