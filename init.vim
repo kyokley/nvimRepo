@@ -770,7 +770,7 @@ function! s:SetPyflakeVersion()
             let g:ale_python_flake8_executable = g:python2_dir . 'flake8'
         else
             let g:syntastic_python_pyflakes_exec = g:python3_dir . 'pyflakes'
-            let g:syntastic_python_bandit_exec = g:python3_dir . 'bandit'
+            let g:syntastic_python_bandit_exec = g:python3_dir . 'bandit -s B322'
             let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
         endif
     endif
