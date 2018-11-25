@@ -286,6 +286,7 @@ let g:jedi#documentation_command = ''
 
 "SuperTab
 let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
 "NVim configs
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
