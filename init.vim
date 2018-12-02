@@ -489,6 +489,11 @@ augroup filetype_git
     au FileType git setlocal nospell
 augroup END
 
+augroup filetype_make
+    autocmd!
+    au FileType make setlocal noexpandtab
+augroup END
+
 augroup CursorLineOnlyInActiveWindow
   autocmd!
   autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
