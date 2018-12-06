@@ -541,10 +541,10 @@ function! RaiseExceptionForUnresolvedErrors()
         try
             if py_version == '[py3]'
                 let pyflakes_cmd = '%!' . g:python3_dir . 'pyflakes'
-                let bandit_cmd = '%!' . g:python3_dir . 'bandit -lll -s B322 -'
+                let bandit_cmd = '%!' . g:python3_dir . 'bandit -ll -s B322,B101 -'
             elseif py_version == '[py2]'
                 let pyflakes_cmd = '%!' . g:python2_dir . 'pyflakes'
-                let bandit_cmd = '%!' . g:python2_dir . 'bandit -lll -'
+                let bandit_cmd = '%!' . g:python2_dir . 'bandit -ll -s B101 -'
             else
                 bd!
                 throw 'Could not determine python version!'
