@@ -54,7 +54,7 @@ Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
 Plug 'tomlion/vim-solidity'
 Plug 'luochen1990/rainbow'
 Plug 'easymotion/vim-easymotion'
-Plug 'flazz/vim-colorschemes'
+Plug 'kyokley/vim-colorschemes'
 Plug 'whiteinge/diffconflicts'
 Plug 'kshenoy/vim-signature'
 Plug 'junegunn/vader.vim'
