@@ -28,7 +28,6 @@ let $MYVIMRC = $HOME."/.nvim/init.vim"
 filetype off
 call plug#begin('~/.nvim/plugged')
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -45,15 +44,14 @@ Plug 'bling/vim-bufferline'
 Plug 'kyokley/JavaScript-Indent'
 Plug 'jelera/vim-javascript-syntax'
 Plug 'hdima/python-syntax'
-Plug 'davidhalter/jedi-vim'
 Plug 'ervandew/supertab'
-Plug 'Shougo/deoplete.nvim', {'do': ':UpdateRemotePlugins'}
-Plug 'zchee/deoplete-jedi'
 Plug 'chrisbra/csv.vim'
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 Plug 'tomlion/vim-solidity'
 Plug 'luochen1990/rainbow'
-Plug 'easymotion/vim-easymotion'
 Plug 'kyokley/vim-colorschemes'
 Plug 'whiteinge/diffconflicts'
 Plug 'kshenoy/vim-signature'
@@ -262,28 +260,6 @@ let g:python3_dir = $HOME . '/.pyenv/versions/neovim3/bin/'
 let g:python_host_prog = g:python2_dir . 'python'
 let g:python3_host_prog = g:python3_dir . 'python'
 
-"Syntastic Settings
-let g:syntastic_check_on_open=1
-let g:syntastic_python_checkers=['bandit', 'pyflakes']
-let g:syntastic_python_pyflakes_exec = g:python2_dir . 'pyflakes'
-let g:syntastic_python_bandit_exec = g:python2_dir . 'bandit'
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_quiet_messages = {'level': 'warnings'}
-let g:syntastic_mode_map = {'mode': 'active',
-                           \'active_filetypes': [],
-                           \'passive_filetypes': []}
-let g:syntastic_python_bandit_quiet_messages = { "level" : [] }
-let g:syntastic_stl_format = "[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]"
-let g:syntastic_aggregate_errors = 1
-
-"Flake8
-let g:flake8_show_quickfix=0
-let g:flake8_show_in_gutter=1
-let g:flake8_show_in_file=1
-
-" Jedi
-let g:jedi#documentation_command = ''
-
 "SuperTab
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
@@ -293,21 +269,13 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
 set inccommand=split
 set guicursor=
 
-" Deoplete setup
-let g:deoplete#enable_at_startup = 1
-if !exists('g:deoplete#omni#input_patterns')
-    let g:deoplete#omni#input_patterns = {}
-endif
-
 " Automatically start language servers.
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
     \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
     \ 'python': ['pyls'],
     \ }
-" nnoremap <leader> l :call LanguageClient_setLoggingLevel('DEBUG')<CR>
-" nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-
+let g:LanguageClient_diagnosticsEnable = 0
 
 " Rainbow Config
 let g:rainbow_active = 1
@@ -339,6 +307,32 @@ let g:rainbow_conf = {
 let g:ale_set_quickfix = 1
 let g:ale_python_flake8_use_global = 1
 let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
+let g:ale_completion_enabled = 1
+let g:ale_completion_delay = 100
+let g:ale_enabled = 1
+let g:ale_set_signs = 1
+let g:ale_set_highlights = 1
+let g:ale_linters = {
+            \ 'python': ['pyls', 'pyflakes', 'flake8'],
+            \}
+highlight link ALEWarning DiffChange
+highlight link ALEWarningSign ALEWarning
+highlight link ALEError SpellBad
+highlight link ALEErrorSign ALEError
+set completeopt=menu,menuone,preview,noselect,noinsert " Need this for ALE completion to work right?
+
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? '[OK]' : printf(
+    \   '[%dW %dE]',
+    \   all_non_errors,
+    \   all_errors
+    \)
+endfunction
 
 " Python PEP-8 Indent
 let g:python_pep8_indent_hang_closing = 0
@@ -386,7 +380,9 @@ set statusline+=%*
 set statusline+=%=      "left/right separator
 
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%{LinterStatus()!='[OK]'?LinterStatus():''}
+set statusline+=%*
+set statusline+=%{LinterStatus()=='[OK]'?'[OK]':''}
 set statusline+=%{StatuslineConflictWarning()}
 set statusline+=%*
 "
