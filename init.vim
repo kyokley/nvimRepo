@@ -276,6 +276,9 @@ let g:LanguageClient_serverCommands = {
     \ 'python': ['pyls'],
     \ }
 let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_settingsPath = $HOME . "/.nvim/settings.json"
+" let g:LanguageClient_loggingFile = '/tmp/LC.log'
+" let g:LanguageClient_loggingLevel = 'DEBUG'
 
 " Rainbow Config
 let g:rainbow_active = 1
@@ -307,16 +310,19 @@ let g:rainbow_conf = {
 let g:ale_set_quickfix = 1
 let g:ale_python_flake8_use_global = 1
 let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
+let g:ale_python_flake8_options = '--max-line-length=120'
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 100
 let g:ale_enabled = 1
 let g:ale_set_signs = 1
 let g:ale_set_highlights = 1
+let g:ale_sign_warning = '->'
 let g:ale_linters = {
             \ 'python': ['pyls', 'pyflakes', 'flake8'],
             \}
-highlight link ALEWarning DiffChange
-highlight link ALEWarningSign ALEWarning
+" highlight link ALEWarning WildMenu
+highlight clear ALEWarning
+highlight link ALEWarningSign WildMenu
 highlight link ALEError SpellBad
 highlight link ALEErrorSign ALEError
 set completeopt=menu,menuone,preview,noselect,noinsert " Need this for ALE completion to work right?
