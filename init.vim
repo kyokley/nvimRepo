@@ -316,6 +316,7 @@ highlight link ALEErrorSign ALEError
 
 " Jedi
 let g:jedi#completions_enabled = 0
+let g:jedi#documentation_command=''
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
@@ -335,6 +336,7 @@ endfunction
 
 " Python PEP-8 Indent
 let g:python_pep8_indent_hang_closing = 0
+
 
 "statusline setup
 set statusline=
