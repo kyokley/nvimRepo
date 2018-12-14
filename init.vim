@@ -46,10 +46,6 @@ Plug 'jelera/vim-javascript-syntax'
 Plug 'hdima/python-syntax'
 Plug 'ervandew/supertab'
 Plug 'chrisbra/csv.vim'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 Plug 'tomlion/vim-solidity'
 Plug 'luochen1990/rainbow'
 Plug 'kyokley/vim-colorschemes'
@@ -58,6 +54,9 @@ Plug 'kshenoy/vim-signature'
 Plug 'junegunn/vader.vim'
 Plug 'w0rp/ale'
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'davidhalter/jedi-vim'
+Plug 'zchee/deoplete-jedi'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
@@ -269,17 +268,6 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
 set inccommand=split
 set guicursor=
 
-" Automatically start language servers.
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
-    \ 'python': ['pyls'],
-    \ }
-let g:LanguageClient_diagnosticsEnable = 0
-let g:LanguageClient_settingsPath = $HOME . "/.nvim/settings.json"
-" let g:LanguageClient_loggingFile = '/tmp/LC.log'
-" let g:LanguageClient_loggingLevel = 'DEBUG'
-
 " Rainbow Config
 let g:rainbow_active = 1
 let g:rainbow_conf = {
@@ -310,7 +298,6 @@ let g:rainbow_conf = {
 let g:ale_set_quickfix = 1
 let g:ale_python_flake8_use_global = 1
 let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
-let g:ale_python_flake8_options = '--max-line-length=120'
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 100
 let g:ale_enabled = 1
@@ -318,14 +305,20 @@ let g:ale_set_signs = 1
 let g:ale_set_highlights = 1
 let g:ale_sign_warning = '->'
 let g:ale_linters = {
-            \ 'python': ['pyls', 'pyflakes', 'flake8'],
+            \ 'python': ['pyflakes', 'flake8'],
             \}
 " highlight link ALEWarning WildMenu
 highlight clear ALEWarning
 highlight link ALEWarningSign WildMenu
 highlight link ALEError SpellBad
 highlight link ALEErrorSign ALEError
-set completeopt=menu,menuone,preview,noselect,noinsert " Need this for ALE completion to work right?
+" set completeopt=menu,menuone,preview,noselect,noinsert " Need this for ALE completion to work right?
+
+" Jedi
+let g:jedi#completions_enabled = 0
+
+" Deoplete
+let g:deoplete#enable_at_startup = 1
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
