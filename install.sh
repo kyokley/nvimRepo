@@ -29,6 +29,9 @@ sudo pip install bandit
 # Need to be sure to install python language server libs
 # Run pip install python-language-server[all]
 
+# Install isort
+# Run pip install isort
+
 nvim -c ':PlugInstall'
 
 cd color_blame

@@ -57,6 +57,7 @@ Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'davidhalter/jedi-vim'
 Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'fisadev/vim-isort'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
@@ -298,6 +299,8 @@ let g:rainbow_conf = {
 let g:ale_set_quickfix = 1
 let g:ale_python_flake8_use_global = 1
 let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
+let g:ale_python_isort_use_global = 1
+let g:ale_python_isort_executable = g:python3_dir . 'isort'
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 100
 let g:ale_enabled = 1
@@ -771,10 +774,12 @@ function! s:SetPyflakeVersion()
             let g:syntastic_python_pyflakes_exec = g:python2_dir . 'pyflakes'
             let g:syntastic_python_bandit_exec = g:python2_dir . 'bandit'
             let g:ale_python_flake8_executable = g:python2_dir . 'flake8'
+            let g:ale_python_isort_executable = g:python2_dir . 'isort'
         else
             let g:syntastic_python_pyflakes_exec = g:python3_dir . 'pyflakes'
             let g:syntastic_python_bandit_exec = g:python3_dir . 'bandit -s B322'
             let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
+            let g:ale_python_isort_executable = g:python3_dir . 'isort'
         endif
     endif
 endfunction
