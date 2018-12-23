@@ -41,7 +41,6 @@ Plug 'majutsushi/tagbar'
 Plug 'bling/vim-bufferline'
 Plug 'kyokley/JavaScript-Indent'
 Plug 'jelera/vim-javascript-syntax'
-" Plug 'vim-python/python-syntax'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'ervandew/supertab'
 Plug 'chrisbra/csv.vim'
@@ -57,6 +56,7 @@ Plug 'davidhalter/jedi-vim'
 Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'fisadev/vim-isort'
+Plug 'skywind3000/asyncrun.vim'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
@@ -131,8 +131,6 @@ nnoremap <F3> :NERDTreeToggle<CR>
 nnoremap <F4> :TagbarToggle<CR>
 nnoremap <F5> :MundoToggle<CR>
 nnoremap <F6> :set nolist!<CR>
-nnoremap <silent> <leader>h :noh<CR>:silent! call flake8#Flake8UnplaceMarkers()<CR>:sign unplace *<CR>
-nnoremap <silent> <leader>g :redir @g<CR>:g//<CR>:redir END<CR>:new<CR>:put! g<CR>
 
 inoremap <Down> <C-o>gj
 inoremap <Up> <C-o>gk
@@ -277,6 +275,7 @@ let g:ale_python_isort_use_global = 1
 let g:ale_python_isort_executable = g:python3_dir . 'isort'
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 100
+let g:ale_lint_on_enter = 0
 let g:ale_enabled = 1
 let g:ale_set_signs = 0
 let g:ale_set_highlights = 1
@@ -294,6 +293,7 @@ highlight link ALEErrorSign ALEError
 
 " GitGutter
 let g:gitgutter_map_keys = 0
+let g:gitgutter_enabled = 1
 
 " Jedi
 let g:jedi#completions_enabled = 0
@@ -302,6 +302,10 @@ let g:jedi#documentation_command=''
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_delay = 100
+
+" AsyncRun
+let g:asyncrun_open = 10
+
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -318,10 +322,6 @@ endfunction
 
 " Python PEP-8 Indent
 let g:python_pep8_indent_hang_closing = 0
-
-" Python Syntax Highlighting
-let g:python_highlight_all = 1
-
 
 "statusline setup
 set statusline=
@@ -422,7 +422,7 @@ augroup filetype_python
     au FileType python highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
     au FileType python match ExtraWhitespace /\s\+$\|\t/
     "au FileType python colo molokai
-    autocmd BufNewFile,bufreadpost *.py call g:SetPyVersion()
+    autocmd BufNewFile,bufreadpost *.py call g:SetPyVersion('py3')
     autocmd BufEnter,bufwritepre *.py call s:SetPyflakeVersion()
 augroup END
 
@@ -564,26 +564,25 @@ function! RaiseExceptionForUnresolvedErrors()
 
         bd!
 
-        " Skip bandit checking for now
-        " silent %yank p
-        " new
-        " silent 0put p
-        " silent $,$d
-        " silent exe bandit_cmd
-        " silent exe '%s/<stdin>/' . s:file_name . '/e'
+        silent %yank p
+        new
+        silent 0put p
+        silent $,$d
+        silent exe bandit_cmd
+        silent exe '%s/<stdin>/' . s:file_name . '/e'
 
-        " let s:is_res = search('^>> Issue:', 'nw')
-        " if s:is_res != 0
-        "     let s:res_end = s:is_res + 2
-        "     for item in getline(s:is_res, s:res_end)
-        "         echohl ErrorMsg | echo item | echohl None
-        "     endfor
+        let s:is_res = search('^>> Issue:', 'nw')
+        if s:is_res != 0
+            let s:res_end = s:is_res + 2
+            for item in getline(s:is_res, s:res_end)
+                echohl ErrorMsg | echo item | echohl None
+            endfor
 
-        "     bd!
-        "     throw 'Bandit Error'
-        " endif
+            bd!
+            throw 'Bandit Error'
+        endif
 
-        " bd!
+        bd!
     endif
 endfunction
 autocmd BufWritePre * call RaiseExceptionForUnresolvedErrors()
@@ -753,13 +752,9 @@ endfunction
 function! s:SetPyflakeVersion()
     if &filetype == 'python'
         if exists("b:py_version") && b:py_version == '[py2]'
-            let g:syntastic_python_pyflakes_exec = g:python2_dir . 'pyflakes'
-            let g:syntastic_python_bandit_exec = g:python2_dir . 'bandit'
             let g:ale_python_flake8_executable = g:python2_dir . 'flake8'
             let g:ale_python_isort_executable = g:python2_dir . 'isort'
         else
-            let g:syntastic_python_pyflakes_exec = g:python3_dir . 'pyflakes'
-            let g:syntastic_python_bandit_exec = g:python3_dir . 'bandit -s B322'
             let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
             let g:ale_python_isort_executable = g:python3_dir . 'isort'
         endif
