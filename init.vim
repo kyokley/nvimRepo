@@ -34,16 +34,15 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 Plug 'tommcdo/vim-exchange'
 Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
-Plug 'nvie/vim-flake8'
 Plug 'Bogdanp/quicksilver.vim'
-Plug 'mhinz/vim-signify'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'airblade/vim-gitgutter'
 Plug 'mileszs/ack.vim'
 Plug 'majutsushi/tagbar'
 Plug 'bling/vim-bufferline'
 Plug 'kyokley/JavaScript-Indent'
 Plug 'jelera/vim-javascript-syntax'
-Plug 'hdima/python-syntax'
+" Plug 'vim-python/python-syntax'
+Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'ervandew/supertab'
 Plug 'chrisbra/csv.vim'
 Plug 'tomlion/vim-solidity'
@@ -221,30 +220,6 @@ highlight DiffText        cterm=bold ctermbg=Red ctermfg=Yellow
 let g:QSMatchFn = 'fuzzy'
 let g:QSIgnore = ".*\.pyc$;.*\.swp$"
 
-" ctrlp
-let g:ctrlp_working_path_mode = 'r'
-let g:ctrlp_map = '<c-p>'
-nnoremap <leader>t :let g:ctrlp_working_path_mode = 'c'<CR>:CtrlP<CR>:let g:ctrlp_working_path_mode = 'r'<CR>
-nnoremap <leader>p :let g:ctrlp_working_path_mode = 'r'<CR>:CtrlP<CR>
-" Set delay to prevent extra search
-let g:ctrlp_lazy_update = 0
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_max_files = 0
-" If ag is available use it as filename list generator instead of 'find'
-let g:ackprg = 'ag --nogroup --nocolor --column'
-set grepprg=ag\ --nogroup\ --nocolor
-let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --ignore ''**/*.pyc'' --hidden -g ""'
-
-"let g:ctrlp_user_command = {
-"    \ 'types': {
-"      \ 1: ['.git', 'ag %s -i --nocolor --nogroup --ignore ''.git'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'],
-"      \ 2: ['.svn', 'ag %s -i --nocolor --nogroup --ignore ''.svn'' --ignore ''.DS_Store'' --ignore ''node_modules'' --hidden -g ""'],
-"      \ },
-"    \ 'fallback': 'find %s -type f'
-"    \ }
-
-let g:ctrlp_match_window = 'bottom,order:btt,min:1,max:50,results:100'
-
 "NERDTree
 let NERDChristmasTree=1
 let NERDTreeHijackNetrw=1
@@ -296,7 +271,6 @@ let g:rainbow_conf = {
     \}
 
 " ALE Config
-let g:ale_set_quickfix = 1
 let g:ale_python_flake8_use_global = 1
 let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
 let g:ale_python_isort_use_global = 1
@@ -304,11 +278,11 @@ let g:ale_python_isort_executable = g:python3_dir . 'isort'
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 100
 let g:ale_enabled = 1
-let g:ale_set_signs = 1
+let g:ale_set_signs = 0
 let g:ale_set_highlights = 1
 let g:ale_sign_warning = '->'
 let g:ale_linters = {
-            \ 'python': ['pyflakes', 'flake8'],
+            \ 'python': ['flake8'],
             \}
 " highlight link ALEWarning WildMenu
 highlight clear ALEWarning
@@ -316,6 +290,10 @@ highlight link ALEWarningSign WildMenu
 highlight link ALEError SpellBad
 highlight link ALEErrorSign ALEError
 " set completeopt=menu,menuone,preview,noselect,noinsert " Need this for ALE completion to work right?
+"
+
+" GitGutter
+let g:gitgutter_map_keys = 0
 
 " Jedi
 let g:jedi#completions_enabled = 0
@@ -323,6 +301,7 @@ let g:jedi#documentation_command=''
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_complete_delay = 100
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -339,6 +318,9 @@ endfunction
 
 " Python PEP-8 Indent
 let g:python_pep8_indent_hang_closing = 0
+
+" Python Syntax Highlighting
+let g:python_highlight_all = 1
 
 
 "statusline setup
@@ -439,7 +421,6 @@ augroup filetype_python
     " Also highlight all tabs and trailing whitespace characters.
     au FileType python highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
     au FileType python match ExtraWhitespace /\s\+$\|\t/
-    let python_highlight_all = 1
     "au FileType python colo molokai
     autocmd BufNewFile,bufreadpost *.py call g:SetPyVersion()
     autocmd BufEnter,bufwritepre *.py call s:SetPyflakeVersion()
@@ -583,25 +564,26 @@ function! RaiseExceptionForUnresolvedErrors()
 
         bd!
 
-        silent %yank p
-        new
-        silent 0put p
-        silent $,$d
-        silent exe bandit_cmd
-        silent exe '%s/<stdin>/' . s:file_name . '/e'
+        " Skip bandit checking for now
+        " silent %yank p
+        " new
+        " silent 0put p
+        " silent $,$d
+        " silent exe bandit_cmd
+        " silent exe '%s/<stdin>/' . s:file_name . '/e'
 
-        let s:is_res = search('^>> Issue:', 'nw')
-        if s:is_res != 0
-            let s:res_end = s:is_res + 2
-            for item in getline(s:is_res, s:res_end)
-                echohl ErrorMsg | echo item | echohl None
-            endfor
+        " let s:is_res = search('^>> Issue:', 'nw')
+        " if s:is_res != 0
+        "     let s:res_end = s:is_res + 2
+        "     for item in getline(s:is_res, s:res_end)
+        "         echohl ErrorMsg | echo item | echohl None
+        "     endfor
 
-            bd!
-            throw 'Bandit Error'
-        endif
+        "     bd!
+        "     throw 'Bandit Error'
+        " endif
 
-        bd!
+        " bd!
     endif
 endfunction
 autocmd BufWritePre * call RaiseExceptionForUnresolvedErrors()
