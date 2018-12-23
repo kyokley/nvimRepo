@@ -24,6 +24,7 @@
 " Shift-<Tab> Jump back a word
 "
 let $MYVIMRC = $HOME."/.nvim/init.vim"
+let $PYTHONUNBUFFERED = 1
 
 filetype off
 call plug#begin('~/.nvim/plugged')
@@ -57,6 +58,7 @@ Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'fisadev/vim-isort'
 Plug 'skywind3000/asyncrun.vim'
+Plug 'airblade/vim-rooter'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
@@ -305,6 +307,7 @@ let g:deoplete#auto_complete_delay = 100
 
 " AsyncRun
 let g:asyncrun_open = 10
+let g:asyncrun_bell = 1
 
 
 function! LinterStatus() abort
