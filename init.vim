@@ -277,9 +277,10 @@ let g:ale_python_isort_use_global = 1
 let g:ale_python_isort_executable = g:python3_dir . 'isort'
 let g:ale_completion_enabled = 1
 let g:ale_completion_delay = 100
-let g:ale_lint_on_enter = 0
+let g:ale_lint_on_enter = 1
 let g:ale_enabled = 1
-let g:ale_set_signs = 0
+let g:ale_set_signs = 1
+let g:ale_sign_offset = 2000
 let g:ale_set_highlights = 1
 let g:ale_sign_warning = '->'
 let g:ale_linters = {
@@ -308,6 +309,9 @@ let g:deoplete#auto_complete_delay = 100
 " AsyncRun
 let g:asyncrun_open = 10
 let g:asyncrun_bell = 1
+
+" Rooter
+let g:rooter_silent_chdir = 1
 
 
 function! LinterStatus() abort
