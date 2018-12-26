@@ -313,6 +313,8 @@ let g:asyncrun_bell = 1
 " Rooter
 let g:rooter_silent_chdir = 1
 
+" Semshi
+let g:semshi#error_sign = v:false
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -419,7 +421,6 @@ augroup filetype_python
     au FileType python set foldlevel=99
     au FileType python set omnifunc=pythoncomplete#Complete
     "au FileType python BracelessEnable +indent +highlight-cc2
-    au FileType python map <buffer> <leader>8 :call Flake8()<CR>
     " Tell Vim which characters to show for expanded TABs,
     " trailing whitespace, and end-of-lines. VERY useful!
     au FileType python set listchars=trail:_
