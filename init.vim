@@ -335,7 +335,7 @@ let g:python_pep8_indent_hang_closing = 0
 "statusline setup
 set statusline=
 set statusline =%#identifier#
-set statusline+=[%t]    "tail of the filename
+set statusline+=[%n:%t]    "tail of the filename
 set statusline+=%*
 
 "read only flag
