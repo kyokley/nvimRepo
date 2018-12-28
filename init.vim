@@ -172,6 +172,8 @@ noremap <S-Down> :tabn<CR>
 noremap <S-Left> :bprev<CR>
 noremap <S-Right> :bnext<CR>
 
+nnoremap <leader>h :nohlsearch<CR>
+
 " Handle terminal windows
 autocmd TermOpen,BufWinEnter,WinEnter term://* startinsert
 autocmd BufLeave term://* stopinsert
