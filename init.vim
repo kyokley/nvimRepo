@@ -107,6 +107,8 @@ hi statusline cterm=NONE ctermbg=4 ctermfg=white
 hi statuslinenc cterm=NONE ctermbg=black ctermfg=white
 
 hi TermCursorNC ctermbg=1 ctermfg=15
+hi Normal ctermbg=none
+hi NonText ctermbg=none
 
 nnoremap <Leader>c :set cursorline!<CR>
 
