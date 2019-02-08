@@ -32,6 +32,7 @@ Plug 'fisadev/vim-isort'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'airblade/vim-rooter'
 Plug 'sheerun/vim-polyglot'
+Plug 'ambv/black'
 
 Plug '~/.nvim/manual/togglecomment'
 Plug '~/.nvim/manual/pyfold'
@@ -40,6 +41,9 @@ Plug '~/.nvim/manual/django-custom'
 call plug#end()
 
 filetype plugin indent on
+
+"Black
+let g:black_virtualenv = '~/.pyenv/versions/neovim3'
 
 "QuickSilver Config
 let g:QSMatchFn = 'fuzzy'
