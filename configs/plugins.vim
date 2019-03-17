@@ -1,5 +1,5 @@
 filetype off
-call plug#begin('~/.nvim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -34,10 +34,10 @@ Plug 'airblade/vim-rooter'
 Plug 'sheerun/vim-polyglot'
 Plug 'ambv/black'
 
-Plug '~/.nvim/manual/togglecomment'
-Plug '~/.nvim/manual/pyfold'
-Plug '~/.nvim/manual/visincr'
-Plug '~/.nvim/manual/django-custom'
+Plug '~/.config/nvim/manual/togglecomment'
+Plug '~/.config/nvim/manual/pyfold'
+Plug '~/.config/nvim/manual/visincr'
+Plug '~/.config/nvim/manual/django-custom'
 call plug#end()
 
 filetype plugin indent on
