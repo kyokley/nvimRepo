@@ -18,16 +18,14 @@ COPY install_pyenv.sh /root/.config/nvim/
 RUN chmod a+x $HOME/.config/nvim/install_pyenv.sh && \
         $HOME/.config/nvim/install_pyenv.sh
 
-RUN export PYENV_ROOT="$HOME/.pyenv" && \
-    export PATH="$PYENV_ROOT/bin:$PATH" && \
-    eval "$(pyenv init -)" && \
-    eval "$(pyenv virtualenv-init -)"
-
-COPY . /root/.config/nvim
-RUN nvim +'PlugInstall --sync' +qa
-
-RUN cd $HOME/.config/nvim/color_blame && \
+COPY color_blame /tmp/color_blame
+RUN cd /tmp/color_blame && \
         $HOME/.pyenv/versions/$PY3/bin/pip install -r requirements.txt --force --upgrade && \
         $HOME/.pyenv/versions/$PY3/bin/python setup.py install --force
 
-CMD ["nvim"]
+COPY . /root/.config/nvim
+RUN nvim +'PlugInstall --sync' +'UpdateRemotePlugins' +qa
+
+WORKDIR /files
+
+ENTRYPOINT ["nvim"]
