@@ -22,20 +22,4 @@ if [ ! -h ~/.config/nvim ]; then
     ln -s ~/.nvim ~/.config/nvim
 fi
 
-sudo pip install neovim
-sudo pip3 install neovim
-sudo pip install bandit
-
-# Need to be sure to install python language server libs
-# Run pip install python-language-server[all]
-
-# Install isort
-# Run pip install isort
-
 nvim -c ':PlugInstall'
-
-cd color_blame
-sudo pip install -r requirements.txt --force --upgrade
-sudo python setup.py install --force
-cd ..
-sudo chown $NON_ROOT_USER:$NON_ROOT_USER -R .git
