@@ -33,6 +33,7 @@ Plug 'skywind3000/asyncrun.vim'
 Plug 'airblade/vim-rooter'
 Plug 'sheerun/vim-polyglot'
 Plug 'ambv/black'
+Plug 'moby/moby' , {'rtp': '/contrib/syntax/vim/'}
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
