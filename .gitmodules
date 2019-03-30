@@ -1,3 +1,0 @@
-[submodule "color_blame"]
-	path = color_blame
-	url = git@github.com:kyokley/color_blame.git
