@@ -18,7 +18,7 @@ COPY install_pyenv.sh /root/.config/nvim/
 RUN chmod a+x $HOME/.config/nvim/install_pyenv.sh && \
         $HOME/.config/nvim/install_pyenv.sh
 
-COPY color_blame /tmp/color_blame
+RUN git clone https://github.com/kyokley/color_blame.git /tmp/color_blame
 RUN cd /tmp/color_blame && \
         $HOME/.pyenv/versions/$PY3/bin/pip install -r requirements.txt --force --upgrade && \
         $HOME/.pyenv/versions/$PY3/bin/python setup.py install --force
