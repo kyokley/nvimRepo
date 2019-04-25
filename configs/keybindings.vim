@@ -60,6 +60,9 @@ let @i = ':silent! s/\<\(desc\|trigger\|after\|for\|each\|row\|returns\|replace\
 let @_ = ":silent! s/\\('\\)\\@<![^']\\{-}\\zs\\<\\(trigger\\|after\\|for\\|each\\|row\\|returns\\|replace\\|function\\|execute\\|procedure\\|with\\|case\\|when\\|then\\|else\\|end\\|type\\|using\\|foreign\\|references\\|cascade\\|if\\|check\\|coalesce\\|boolean\\|union\\|false\\|true\\|integer\\|text\\|serial\\|primary\\|key\\|into\\|insert\\|drop\\|limit\\|unique\\|index\\|default\\|column\\|add\\|table\\|create\\|alter\\|delete\\|interval\\|set\\|begin\\|order by\\|group by\\|commit\\|update\\|rollback\\|as\\|select\\|distinct\\|from\\|null\\|or\\|is\\|inner\\|left\\|right\\|outer\\|join\\|in\\|not\\|exists\\|on\\|where\\|and\\|constraint\\)\\>\\ze[^']\\{-}\\('\\)\\@!\\c/\\U&/g"
 noremap <leader>s :norm @i<CR><CR>
 
+nnoremap <leader>sp :.,.!sqlparse<CR>
+vnoremap <leader>sp :!sqlparse<CR>
+
 " Add some mappings
 noremap ,# :call CommentLineToEnd('# ')<CR>+
 noremap ,* :call CommentLinePincer('/* ', ' */')<CR>+
