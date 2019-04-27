@@ -51,7 +51,8 @@ cnoremap w!! w !sudo tee % > /dev/null
 "
 " A little macro to remove special aligning
 let @u = ':silent! s/\(\S\)\s\{2,\}/\1 /g:silent! s/\S\zs\s\+\ze[:\])]//g'
-noremap <leader>u :norm @u<CR>
+nnoremap <leader>u :norm @u<CR>
+xnoremap <leader>u :norm @u<CR>
 
 " A macro to capitalize SQL keywords
 let @i = ':silent! s/\<\(desc\|trigger\|after\|for\|each\|row\|returns\|replace\|function\|execute\|procedure\|with\|case\|when\|then\|else\|end\|type\|using\|foreign\|references\|cascade\|if\|check\|coalesce\|boolean\|union\|false\|true\|integer\|text\|serial\|primary\|key\|into\|insert\|drop\|limit\|unique\|index\|default\|column\|add\|table\|create\|alter\|delete\|interval\|set\|begin\|order by\|group by\|commit\|update\|rollback\|as\|select\|distinct\|from\|null\|or\|is\|inner\|right\|outer\|join\|in\|not\|exists\|on\|where\|and\|constraint\)\>\c/\U&/g'
@@ -61,25 +62,27 @@ let @_ = ":silent! s/\\('\\)\\@<![^']\\{-}\\zs\\<\\(trigger\\|after\\|for\\|each
 noremap <leader>s :norm @i<CR><CR>
 
 nnoremap <leader>sp :%!sqlparse<CR>
-vnoremap <leader>sp :!sqlparse<CR>
+xnoremap <leader>sp :!sqlparse<CR>
 
 " Add some mappings
-noremap ,# :call CommentLineToEnd('# ')<CR>+
-noremap ,* :call CommentLinePincer('/* ', ' */')<CR>+
+nnoremap ,# :call CommentLineToEnd('# ')<CR>+
+xnoremap ,# :call CommentLineToEnd('# ')<CR>+
+nnoremap ,* :call CommentLinePincer('/* ', ' */')<CR>+
+xnoremap ,* :call CommentLinePincer('/* ', ' */')<CR>+
 
 "Allow command to accept a count
 noremap <silent> <S-j> @='20j'<CR>
+xnoremap <silent> <S-j> @='20j'<CR>
 noremap <silent> <S-k> @='20k'<CR>
+xnoremap <silent> <S-k> @='20k'<CR>
 
 nnoremap <S-l> :bnext<CR>
 nnoremap <S-h> :bprev<CR>
-vnoremap <S-l> 5l
-vnoremap <S-h> 5h
+xnoremap <S-l> 5l
+xnoremap <S-h> 5h
 noremap <S-y> y$
-noremap <S-Up> :tabp<CR>
-noremap <S-Down> :tabn<CR>
-noremap <S-Left> :bprev<CR>
-noremap <S-Right> :bnext<CR>
+nnoremap <S-Left> :bprev<CR>
+nnoremap <S-Right> :bnext<CR>
 
 nnoremap <leader>h :nohlsearch<CR>
 
@@ -89,21 +92,18 @@ tnoremap <C-j> <C-\><C-n><C-w>j
 tnoremap <C-k> <C-\><C-n><C-w>k
 tnoremap <C-l> <C-\><C-n><C-w>l
 
-noremap <C-j> <C-w>j
-noremap <C-k> <C-w>k
-noremap <C-l> <C-w>l
-noremap <C-h> <C-w>h
-noremap <C-Down> <C-w>j
-noremap <C-Up> <C-w>k
-noremap <C-Right> <C-w>l
-noremap <C-Left> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+nnoremap <C-h> <C-w>h
+nnoremap <C-Down> <C-w>j
+nnoremap <C-Up> <C-w>k
+nnoremap <C-Right> <C-w>l
+nnoremap <C-Left> <C-w>h
 nnoremap <Tab> w
 vnoremap <Tab> w
 nnoremap <S-Tab> b
 vnoremap <S-Tab> b
-nnoremap <leader>a <Esc>:LAck!
-nnoremap <C>a <Esc>:LAck!
-noremap <leader>fc /\v^[<=>]{7}( .*\|$)<CR>
 
 nnoremap <leader>sb :<C-U>tabnew \| terminal svn blame <C-R>=expand("%:p") <CR> \| color_svn_blame \| less +<C-R>=line("w0") <CR><CR>
 vnoremap <leader>sb :<C-U>tabnew \| terminal svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p \| color_svn_blame \| less <CR><CR>

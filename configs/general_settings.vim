@@ -1,13 +1,13 @@
 syntax on
 
 set number
-set tabstop=4
-set expandtab
+set tabstop=8
+set softtabstop=4
 set shiftwidth=4
+set expandtab
 set autoindent
 set hidden
 set noautowrite
-set nosmartindent
 set smarttab
 set showmatch
 set scrolloff=5
