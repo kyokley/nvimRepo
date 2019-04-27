@@ -11,7 +11,7 @@ function! s:FindError(file_name, bad_str, error_msg, ...)
         endif
 
         if l:remove_temp_buffer
-            bd!
+            bdelete!
         endif
 
         throw l:message
@@ -34,7 +34,7 @@ function! RaiseExceptionForUnresolvedErrors()
         silent %yank p
         new
         silent 0put p
-        silent $,$d
+        silent $,$delete
 
         try
             if py_version == '[py3]'
@@ -44,12 +44,12 @@ function! RaiseExceptionForUnresolvedErrors()
                 let pyflakes_cmd = '%!' . g:python2_dir . 'pyflakes'
                 let bandit_cmd = '%!' . g:python2_dir . 'bandit -ll -s B101 -'
             else
-                bd!
+                bdelete!
                 throw 'Could not determine python version!'
             endif
 
-            silent exe pyflakes_cmd
-            silent exe '%s/<stdin>/' . s:file_name . '/e'
+            silent execute pyflakes_cmd
+            silent execute '%s/<stdin>/' . s:file_name . '/e'
 
             call s:FindError(s:file_name, '\(unable to detect \)\@<!undefined name', 'Syntax error!', 1)
             call s:FindError(s:file_name, 'unexpected indent', 'Syntax error!', 1)
@@ -79,14 +79,14 @@ function! RaiseExceptionForUnresolvedErrors()
             throw v:exception
         endtry
 
-        bd!
+        bdelete!
 
         silent %yank p
         new
         silent 0put p
-        silent $,$d
-        silent exe bandit_cmd
-        silent exe '%s/<stdin>/' . s:file_name . '/e'
+        silent $,$delete
+        silent execute bandit_cmd
+        silent execute '%s/<stdin>/' . s:file_name . '/e'
 
         let s:is_res = search('^>> Issue:', 'nw')
         if s:is_res != 0
@@ -95,11 +95,11 @@ function! RaiseExceptionForUnresolvedErrors()
                 echohl ErrorMsg | echo item | echohl None
             endfor
 
-            bd!
+            bdelete!
             throw 'Bandit Error'
         endif
 
-        bd!
+        bdelete!
     endif
 endfunction
 autocmd BufWritePre * call RaiseExceptionForUnresolvedErrors()
@@ -109,9 +109,9 @@ function! s:DiffWithSaved()
   diffthis
   vnew | r # | normal! 1Gdd
   diffthis
-  exe "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+  execute "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
 endfunction
-com! DiffSaved call s:DiffWithSaved()
+command! DiffSaved call s:DiffWithSaved()
 
 function! StatuslineConflictWarning()
     if !exists("b:statusline_conflict_warning")
@@ -218,8 +218,8 @@ function! DetectPyVersion()
     new
     silent 0put p
 
-    silent! exe '%!' . g:python3_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
-    bd!
+    silent! execute '%!' . g:python3_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
+    bdelete!
     if v:shell_error == 0
         return 'py3'
     endif
@@ -228,8 +228,8 @@ function! DetectPyVersion()
     new
     silent 0put p
 
-    silent! exe '%!' . g:python_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
-    bd!
+    silent! execute '%!' . g:python_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
+    bdelete!
     if v:shell_error == 0
         return 'py2'
     endif
@@ -254,9 +254,9 @@ function! g:SetPyVersion(...)
 
     return b:py_version
 endfunction
-com! SetPyVersion call SetPyVersion()
-com! SetPyVersion2 call SetPyVersion('py2')
-com! SetPyVersion3 call SetPyVersion('py3')
+command! SetPyVersion call SetPyVersion()
+command! SetPyVersion2 call SetPyVersion('py2')
+command! SetPyVersion3 call SetPyVersion('py3')
 
 function! GetPyVersion()
     if exists("b:py_version")
@@ -375,7 +375,7 @@ function! InitializeDirectories()
               endif
           endif
           let directory = substitute(directory, " ", "\\\\ ", "")
-          exec "set " . settingname . "=" . directory
+          execute "set " . settingname . "=" . directory
       endif
   endfor
 endfunction

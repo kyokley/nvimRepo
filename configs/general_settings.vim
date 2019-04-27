@@ -22,25 +22,25 @@ set background=dark
 
 highlight MatchParen ctermbg=4
 
-set cul
+set cursorline
 
-colo CandyPaper
-hi CursorLine cterm=NONE ctermbg=18 ctermfg=white guibg=darkblue guifg=white
-hi colorcolumn cterm=NONE ctermbg=black guibg=black
-hi LineNr cterm=NONE ctermbg=NONE ctermfg=yellow guibg=NONE guifg=yellow
-hi search cterm=NONE ctermbg=lightblue ctermfg=black guibg=lightblue guifg=black
-hi signcolumn cterm=NONE ctermbg=black guibg=black
-hi Pmenu cterm=NONE ctermbg=darkgreen ctermfg=white guibg=darkgreen guifg=white
-hi PmenuSel cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
-hi visual cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
-hi statusline cterm=NONE ctermbg=4 ctermfg=white
-hi statuslinenc cterm=NONE ctermbg=black ctermfg=white
+colorscheme CandyPaper
+highlight CursorLine cterm=NONE ctermbg=18 ctermfg=white guibg=darkblue guifg=white
+highlight colorcolumn cterm=NONE ctermbg=black guibg=black
+highlight LineNr cterm=NONE ctermbg=NONE ctermfg=yellow guibg=NONE guifg=yellow
+highlight search cterm=NONE ctermbg=lightblue ctermfg=black guibg=lightblue guifg=black
+highlight signcolumn cterm=NONE ctermbg=black guibg=black
+highlight Pmenu cterm=NONE ctermbg=darkgreen ctermfg=white guibg=darkgreen guifg=white
+highlight PmenuSel cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
+highlight visual cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
+highlight statusline cterm=NONE ctermbg=4 ctermfg=white
+highlight statuslinenc cterm=NONE ctermbg=black ctermfg=white
 
-hi TermCursorNC ctermbg=1 ctermfg=15
-hi Normal ctermbg=none
-hi NonText ctermbg=none
+highlight TermCursorNC ctermbg=1 ctermfg=15
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
 
-hi SpellBad cterm=NONE ctermbg=darkred ctermfg=yellow guibg=darkred guifg=yellow
+highlight SpellBad cterm=NONE ctermbg=darkred ctermfg=yellow guibg=darkred guifg=yellow
 
 set incsearch
 set hlsearch
