@@ -1,4 +1,30 @@
-function! s:FindError(file_name, bad_str, error_msg, ...)
+function! ApplyHighlight() abort
+    highlight MatchParen ctermbg=4
+
+    highlight CursorLine cterm=NONE ctermbg=18 ctermfg=white guibg=darkblue guifg=white
+    highlight colorcolumn cterm=NONE ctermbg=black guibg=black
+    highlight LineNr cterm=NONE ctermbg=NONE ctermfg=yellow guibg=NONE guifg=yellow
+    highlight search cterm=NONE ctermbg=lightblue ctermfg=black guibg=lightblue guifg=black
+    highlight signcolumn cterm=NONE ctermbg=black guibg=black
+    highlight Pmenu cterm=NONE ctermbg=darkgreen ctermfg=white guibg=darkgreen guifg=white
+    highlight PmenuSel cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
+    highlight visual cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
+    highlight statusline cterm=NONE ctermbg=4 ctermfg=white
+    highlight statuslinenc cterm=NONE ctermbg=black ctermfg=white
+
+    highlight TermCursorNC ctermbg=1 ctermfg=15
+    highlight Normal ctermbg=none
+    highlight NonText ctermbg=none
+
+    highlight SpellBad cterm=NONE ctermbg=darkred ctermfg=yellow guibg=darkred guifg=yellow
+
+    highlight DiffAdd           cterm=bold ctermbg=none ctermfg=Green
+    highlight DiffDelete        cterm=bold ctermbg=none ctermfg=Red
+    highlight DiffChange        cterm=bold ctermbg=none ctermfg=Yellow
+    highlight DiffText        cterm=bold ctermbg=Red ctermfg=Yellow
+endfunction
+
+function! s:FindError(file_name, bad_str, error_msg, ...) abort
     " Sometimes need to remove a temporary buffer
     let l:remove_temp_buffer = get(a:000, 0, 0)
 
@@ -18,7 +44,7 @@ function! s:FindError(file_name, bad_str, error_msg, ...)
     endif
 endfunction
 
-function! RaiseExceptionForUnresolvedErrors()
+function! RaiseExceptionForUnresolvedErrors() abort
     let s:file_name = expand('%:t')
 
     " Check for unresolved VCS conflicts
@@ -104,7 +130,7 @@ function! RaiseExceptionForUnresolvedErrors()
 endfunction
 autocmd BufWritePre * call RaiseExceptionForUnresolvedErrors()
 
-function! s:DiffWithSaved()
+function! s:DiffWithSaved() abort
   let filetype=&ft
   diffthis
   vnew | r # | normal! 1Gdd
@@ -113,7 +139,7 @@ function! s:DiffWithSaved()
 endfunction
 command! DiffSaved call s:DiffWithSaved()
 
-function! StatuslineConflictWarning()
+function! StatuslineConflictWarning() abort
     if !exists("b:statusline_conflict_warning")
 
         if !&modifiable
@@ -132,7 +158,7 @@ endfunction
 
 "return '[\s]' if trailing white space is detected
 "return '' otherwise
-function! StatuslineTrailingSpaceWarning()
+function! StatuslineTrailingSpaceWarning() abort
     if !exists("b:statusline_trailing_space_warning")
 
         if !&modifiable
@@ -150,7 +176,7 @@ function! StatuslineTrailingSpaceWarning()
 endfunction
 
 "return the syntax highlight group under the cursor ''
-function! StatuslineCurrentHighlight()
+function! StatuslineCurrentHighlight() abort
     let name = synIDattr(synID(line('.'),col('.'),1),'name')
     if name == ''
         return ''
@@ -162,7 +188,7 @@ endfunction
 "return '[&et]' if &et is set wrong
 "return '[mixed-indenting]' if spaces and tabs are used to indent
 "return an empty string if everything is fine
-function! StatuslineTabWarning()
+function! StatuslineTabWarning() abort
     if !exists("b:statusline_tab_warning")
         let b:statusline_tab_warning = ''
 
@@ -191,7 +217,7 @@ endfunction
 "return '[#x,my,$z] if long lines are found, were x is the number of long
 "lines, y is the median length of the long lines and z is the length of the
 "longest line
-function! StatuslineLongLineWarning()
+function! StatuslineLongLineWarning() abort
     if !exists("b:statusline_long_line_warning")
 
         if !&modifiable
@@ -213,7 +239,7 @@ function! StatuslineLongLineWarning()
     return b:statusline_long_line_warning
 endfunction
 
-function! DetectPyVersion()
+function! DetectPyVersion() abort
     silent %yank p
     new
     silent 0put p
@@ -237,7 +263,7 @@ function! DetectPyVersion()
     return 'Err'
 endfunction
 
-function! g:SetPyVersion(...)
+function! g:SetPyVersion(...) abort
     let b:py_version = ''
 
     if &filetype == 'python'
@@ -258,7 +284,7 @@ command! SetPyVersion call SetPyVersion()
 command! SetPyVersion2 call SetPyVersion('py2')
 command! SetPyVersion3 call SetPyVersion('py3')
 
-function! GetPyVersion()
+function! GetPyVersion() abort
     if exists("b:py_version")
         return b:py_version
     else
@@ -266,7 +292,7 @@ function! GetPyVersion()
     endif
 endfunction
 
-function! functions#SetPyflakeVersion()
+function! functions#SetPyflakeVersion() abort
     if &filetype == 'python'
         if exists("b:py_version") && b:py_version == '[py2]'
             let g:ale_python_flake8_executable = g:python2_dir . 'flake8'
@@ -279,7 +305,7 @@ function! functions#SetPyflakeVersion()
 endfunction
 
 "return a list containing the lengths of the long lines in this buffer
-function! s:LongLines()
+function! s:LongLines() abort
     let threshold = (&tw ? &tw : 80)
     let spaces = repeat(" ", &ts)
     let line_lens = map(getline(1,'$'), 'len(substitute(v:val, "\\t", spaces, "g"))')
@@ -287,7 +313,7 @@ function! s:LongLines()
 endfunction
 
 "find the median of the given array of numbers
-function! s:Median(nums)
+function! s:Median(nums) abort
     let nums = sort(a:nums)
     let l = len(nums)
 
@@ -349,7 +375,7 @@ if version >= 703
     endif
 endif
 
-function! InitializeDirectories()
+function! InitializeDirectories() abort
   let parent = $HOME
   let prefix = '.vim'
   let dir_list = {

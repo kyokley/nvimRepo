@@ -1,4 +1,9 @@
 " Handle terminal windows
+augroup ApplyHighlight
+    autocmd!
+    autocmd ColorScheme * call ApplyHighlight()
+augroup END
+
 augroup TerminalSetup
     autocmd!
     autocmd TermOpen,BufWinEnter,WinEnter term://* startinsert
