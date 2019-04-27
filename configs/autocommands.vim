@@ -1,8 +1,11 @@
 " Handle terminal windows
-autocmd TermOpen,BufWinEnter,WinEnter term://* startinsert
-autocmd BufLeave term://* stopinsert
+augroup TerminalSetup
+    autocmd!
+    autocmd TermOpen,BufWinEnter,WinEnter term://* startinsert
+    autocmd BufLeave term://* stopinsert
+augroup END
 
-augroup EditVim
+augroup GeneralSetup
     autocmd!
     autocmd InsertEnter * if &buftype != 'nofile' | highlight LineNr ctermbg=darkred   guibg=darkred | endif
     autocmd InsertEnter * if &buftype != 'nofile' | highlight CursorLine ctermbg=darkred guibg=darkred | else | highlight CursorLine ctermbg=NONE guibg=NONE | endif
@@ -15,10 +18,14 @@ augroup EditVim
 
     autocmd VimEnter * set title
     autocmd BufEnter * let &titlestring = "nvim " . expand("%:p")
+
     "recalculate the trailing whitespace warning when idle, and after saving
     autocmd cursorhold,bufwritepost * unlet! b:statusline_trailing_space_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
+
+    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    autocmd WinLeave * setlocal nocursorline
 augroup END
 
 augroup filetype_python
@@ -35,9 +42,9 @@ augroup filetype_python
     " Also highlight all tabs and trailing whitespace characters.
     autocmd FileType python highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
     autocmd FileType python match ExtraWhitespace /\s\+$\|\t/
-    "autocmd FileType python colo molokai
-    autocmd BufNewFile,bufreadpost *.py call g:SetPyVersion('py3')
-    autocmd BufEnter,bufwritepre *.py call functions#SetPyflakeVersion()
+
+    autocmd BufNewFile,bufreadpost python call g:SetPyVersion('py3')
+    autocmd BufEnter,bufwritepre python call functions#SetPyflakeVersion()
 augroup END
 
 augroup filetype_htmldjango
@@ -87,10 +94,4 @@ augroup END
 augroup filetype_make
     autocmd!
     autocmd FileType make setlocal noexpandtab
-augroup END
-
-augroup CursorLineOnlyInActiveWindow
-  autocmd!
-  autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  autocmd WinLeave * setlocal nocursorline
 augroup END
