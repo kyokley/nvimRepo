@@ -48,8 +48,8 @@ augroup filetype_python
     autocmd FileType python highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
     autocmd FileType python match ExtraWhitespace /\s\+$\|\t/
 
-    autocmd BufNewFile,bufreadpost python call g:SetPyVersion('py3')
-    autocmd BufEnter,bufwritepre python call functions#SetPyflakeVersion()
+    autocmd BufNewFile,bufreadpost *.py call g:SetPyVersion('py3')
+    autocmd BufEnter,bufwritepre *.py call functions#SetPyflakeVersion()
 augroup END
 
 augroup filetype_htmldjango
