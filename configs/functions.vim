@@ -22,6 +22,8 @@ function! ApplyHighlight() abort
     highlight DiffDelete        cterm=bold ctermbg=none ctermfg=Red
     highlight DiffChange        cterm=bold ctermbg=none ctermfg=Yellow
     highlight DiffText        cterm=bold ctermbg=Red ctermfg=Yellow
+
+    match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 endfunction
 
 function! s:FindError(file_name, bad_str, error_msg, ...) abort
