@@ -19,6 +19,7 @@ set textwidth=0
 set mouse=""
 set autoread
 set background=dark
+set relativenumber
 
 
 set cursorline
