@@ -34,6 +34,7 @@ Plug 'airblade/vim-rooter'
 Plug 'sheerun/vim-polyglot'
 Plug 'ambv/black'
 Plug 'moby/moby' , {'rtp': '/contrib/syntax/vim/'}
+Plug 'rhysd/git-messenger.vim'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
@@ -148,3 +149,6 @@ let g:semshi#error_sign = v:false
 
 " Python PEP-8 Indent
 let g:python_pep8_indent_hang_closing = 0
+
+" GitMessenger (https://github.com/rhysd/git-messenger.vim)
+let g:git_messenger_always_into_popup = v:true
