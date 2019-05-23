@@ -31,6 +31,7 @@ augroup GeneralSetup
 
     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
     autocmd WinLeave * setlocal nocursorline
+    autocmd FocusGained * checktime
 augroup END
 
 augroup filetype_python
