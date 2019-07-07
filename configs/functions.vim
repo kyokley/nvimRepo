@@ -340,7 +340,6 @@ def SetBreakpoint():
        "%(space)simport pdb; pdb.set_trace()  # %(mark)s Breakpoint %(mark)s" %
          {'space':strWhite, 'mark': '#' * 30}, nLine - 1)
 
-vim.command( 'noremap <F12> :py SetBreakpoint()<cr>')
 
 def RemoveBreakpoints():
     nCurrentLine = int(vim.eval('line(".")'))
@@ -362,7 +361,6 @@ def RemoveBreakpoints():
 
     vim.command("normal %dG" % nCurrentLine)
 
-vim.command("noremap <F24> :py RemoveBreakpoints()<cr>")
 EOF
 "vim:syntax=vim
 
@@ -413,7 +411,7 @@ call InitializeDirectories()
 " Thanks to Dylan McClure for the following indent text objects. They are
 " awesome!
 " https://vimways.org/2018/transactions-pending/
-function! s:inIndentation()
+function! InIndentation()
     " select all text in current indentation level excluding any empty lines
     " that precede or follow the current indentationt level;
     "
@@ -468,80 +466,72 @@ function! s:inIndentation()
     let &magic = l:magic
 endfunction
 
-" "in indentation" (indentation level sans any surrounding empty lines)
-xnoremap <silent> ii :<c-u>call <sid>inIndentation()<cr>
-onoremap <silent> ii :<c-u>call <sid>inIndentation()<cr>
+function! AroundIndentation()
+    " select all text in the current indentation level including any emtpy
+    " lines that precede or follow the current indentation level;
+    "
+    " the current implementation is pretty fast, even for many lines since it
+    " uses "search()" with "\%v" to find the unindented levels
+    "
+    " NOTE: if the current level of indentation is 1 (ie in virtual column 1),
+    "       then the entire buffer will be selected
+    "
+    " WARNING: python devs have been known to become addicted to this
 
-function! s:aroundIndentation()
-	" select all text in the current indentation level including any emtpy
-	" lines that precede or follow the current indentation level;
-	"
-	" the current implementation is pretty fast, even for many lines since it
-	" uses "search()" with "\%v" to find the unindented levels
-	"
-	" NOTE: if the current level of indentation is 1 (ie in virtual column 1),
-	"       then the entire buffer will be selected
-	"
-	" WARNING: python devs have been known to become addicted to this
+    " magic is needed for this (/\v doesn't seem work)
+    let l:magic = &magic
+    set magic
 
-	" magic is needed for this (/\v doesn't seem work)
-	let l:magic = &magic
-	set magic
+    " move to beginning of line and get virtcol (current indentation level)
+    " BRAM: there is no searchpairvirtpos() ;)
+    normal! ^
+    let l:vCol = virtcol(getline('.') =~# '^\s*$' ? '$' : '.')
 
-	" move to beginning of line and get virtcol (current indentation level)
-	" BRAM: there is no searchpairvirtpos() ;)
-	normal! ^
-	let l:vCol = virtcol(getline('.') =~# '^\s*$' ? '$' : '.')
+    " pattern matching anything except empty lines and lines with recorded
+    " indentation level
+    let l:pat = '^\(\s*\%'.l:vCol.'v\|^$\)\@!'
 
-	" pattern matching anything except empty lines and lines with recorded
-	" indentation level
-	let l:pat = '^\(\s*\%'.l:vCol.'v\|^$\)\@!'
+    " find first match (backwards & don't wrap or move cursor)
+    let l:start = search(l:pat, 'bWn') + 1
 
-	" find first match (backwards & don't wrap or move cursor)
-	let l:start = search(l:pat, 'bWn') + 1
+    " NOTE: if l:start is 0, then search() failed; otherwise search() succeeded
+    "       and l:start does not equal line('.')
+    " FORMER: l:start is 0; so, if we add 1 to l:start, then it will match
+    "         everything from beginning of the buffer (if you don't like
+    "         this, then you can modify the code) since this will be the
+    "         equivalent of "norm! 1G" below
+    " LATTER: l:start is not 0 but is also not equal to line('.'); therefore,
+    "         we want to add one to l:start since it will always match one
+    "         line too high if search() succeeds
 
-	" NOTE: if l:start is 0, then search() failed; otherwise search() succeeded
-	"       and l:start does not equal line('.')
-	" FORMER: l:start is 0; so, if we add 1 to l:start, then it will match
-	"         everything from beginning of the buffer (if you don't like
-	"         this, then you can modify the code) since this will be the
-	"         equivalent of "norm! 1G" below
-	" LATTER: l:start is not 0 but is also not equal to line('.'); therefore,
-	"         we want to add one to l:start since it will always match one
-	"         line too high if search() succeeds
+    " next, find first match (forwards & don't wrap or move cursor)
+    let l:end = search(l:pat, 'Wn')
 
-	" next, find first match (forwards & don't wrap or move cursor)
-	let l:end = search(l:pat, 'Wn')
+    " NOTE: if l:end is 0, then search() failed; otherwise, if l:end is not
+    "       equal to line('.'), then the search succeeded.
+    " FORMER: l:end is 0; we want this to match until the end-of-buffer if it
+    "         fails to find a match for same reason as mentioned above;
+    "         again, modify code if you do not like this); therefore, keep
+    "         0--see "NOTE:" below inside the if block comment
+    " LATTER: l:end is not 0, so the search() must have succeeded, which means
+    "         that l:end will match a different line than line('.')
 
-	" NOTE: if l:end is 0, then search() failed; otherwise, if l:end is not
-	"       equal to line('.'), then the search succeeded.
-	" FORMER: l:end is 0; we want this to match until the end-of-buffer if it
-	"         fails to find a match for same reason as mentioned above;
-	"         again, modify code if you do not like this); therefore, keep
-	"         0--see "NOTE:" below inside the if block comment
-	" LATTER: l:end is not 0, so the search() must have succeeded, which means
-	"         that l:end will match a different line than line('.')
+    if (l:end !=# 0)
+        " if l:end is 0, then the search() failed; if we subtract 1, then it
+        " will effectively do "norm! -1G" which is definitely not what is
+        " desired for probably every circumstance; therefore, only subtract one
+        " if the search() succeeded since this means that it will match at least
+        " one line too far down
+        " NOTE: exec "norm! 0G" still goes to end-of-buffer just like "norm! G",
+        "       so it's ok if l:end is kept as 0. As mentioned above, this means
+        "       that it will match until end of buffer, but that is what I want
+        "       anyway (change code if you don't want)
+        let l:end -= 1
+    endif
 
-	if (l:end !=# 0)
-		" if l:end is 0, then the search() failed; if we subtract 1, then it
-		" will effectively do "norm! -1G" which is definitely not what is
-		" desired for probably every circumstance; therefore, only subtract one
-		" if the search() succeeded since this means that it will match at least
-		" one line too far down
-		" NOTE: exec "norm! 0G" still goes to end-of-buffer just like "norm! G",
-		"       so it's ok if l:end is kept as 0. As mentioned above, this means
-		"       that it will match until end of buffer, but that is what I want
-		"       anyway (change code if you don't want)
-		let l:end -= 1
-	endif
+    " finally, select from l:start to l:end
+    execute 'normal! '.l:start.'G0V'.l:end.'G$o'
 
-	" finally, select from l:start to l:end
-	execute 'normal! '.l:start.'G0V'.l:end.'G$o'
-
-	" restore magic
-	let &magic = l:magic
+    " restore magic
+    let &magic = l:magic
 endfunction
-
-" "around indentation" (indentation level and any surrounding empty lines)
-xnoremap <silent> ai :<c-u>call <sid>aroundIndentation()<cr>
-onoremap <silent> ai :<c-u>call <sid>aroundIndentation()<cr>
