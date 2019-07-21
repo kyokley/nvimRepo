@@ -33,3 +33,7 @@ set timeout
 set timeoutlen=400
 set ttimeoutlen=100
 
+set undofile
+set undolevels=1000
+set undoreload=1000
+set nobackup

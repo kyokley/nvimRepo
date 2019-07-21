@@ -364,16 +364,6 @@ def RemoveBreakpoints():
 EOF
 "vim:syntax=vim
 
-set nobackup
-
-if version >= 703
-    set undofile
-    set undolevels=1000
-    set undoreload=1000
-    if !has('nvim')
-        set cm=blowfish
-    endif
-endif
 
 function! InitializeDirectories() abort
   let parent = $HOME
@@ -395,11 +385,6 @@ function! InitializeDirectories() abort
           echo "Warning: Unable to create backup directory: " . directory
           echo "Try: mkdir -p " . directory
       else
-          if version < 703
-              if settingname == 'undodir'
-                  continue
-              endif
-          endif
           let directory = substitute(directory, " ", "\\\\ ", "")
           execute "set " . settingname . "=" . directory
       endif
