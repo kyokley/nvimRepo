@@ -6,6 +6,7 @@ augroup END
 
 augroup TerminalSetup
     autocmd!
+    autocmd TermOpen * setlocal nonumber norelativenumber bufhidden=hide
     autocmd TermOpen,BufWinEnter,WinEnter term://* startinsert
     autocmd BufLeave term://* stopinsert
 augroup END
