@@ -37,3 +37,5 @@ set undofile
 set undolevels=1000
 set undoreload=1000
 set nobackup
+
+set diffopt+=internal,algorithm:patience
