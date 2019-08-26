@@ -16,7 +16,6 @@ Plug 'bling/vim-bufferline'
 " Plug 'jelera/vim-javascript-syntax'
 Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'ervandew/supertab'
-Plug 'chrisbra/csv.vim'
 Plug 'tomlion/vim-solidity'
 Plug 'luochen1990/rainbow'
 Plug 'kyokley/vim-colorschemes'
