@@ -44,6 +44,9 @@ call plug#end()
 
 filetype plugin indent on
 
+" Polyglot
+let g:polyglot_disabled = ['csv']
+
 "Black
 let g:black_virtualenv = '~/.pyenv/versions/neovim3'
 
