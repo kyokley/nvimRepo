@@ -1,30 +1,24 @@
-FROM debian:stable-slim
+FROM python:3.7-slim-buster
 
 SHELL ["/bin/bash", "-c"]
 
-ENV PY27 '2.7.15'
-ENV PY3 '3.6.7'
-
-RUN echo 'export PYENV_ROOT="$HOME/.pyenv"' >> $HOME/.bashrc && \
-    echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> $HOME/.bashrc && \
-    echo 'eval "$(pyenv init -)"' >> $HOME/.bashrc && \
-    echo 'eval "$(pyenv virtualenv-init -)"' >> $HOME/.bashrc
-
 RUN apt-get update && \
-        apt-get install -y neovim \
-                           git
-
-COPY install_pyenv.sh /root/.config/nvim/
-RUN chmod a+x $HOME/.config/nvim/install_pyenv.sh && \
-        $HOME/.config/nvim/install_pyenv.sh
+        apt-get install -y neovim python3-neovim \
+        git
 
 RUN git clone https://github.com/kyokley/color_blame.git /tmp/color_blame
 RUN cd /tmp/color_blame && \
-        $HOME/.pyenv/versions/$PY3/bin/pip install -r requirements.txt --force --upgrade && \
-        $HOME/.pyenv/versions/$PY3/bin/python setup.py install --force
+        pip install -r requirements.txt --force --upgrade && \
+        pip install python-language-server[all] neovim pip pyflakes flake8 bandit black isort --upgrade && \
+        python setup.py install --force
 
 COPY . /root/.config/nvim
+RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/usr/local/bin/'#" $HOME/.config/nvim/configs/plugins.vim && \
+        sed -i "s#let g:black_virtualenv.*##" $HOME/.config/nvim/configs/plugins.vim
 RUN nvim +'PlugInstall --sync' +'UpdateRemotePlugins' +qa
+
+RUN rm -rf /var/lib/apt/lists/*
+RUN find / -type d -name '*.git' -exec rm -rf {} \+
 
 WORKDIR /files
 
