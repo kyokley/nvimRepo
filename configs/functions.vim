@@ -327,7 +327,7 @@ function! s:Median(nums) abort
     endif
 endfunction
 
-python << EOF
+python3 << EOF
 import vim
 def SetBreakpoint():
     import re
