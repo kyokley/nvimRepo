@@ -18,7 +18,9 @@ RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/usr/local/bin/'#" $HOME/
 RUN nvim +'PlugInstall --sync' +'UpdateRemotePlugins' +qa
 
 RUN rm -rf /var/lib/apt/lists/*
-RUN find / -type d -name '*.git' -exec rm -rf {} \+
+RUN find / -type d -name '*.git' -exec rm -rf {} \+ ; \
+        find / -name '__pycache__' -exec rm -rf {} \+ ; \
+        exit 0
 
 WORKDIR /files
 
