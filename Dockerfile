@@ -9,7 +9,7 @@ RUN apt-get update && \
 RUN git clone https://github.com/kyokley/color_blame.git /tmp/color_blame
 RUN cd /tmp/color_blame && \
         pip install -r requirements.txt --force --upgrade && \
-        pip install python-language-server[all] neovim pip pyflakes flake8 bandit black isort --upgrade && \
+        pip install python-language-server[all] pynvim neovim pip pyflakes flake8 bandit black isort --upgrade && \
         python setup.py install --force
 
 COPY . /root/.config/nvim

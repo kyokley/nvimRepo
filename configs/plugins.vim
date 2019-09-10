@@ -7,7 +7,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-abolish'
 Plug 'tommcdo/vim-exchange'
 Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
-Plug 'Bogdanp/quicksilver.vim'
+Plug 'kyokley/quicksilver.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'mileszs/ack.vim'
 Plug 'majutsushi/tagbar'
@@ -63,6 +63,7 @@ let NERDTreeIgnore=['\.pyc$', '\.swp$']
 let g:tagbar_autofocus = 1
 
 " Python configs
+let g:loaded_python_provider = 0
 let g:python3_dir = $HOME . '/.pyenv/versions/neovim3/bin/'
 
 let g:python3_host_prog = g:python3_dir . 'python'

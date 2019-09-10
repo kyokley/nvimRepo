@@ -118,10 +118,10 @@ nnoremap <leader>gl :<C-U>tabnew \| terminal git blame <C-R>=expand("%:p") <CR> 
 nnoremap ,v :source $MYVIMRC<CR>
 nnoremap ,e :e $MYVIMRC<CR>
 
-noremap <F12> :py SetBreakpoint()<cr>
-noremap <S-F12> :py RemoveBreakpoints()<cr>
+noremap <F12> :py3 SetBreakpoint()<cr>
+noremap <S-F12> :py3 RemoveBreakpoints()<cr>
 " Terminator wasn't responding to S-F12 but F24 seems to work
-noremap <F24> :py RemoveBreakpoints()<cr>
+noremap <F24> :py3 RemoveBreakpoints()<cr>
 
 " "in indentation" (indentation level sans any surrounding empty lines)
 xnoremap <silent> ii :<c-u>call InIndentation()<cr>
