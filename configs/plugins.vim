@@ -35,6 +35,7 @@ Plug 'ambv/black'
 Plug 'moby/moby' , {'rtp': '/contrib/syntax/vim/'}
 Plug 'rhysd/git-messenger.vim'
 Plug 'mhinz/vim-startify'
+Plug 'ctrlpvim/ctrlp.vim'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
