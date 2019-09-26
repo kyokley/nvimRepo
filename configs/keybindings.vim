@@ -47,6 +47,11 @@ inoremap kk <Esc>
 inoremap JJ <Esc>
 inoremap KK <Esc>
 
+nnoremap M :join<CR>
+xnoremap M :join<CR>
+nnoremap gM :join!<CR>
+xnoremap gM :join!<CR>
+
 cnoremap w!! w !sudo tee % > /dev/null
 "
 " A little macro to remove special aligning
