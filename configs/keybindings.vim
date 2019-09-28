@@ -25,14 +25,14 @@
 "
 nnoremap <Leader>c :set cursorline!<CR>
 
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
 
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <F3> :NERDTreeToggle<CR>
@@ -40,8 +40,6 @@ nnoremap <F4> :TagbarToggle<CR>
 nnoremap <F5> :MundoToggle<CR>
 nnoremap <F6> :set nolist!<CR>
 
-inoremap <Down> <C-o>gj
-inoremap <Up> <C-o>gk
 inoremap jj <Esc>
 inoremap kk <Esc>
 inoremap JJ <Esc>
