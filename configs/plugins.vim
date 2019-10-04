@@ -134,6 +134,7 @@ let g:jedi#documentation_command=''
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_delay = 100
+let g:deoplete#ignore_sources = {'_': ['denite']}
 
 " AsyncRun
 let g:asyncrun_open = 10
