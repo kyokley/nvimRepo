@@ -73,11 +73,6 @@ let g:python3_host_prog = g:python3_dir . 'python'
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
 
-"NVim configs
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 0
-set inccommand=split
-set guicursor=
-
 " Rainbow Config
 let g:rainbow_active = 1
 let g:rainbow_conf = {
@@ -153,5 +148,97 @@ let g:semshi#error_sign = v:false
 " Python PEP-8 Indent
 let g:python_pep8_indent_hang_closing = 0
 
-" GitMessenger (https://github.com/rhysd/git-messenger.vim)
-let g:git_messenger_always_into_popup = v:true
+" Define mappings
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+    nnoremap <silent><buffer><expr> <CR>
+                \ denite#do_map('do_action')
+    nnoremap <silent><buffer><expr> d
+                \ denite#do_map('do_action', 'delete')
+    nnoremap <silent><buffer><expr> p
+                \ denite#do_map('do_action', 'preview')
+    nnoremap <silent><buffer><expr> q
+                \ denite#do_map('quit')
+    nnoremap <silent><buffer><expr> i
+                \ denite#do_map('open_filter_buffer')
+    nnoremap <silent><buffer><expr> <Space>
+                \ denite#do_map('toggle_select').'j'
+endfunction
+
+autocmd FileType denite-filter call s:denite_filter_my_settings()
+function! s:denite_filter_my_settings() abort
+    imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
+endfunction
+
+" Change file/rec command.
+" call denite#custom#var('file/rec', 'command',
+"             \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+
+" Change matchers.
+call denite#custom#source(
+            \ 'file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
+call denite#custom#source(
+            \ 'file/rec', 'matchers', ['matcher/cpsm'])
+
+" Change sorters.
+call denite#custom#source(
+            \ 'file/rec', 'sorters', ['sorter/sublime'])
+
+" Change default action.
+call denite#custom#kind('file', 'default_action', 'switch')
+
+" Add custom menus
+let s:menus = {}
+
+let s:menus.zsh = {
+            \ 'description': 'Edit your import zsh configuration'
+            \ }
+let s:menus.zsh.file_candidates = [
+            \ ['zshrc', '~/.config/zsh/.zshrc'],
+            \ ['zshenv', '~/.zshenv'],
+            \ ]
+
+let s:menus.my_commands = {
+            \ 'description': 'Example commands'
+            \ }
+let s:menus.my_commands.command_candidates = [
+            \ ['Split the window', 'vnew'],
+            \ ['Open zsh menu', 'Denite menu:zsh'],
+            \ ['Format code', 'FormatCode', 'go,python'],
+            \ ]
+
+call denite#custom#var('menu', 'menus', s:menus)
+
+" Ag command on grep source
+call denite#custom#var('grep', 'command', ['ag'])
+call denite#custom#var('grep', 'default_opts',
+            \ ['-i', '--vimgrep'])
+call denite#custom#var('grep', 'recursive_opts', [])
+call denite#custom#var('grep', 'pattern_opt', [])
+call denite#custom#var('grep', 'separator', ['--'])
+call denite#custom#var('grep', 'final_opts', [])
+
+" Define alias
+call denite#custom#alias('source', 'file/rec/git', 'file/rec')
+call denite#custom#var('file/rec/git', 'command',
+            \ ['git', 'ls-files', '-co', '--exclude-standard'])
+
+call denite#custom#alias('source', 'file/rec/py', 'file/rec')
+call denite#custom#var('file/rec/py', 'command',
+            \ ['scantree.py', '--path', ':directory'])
+
+" Change ignore_globs
+call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+            \ [ '.git/', '.ropeproject/', '__pycache__/',
+            \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+
+nnoremap <silent> <C-p> :<C-u>Denite
+        \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'` -split=floating -highlight-window-background=TermCursor -auto-resize -filter-split-direction=floating -start-filter<CR>
+" nnoremap <leader>s :<C-u>Denite buffer<CR>
+" nnoremap <leader>8 :<C-u>DeniteCursorWord grep:.<CR>
+nnoremap <leader>/ :<C-u>Denite grep:.<CR>
+nnoremap <leader><Space>/ :<C-u>DeniteBufferDir grep:.<CR>
+nnoremap <leader>d :<C-u>DeniteBufferDir file/rec -start-filter<CR>
+nnoremap <leader>r :<C-u>Denite -resume -cursor-pos=+1<CR>
+nnoremap <leader><C-r> :<C-u>Denite register:.<CR>
+nnoremap <leader>g :<C-u>Denite gitstatus<CR>

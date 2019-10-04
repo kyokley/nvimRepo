@@ -39,3 +39,6 @@ set undoreload=1000
 set nobackup
 
 set diffopt+=internal,algorithm:patience
+
+set inccommand=split
+set guicursor=
