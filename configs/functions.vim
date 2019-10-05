@@ -520,3 +520,12 @@ function! AroundIndentation()
     " restore magic
     let &magic = l:magic
 endfunction
+
+function GetGitDir() abort
+    if finddir('.git', ';') == ''
+        let l:directory = '.'
+    else
+        let l:directory = system("git rev-parse --show-toplevel \| tr -d '\\n'")
+    endif
+    return l:directory
+endfunction

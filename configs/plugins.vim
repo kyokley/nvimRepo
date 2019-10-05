@@ -234,11 +234,19 @@ call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
             \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
 nnoremap <silent> <C-p> :<C-u>Denite
-        \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'` -split=floating -highlight-window-background=TermCursor -auto-resize -filter-split-direction=floating -start-filter<CR>
-" nnoremap <leader>s :<C-u>Denite buffer<CR>
-" nnoremap <leader>8 :<C-u>DeniteCursorWord grep:.<CR>
-nnoremap <leader>/ :<C-u>Denite grep:.<CR>
-nnoremap <leader><Space>/ :<C-u>DeniteBufferDir grep:.<CR>
+        \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`
+        \ -split=floating
+        \ -highlight-window-background=TermCursor
+        \ -auto-resize
+        \ -filter-split-direction=floating
+        \ -start-filter<CR>
+nnoremap <leader>a :<C-u>Denite
+        \ grep:`GetGitDir()`
+        \ -split=floating
+        \ -highlight-window-background=TermCursor
+        \ -auto-resize
+        \ -filter-split-direction=floating
+        \ <CR>
 nnoremap <leader>d :<C-u>DeniteBufferDir file/rec -start-filter<CR>
 nnoremap <leader>r :<C-u>Denite -resume -cursor-pos=+1<CR>
 nnoremap <leader><C-r> :<C-u>Denite register:.<CR>
