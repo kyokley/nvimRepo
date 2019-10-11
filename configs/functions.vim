@@ -57,24 +57,14 @@ function! RaiseExceptionForUnresolvedErrors() abort
 
     if &filetype == 'python'
 
-        let py_version = GetPyVersion()
-
         silent %yank p
         new
         silent 0put p
         silent $,$delete
 
         try
-            if py_version == '[py3]'
-                let pyflakes_cmd = '%!' . g:python3_dir . 'pyflakes'
-                let bandit_cmd = '%!' . g:python3_dir . 'bandit -ll -s B322,B101 -'
-            elseif py_version == '[py2]'
-                let pyflakes_cmd = '%!' . g:python2_dir . 'pyflakes'
-                let bandit_cmd = '%!' . g:python2_dir . 'bandit -ll -s B101 -'
-            else
-                bdelete!
-                throw 'Could not determine python version!'
-            endif
+            let pyflakes_cmd = '%!' . g:python3_dir . 'pyflakes'
+            let bandit_cmd = '%!' . g:python3_dir . 'bandit -ll -s B322,B101 -'
 
             silent execute pyflakes_cmd
             silent execute '%s/<stdin>/' . s:file_name . '/e'
@@ -239,71 +229,6 @@ function! StatuslineLongLineWarning() abort
         endif
     endif
     return b:statusline_long_line_warning
-endfunction
-
-function! DetectPyVersion() abort
-    silent %yank p
-    new
-    silent 0put p
-
-    silent! execute '%!' . g:python3_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
-    bdelete!
-    if v:shell_error == 0
-        return 'py3'
-    endif
-
-    silent %yank p
-    new
-    silent 0put p
-
-    silent! execute '%!' . g:python_host_prog . ' -c "import ast; import sys; ast.parse(sys.stdin.read())"'
-    bdelete!
-    if v:shell_error == 0
-        return 'py2'
-    endif
-
-    return 'Err'
-endfunction
-
-function! g:SetPyVersion(...) abort
-    let b:py_version = ''
-
-    if &filetype == 'python'
-        let in_version = get(a:000, 0, '')
-
-        if in_version != 'py2' && in_version != 'py3'
-            let in_version = DetectPyVersion()
-        endif
-
-        let b:py_version = '[' . in_version . ']'
-
-        call functions#SetPyflakeVersion()
-    endif
-
-    return b:py_version
-endfunction
-command! SetPyVersion call SetPyVersion()
-command! SetPyVersion2 call SetPyVersion('py2')
-command! SetPyVersion3 call SetPyVersion('py3')
-
-function! GetPyVersion() abort
-    if exists("b:py_version")
-        return b:py_version
-    else
-        return ''
-    endif
-endfunction
-
-function! functions#SetPyflakeVersion() abort
-    if &filetype == 'python'
-        if exists("b:py_version") && b:py_version == '[py2]'
-            let g:ale_python_flake8_executable = g:python2_dir . 'flake8'
-            let g:ale_python_isort_executable = g:python2_dir . 'isort'
-        else
-            let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
-            let g:ale_python_isort_executable = g:python3_dir . 'isort'
-        endif
-    endif
 endfunction
 
 "return a list containing the lengths of the long lines in this buffer

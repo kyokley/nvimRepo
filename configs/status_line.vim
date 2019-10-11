@@ -40,10 +40,6 @@ set statusline+=%*
 
 set statusline+=%h      "help file flag
 set statusline+=%y      "filetype
-set statusline+=%{GetPyVersion()!='[Err]'?GetPyVersion():''}
-set statusline+=%#warningmsg#
-set statusline+=%{GetPyVersion()=='[Err]'?'[py2/3\ Err]':''}
-set statusline+=%*
 
 set statusline+=%{fugitive#statusline()}
 

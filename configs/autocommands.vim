@@ -49,9 +49,6 @@ augroup filetype_python
     " Also highlight all tabs and trailing whitespace characters.
     autocmd FileType python highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
     autocmd FileType python match ExtraWhitespace /\s\+$\|\t/
-
-    autocmd BufNewFile,bufreadpost *.py call g:SetPyVersion('py3')
-    autocmd BufEnter,bufwritepre *.py call functions#SetPyflakeVersion()
 augroup END
 
 augroup filetype_htmldjango
