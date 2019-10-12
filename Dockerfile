@@ -14,7 +14,6 @@ COPY . /root/.config/nvim
 RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/usr/local/bin/'#" $HOME/.config/nvim/configs/plugins.vim && \
         sed -i "s#let g:black_virtualenv.*##" $HOME/.config/nvim/configs/plugins.vim && \
         nvim +'PlugInstall --sync' +'UpdateRemotePlugins' +qa && \
-        apt-get purge -y git && \
         apt-get autoremove -y && \
         apt-get clean && \
         rm -rf /var/lib/apt/lists/* && \
