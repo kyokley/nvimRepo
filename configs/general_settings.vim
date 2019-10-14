@@ -42,3 +42,5 @@ set diffopt+=internal,algorithm:patience
 
 set inccommand=split
 set guicursor=
+
+set termguicolors

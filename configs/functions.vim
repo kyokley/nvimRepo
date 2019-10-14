@@ -13,8 +13,8 @@ function! ApplyHighlight() abort
     highlight statuslinenc cterm=NONE ctermbg=black ctermfg=white
 
     highlight TermCursorNC ctermbg=1 ctermfg=15
-    highlight Normal ctermbg=none
-    highlight NonText ctermbg=none
+    highlight Normal ctermbg=none guibg=NONE
+    highlight NonText ctermbg=none guibg=NONE
 
     highlight SpellBad cterm=NONE ctermbg=darkred ctermfg=yellow guibg=darkred guifg=yellow
 

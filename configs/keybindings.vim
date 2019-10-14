@@ -133,3 +133,6 @@ onoremap <silent> ii :<c-u>call InIndentation()<cr>
 " "around indentation" (indentation level and any surrounding empty lines)
 xnoremap <silent> ai :<c-u>call AroundIndentation()<cr>
 onoremap <silent> ai :<c-u>call AroundIndentation()<cr>
+
+nnoremap  <silent> <C-t>           :FloatermToggle<CR>
+tnoremap <silent> <C-t>           <C-\><C-n>:FloatermToggle<CR>
