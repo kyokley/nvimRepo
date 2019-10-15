@@ -15,8 +15,10 @@ augroup GeneralSetup
     autocmd!
     autocmd InsertEnter * if &buftype != 'nofile' | highlight LineNr ctermbg=darkred   guibg=darkred | endif
     autocmd InsertEnter * if &buftype != 'nofile' | highlight CursorLine ctermbg=darkred guibg=darkred | else | highlight CursorLine ctermbg=NONE guibg=NONE | endif
+    autocmd InsertEnter * if &buftype != 'nofile' | highlight statusline ctermbg=darkred   guibg=darkred | endif
     autocmd InsertLeave * if &buftype != 'nofile' | highlight LineNr ctermbg=NONE guibg=NONE | endif
     autocmd InsertLeave * highlight CursorLine ctermbg=18 guibg=darkblue
+    autocmd InsertLeave * if &buftype != 'nofile' | highlight statusline ctermbg=darkblue   guibg=darkblue | endif
 
     autocmd FileType svn,*commit* setlocal spell
     autocmd FileType git,*commit* setlocal spell

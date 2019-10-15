@@ -1,27 +1,28 @@
 function! ApplyHighlight() abort
     highlight MatchParen ctermbg=4
 
+    highlight Normal ctermbg=none guibg=NONE
+    highlight NonText ctermbg=none guibg=NONE
+
     highlight CursorLine cterm=NONE ctermbg=18 ctermfg=white guibg=darkblue guifg=white
     highlight colorcolumn cterm=NONE ctermbg=black guibg=black
     highlight LineNr cterm=NONE ctermbg=NONE ctermfg=yellow guibg=NONE guifg=yellow
     highlight search cterm=NONE ctermbg=lightblue ctermfg=black guibg=lightblue guifg=black
-    highlight signcolumn cterm=NONE ctermbg=black guibg=black
-    highlight Pmenu cterm=NONE ctermbg=darkgreen ctermfg=white guibg=darkgreen guifg=white
+    highlight signcolumn cterm=NONE ctermbg=black guibg=NONE
+    highlight Pmenu cterm=NONE ctermbg=NONE ctermfg=white guibg=black guifg=white
     highlight PmenuSel cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
     highlight visual cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
-    highlight statusline cterm=NONE ctermbg=4 ctermfg=white
-    highlight statuslinenc cterm=NONE ctermbg=black ctermfg=white
+    highlight statusline cterm=NONE ctermbg=4 ctermfg=white guibg=darkblue guifg=white
+    " highlight statuslinenc cterm=NONE ctermbg=black ctermfg=white guibg=NONE
 
     highlight TermCursorNC ctermbg=1 ctermfg=15
-    highlight Normal ctermbg=none guibg=NONE
-    highlight NonText ctermbg=none guibg=NONE
 
     highlight SpellBad cterm=NONE ctermbg=darkred ctermfg=yellow guibg=darkred guifg=yellow
 
-    highlight DiffAdd           cterm=bold ctermbg=none ctermfg=Green
-    highlight DiffDelete        cterm=bold ctermbg=none ctermfg=Red
-    highlight DiffChange        cterm=bold ctermbg=none ctermfg=Yellow
-    highlight DiffText        cterm=bold ctermbg=Red ctermfg=Yellow
+    highlight DiffAdd           cterm=bold ctermbg=none ctermfg=Green guibg=none guifg=Green
+    highlight DiffDelete        cterm=bold ctermbg=none ctermfg=Red guibg=none guifg=Red
+    highlight DiffChange        cterm=bold ctermbg=none ctermfg=Yellow guibg=none guifg=Yellow
+    highlight DiffText        cterm=bold ctermbg=Red ctermfg=Yellow guibg=Red guifg=Yellow
 
     match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 endfunction

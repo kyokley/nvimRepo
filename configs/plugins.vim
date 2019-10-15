@@ -150,7 +150,11 @@ let g:semshi#error_sign = v:false
 " Python PEP-8 Indent
 let g:python_pep8_indent_hang_closing = 0
 
-" Define mappings
+let g:floaterm_winblend = 10
+let g:floaterm_width = float2nr(winwidth(0) * 0.75)
+let g:floaterm_position = 'center'
+
+" Define Denite mappings
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
     nnoremap <silent><buffer><expr> <CR>
