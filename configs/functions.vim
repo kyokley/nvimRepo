@@ -9,8 +9,8 @@ function! ApplyHighlight() abort
     highlight LineNr cterm=NONE ctermbg=NONE ctermfg=yellow guibg=NONE guifg=yellow
     highlight search cterm=NONE ctermbg=lightblue ctermfg=black guibg=lightblue guifg=black
     highlight signcolumn cterm=NONE ctermbg=black guibg=NONE
-    highlight Pmenu cterm=NONE ctermbg=NONE ctermfg=white guibg=black guifg=white
-    highlight PmenuSel cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
+    " highlight Pmenu cterm=NONE ctermbg=NONE ctermfg=white guibg=black guifg=white
+    " highlight PmenuSel cterm=NONE ctermbg=NONE ctermfg=black guibg=black guifg=white
     highlight visual cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
     highlight statusline cterm=NONE ctermbg=4 ctermfg=white guibg=darkblue guifg=white
     " highlight statuslinenc cterm=NONE ctermbg=black ctermfg=white guibg=NONE
@@ -447,11 +447,83 @@ function! AroundIndentation()
     let &magic = l:magic
 endfunction
 
-function GetGitDir() abort
+function! GetGitDir() abort
     if finddir('.git', ';') == ''
         let l:directory = '.'
     else
         let l:directory = system("git rev-parse --show-toplevel \| tr -d '\\n'")
     endif
     return l:directory
+endfunction
+
+" Floating Term
+function! FloatTerm()
+    let found_winnr = 0
+    for winnr in range(1, winnr('$'))
+        if getbufvar(winbufnr(winnr), '&buftype') == 'terminal'
+            let found_winnr = winnr
+        endif
+    endfor
+
+    if found_winnr > 0
+        if &buftype == 'terminal'
+            " if current window is the terminal window, close it
+            execute found_winnr . ' wincmd q'
+        else
+            " if current window is not terminal, go to the terminal window
+            execute found_winnr . ' wincmd w'
+        endif
+    else
+        let found_bufnr = 0
+        for bufnr in filter(range(1, bufnr('$')), 'bufexists(v:val)')
+            let buftype = getbufvar(bufnr, '&buftype')
+            if buftype == 'terminal'
+                let found_bufnr = bufnr
+            endif
+        endfor
+
+        call s:openFloatingTerm()
+    endif
+endfunction
+
+" Floating Term
+function! s:openFloatingTerm()
+  " Configuration
+    let s:float_term_border_win = 0
+    let s:float_term_win = 0
+  let height = float2nr((&lines - 2) * 0.6)
+  let row = float2nr((&lines - height) / 2)
+  let width = float2nr(&columns * 0.6)
+  let col = float2nr((&columns - width) / 2)
+  " Border Window
+  let border_opts = {
+        \ 'relative': 'editor',
+        \ 'row': row - 1,
+        \ 'col': col - 2,
+        \ 'width': width + 4,
+        \ 'height': height + 2,
+        \ 'style': 'minimal'
+        \ }
+  let border_buf = nvim_create_buf(v:false, v:true)
+  let s:float_term_border_win = nvim_open_win(border_buf, v:true, border_opts)
+  " Terminal Window
+  let opts = {
+        \ 'relative': 'editor',
+        \ 'row': row,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height,
+        \ 'style': 'minimal'
+        \ }
+  let buf = nvim_create_buf(v:false, v:true)
+  let s:float_term_win = nvim_open_win(buf, v:true, opts)
+  " Styling
+  " hi FloatTermNormal term=None guibg=#2d3d45
+  hi FloatTermNormal term=None guibg=black
+  call setwinvar(s:float_term_border_win, '&winhl', 'Normal:FloatTermNormal')
+  call setwinvar(s:float_term_win, '&winhl', 'Normal:FloatTermNormal')
+  terminal
+  startinsert
+  " Close border window when terminal window close
+  autocmd TermClose * ++once call nvim_win_close(s:float_term_border_win, v:true)
 endfunction

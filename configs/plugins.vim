@@ -36,7 +36,6 @@ Plug 'moby/moby' , {'rtp': '/contrib/syntax/vim/'}
 Plug 'mhinz/vim-startify'
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-git'
-Plug 'voldikss/vim-floaterm'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
@@ -150,10 +149,6 @@ let g:semshi#error_sign = v:false
 " Python PEP-8 Indent
 let g:python_pep8_indent_hang_closing = 0
 
-let g:floaterm_winblend = 10
-let g:floaterm_width = float2nr(winwidth(0) * 0.75)
-let g:floaterm_position = 'center'
-
 " Define Denite mappings
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
@@ -241,14 +236,18 @@ call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
 nnoremap <silent> <C-p> :<C-u>Denite
         \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`
         \ -split=floating
-        \ -highlight-window-background=TermCursor
+        \ -highlight-window-background=statuslinenc
+        \ -highlight-filter-background=statusline
+        \ -highlight-matched-char=none
         \ -auto-resize
         \ -filter-split-direction=floating
         \ -start-filter<CR>
 nnoremap <leader>a :<C-u>Denite
         \ grep:`GetGitDir()`
         \ -split=floating
-        \ -highlight-window-background=TermCursor
+        \ -highlight-window-background=statuslinenc
+        \ -highlight-filter-background=statusline
+        \ -highlight-matched-char=none
         \ -auto-resize
         \ -filter-split-direction=floating
         \ <CR>

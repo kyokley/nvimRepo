@@ -134,5 +134,5 @@ onoremap <silent> ii :<c-u>call InIndentation()<cr>
 xnoremap <silent> ai :<c-u>call AroundIndentation()<cr>
 onoremap <silent> ai :<c-u>call AroundIndentation()<cr>
 
-nnoremap  <silent> <C-t>           :FloatermToggle<CR>i
-tnoremap <silent> <C-t>           <C-\><C-n>:FloatermToggle<CR>
+nnoremap  <silent> <C-t>           :call FloatTerm()<CR>
+tnoremap <silent> <C-t>           <C-\><C-n>:bd!<CR>

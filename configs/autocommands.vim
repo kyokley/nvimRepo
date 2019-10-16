@@ -35,6 +35,8 @@ augroup GeneralSetup
     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
     autocmd WinLeave * setlocal nocursorline
     autocmd FocusGained * checktime
+
+    autocmd TermClose <buffer> if &buftype=='terminal' | bdelete! | endif
 augroup END
 
 augroup filetype_python
