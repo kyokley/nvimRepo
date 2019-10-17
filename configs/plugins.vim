@@ -45,6 +45,11 @@ call plug#end()
 
 filetype plugin indent on
 
+" Bufferline
+let g:bufferline_fname_mod = ':p'
+let g:bufferline_pathshorten = 1
+let g:bufferline_rotate = 2
+
 " Polyglot
 let g:polyglot_disabled = ['csv']
 
