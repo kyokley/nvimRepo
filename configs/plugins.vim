@@ -36,6 +36,7 @@ Plug 'moby/moby' , {'rtp': '/contrib/syntax/vim/'}
 Plug 'mhinz/vim-startify'
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-git'
+Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
