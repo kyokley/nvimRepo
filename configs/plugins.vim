@@ -36,7 +36,7 @@ Plug 'moby/moby' , {'rtp': '/contrib/syntax/vim/'}
 Plug 'mhinz/vim-startify'
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-git'
-Plug 'tbodt/deoplete-tabnine', { 'do': './install.sh' }
+Plug 'drzel/vim-line-no-indicator'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
@@ -261,3 +261,23 @@ nnoremap <leader>d :<C-u>DeniteBufferDir file/rec -start-filter<CR>
 nnoremap <leader>r :<C-u>Denite -resume -cursor-pos=+1<CR>
 nnoremap <leader><C-r> :<C-u>Denite register:.<CR>
 nnoremap <leader>g :<C-u>Denite gitstatus<CR>
+
+" LineNoIndicator
+let g:line_no_indicator_chars = ['⎺', '⎻', '⎼', '⎽'] " on Linux
+
+" one char wide solid vertical bar
+"let g:line_no_indicator_chars = [
+"  \  '█',
+"  \  '▇',
+"  \  '▆',
+"  \  '▅',
+"  \  '▄',
+"  \  '▃',
+"  \  '▂',
+"  \  '▁',
+"  \  ' '
+"  \  ]
+"
+"let g:line_no_indicator_chars = [
+"  \ '  ', '░ ', '▒ ', '▓ ', '█ ', '█░', '█▒', '█▓', '██'
+"  \ ]
