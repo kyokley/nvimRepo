@@ -64,10 +64,8 @@ set statusline+=%{StatuslineTabWarning()}
 set statusline+=%*
 
 set statusline+=%{StatuslineTrailingSpaceWarning()}\ " Space at the end of the line left intentionally
-set statusline+=%{StatuslineLongLineWarning()}\ " Space at the end of the line left intentionally
+set statusline+=%c,     "cursor column
+set statusline+=%l/%L\  "cursor line/total lines
 
-"set statusline+=%c,     "cursor column
-"set statusline+=%l/%L   "cursor line/total lines
-"set statusline+=\ %P    "percent through file
 set statusline+=%{LineNoIndicator()}
 set laststatus=2
