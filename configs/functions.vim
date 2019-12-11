@@ -12,7 +12,8 @@ function! ApplyHighlight() abort
     " highlight Pmenu cterm=NONE ctermbg=NONE ctermfg=white guibg=black guifg=white
     " highlight PmenuSel cterm=NONE ctermbg=NONE ctermfg=black guibg=black guifg=white
     highlight visual cterm=NONE ctermbg=white ctermfg=black guibg=white guifg=black
-    highlight statusline cterm=NONE ctermbg=4 ctermfg=white guibg=darkblue guifg=white
+    "highlight statusline cterm=NONE ctermbg=4 ctermfg=white guibg=darkblue guifg=white
+    highlight statusline cterm=NONE ctermbg=4 ctermfg=white guibg=#203780 guifg=white
     " highlight statuslinenc cterm=NONE ctermbg=black ctermfg=white guibg=NONE
 
     highlight TermCursorNC ctermbg=1 ctermfg=15
