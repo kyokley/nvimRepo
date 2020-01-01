@@ -32,8 +32,8 @@ augroup GeneralSetup
     autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
 
-    autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    autocmd WinLeave * setlocal nocursorline
+    autocmd FocusGained,VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    autocmd FocusLost,WinLeave * setlocal nocursorline
     autocmd FocusGained * checktime
 
     autocmd TermClose <buffer> if &buftype=='terminal' | bdelete! | endif
@@ -63,12 +63,12 @@ augroup END
 
 augroup filetype_cs
     autocmd!
-    autocmd FileType cs set omnifunc=syntaxcomplete#Complete
-    autocmd FileType cs set foldmethod=marker
-    autocmd FileType cs set foldmarker={,}
-    autocmd FileType cs set foldtext=substitute(getline(v:foldstart),'{.*','{...}',)
-    autocmd FileType cs set foldlevelstart=2
-    autocmd FileType cs set smartindent
+    autocmd FileType cs setlocal omnifunc=syntaxcomplete#Complete
+    autocmd FileType cs setlocal foldmethod=marker
+    autocmd FileType cs setlocal foldmarker={,}
+    autocmd FileType cs setlocal foldtext=substitute(getline(v:foldstart),'{.*','{...}',)
+    autocmd FileType cs setlocal foldlevelstart=2
+    autocmd FileType cs setlocal smartindent
 augroup END
 
 augroup filetype_text
