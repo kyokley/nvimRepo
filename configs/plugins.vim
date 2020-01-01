@@ -59,7 +59,7 @@ let g:black_virtualenv = '~/.pyenv/versions/neovim3'
 
 "QuickSilver Config
 let g:QSMatchFn = 'fuzzy'
-let g:QSIgnore = ".*\.pyc$;.*\.swp$"
+let g:QSIgnore = ".*\.pyc$;.*\.swp$;__pycache__$"
 
 "NERDTree
 let NERDChristmasTree=1
