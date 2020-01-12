@@ -136,6 +136,7 @@ let g:gitgutter_enabled = 1
 " Jedi
 let g:jedi#completions_enabled = 0
 let g:jedi#documentation_command=''
+let g:jedi#show_call_signatures = "0"
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
