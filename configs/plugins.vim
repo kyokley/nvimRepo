@@ -149,6 +149,7 @@ let g:asyncrun_bell = 1
 
 " Rooter
 let g:rooter_silent_chdir = 1
+let g:rooter_manual_only = 1
 
 " Semshi
 let g:semshi#error_sign = v:false
@@ -240,7 +241,7 @@ call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
             \ [ '.git/', '.ropeproject/', '__pycache__/',
             \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
 
-nnoremap <silent> <C-p> :<C-u>Denite
+nnoremap <silent> <C-p> :<C-u>DeniteProjectDir
         \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`
         \ -split=floating
         \ -highlight-window-background=statuslinenc
