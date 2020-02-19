@@ -17,7 +17,6 @@ set statusline=
 set statusline =%#identifier#
 set statusline+=[%n:%t]    "tail of the filename
 set statusline+=%*
-set statusline+=%<      "Truncate line after this point
 
 "read only flag
 set statusline+=%#identifier#
@@ -28,6 +27,8 @@ set statusline+=%*
 set statusline+=%#identifier#
 set statusline+=%m
 set statusline+=%*
+
+set statusline+=%<      "Truncate line after this point
 
 "display a warning if fileformat isnt unix
 set statusline+=%#warningmsg#
