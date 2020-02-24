@@ -519,8 +519,8 @@ function! s:openFloatingTerm()
   let buf = nvim_create_buf(v:false, v:true)
   let s:float_term_win = nvim_open_win(buf, v:true, opts)
   " Styling
-  " hi FloatTermNormal term=None guibg=#2d3d45
-  hi FloatTermNormal term=None guibg=black
+  hi FloatTermNormal cterm=None guibg=#17152e
+  " hi FloatTermNormal term=None guibg=black ctermbg=black
   call setwinvar(s:float_term_border_win, '&winhl', 'Normal:FloatTermNormal')
   call setwinvar(s:float_term_win, '&winhl', 'Normal:FloatTermNormal')
   terminal
