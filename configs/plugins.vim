@@ -265,20 +265,20 @@ nnoremap <leader><C-r> :<C-u>Denite register:.<CR>
 nnoremap <leader>g :<C-u>Denite gitstatus<CR>
 
 " LineNoIndicator
-let g:line_no_indicator_chars = ['⎺', '⎻', '⎼', '⎽'] " on Linux
+"let g:line_no_indicator_chars = ['⎺', '⎻', '⎼', '⎽'] " on Linux
 
 " one char wide solid vertical bar
-"let g:line_no_indicator_chars = [
-"  \  '█',
-"  \  '▇',
-"  \  '▆',
-"  \  '▅',
-"  \  '▄',
-"  \  '▃',
-"  \  '▂',
-"  \  '▁',
-"  \  ' '
-"  \  ]
+let g:line_no_indicator_chars = [
+  \  '█',
+  \  '▇',
+  \  '▆',
+  \  '▅',
+  \  '▄',
+  \  '▃',
+  \  '▂',
+  \  '▁',
+  \  ' '
+  \  ]
 "
 "let g:line_no_indicator_chars = [
 "  \ '  ', '░ ', '▒ ', '▓ ', '█ ', '█░', '█▒', '█▓', '██'
