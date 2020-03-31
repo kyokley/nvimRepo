@@ -37,6 +37,7 @@ Plug 'mhinz/vim-startify'
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-git'
 Plug 'drzel/vim-line-no-indicator'
+Plug 'wellle/context.vim'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
@@ -45,6 +46,9 @@ Plug '~/.config/nvim/manual/django-custom'
 call plug#end()
 
 filetype plugin indent on
+
+" Context Settings
+let g:context_add_mappings = 0
 
 " Bufferline
 " let g:bufferline_fname_mod = ':p'

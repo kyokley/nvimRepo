@@ -1,4 +1,6 @@
-syntax on
+if !exists('g:syntax_on')
+    syntax on
+endif
 
 set number
 set tabstop=8
@@ -18,13 +20,17 @@ set nowrapscan
 set textwidth=0
 set mouse=""
 set autoread
-set background=dark
 set relativenumber
 
 
 set cursorline
 
-colorscheme CandyPaper
+if !exists('g:loaded_color')
+    let g:loaded_color = 1
+
+    set background=dark
+    colorscheme CandyPaper
+endif
 
 set incsearch
 set hlsearch
