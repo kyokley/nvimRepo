@@ -1,16 +1,20 @@
-" Handle terminal windows
+" ApplyHighlight {{{
 augroup ApplyHighlight
     autocmd!
     autocmd ColorScheme * call ApplyHighlight()
 augroup END
+" }}}
 
+" TerminalSetup {{{
 augroup TerminalSetup
     autocmd!
     autocmd TermOpen * setlocal nonumber norelativenumber bufhidden=hide
     autocmd TermOpen,BufWinEnter,WinEnter term://* startinsert
     autocmd BufLeave term://* stopinsert
 augroup END
+" }}}
 
+" GeneralSetup {{{
 augroup GeneralSetup
     autocmd!
     autocmd InsertEnter * if &buftype != 'nofile' | highlight LineNr ctermbg=darkred   guibg=darkred | endif
@@ -21,8 +25,6 @@ augroup GeneralSetup
     autocmd InsertLeave * highlight CursorLine ctermbg=18 guibg=darkblue
     autocmd InsertLeave * if &buftype != 'nofile' | highlight statusline ctermbg=darkblue   guibg=#203780 | endif
 
-    autocmd FileType svn,*commit* setlocal spell
-    autocmd FileType git,*commit* setlocal spell
     autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
     autocmd VimEnter * set title
@@ -39,7 +41,9 @@ augroup GeneralSetup
 
     autocmd TermClose <buffer> if &buftype=='terminal' | bdelete! | endif
 augroup END
+" }}}
 
+" filetype_python {{{
 augroup filetype_python
     autocmd!
     autocmd FileType python set foldmethod=indent
@@ -55,13 +59,17 @@ augroup filetype_python
     autocmd FileType python highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
     autocmd FileType python match ExtraWhitespace /\s\+$\|\t/
 augroup END
+" }}}
 
+" filetype_htmldjango {{{
 augroup filetype_htmldjango
     autocmd!
     autocmd FileType htmldjango set foldmethod=indent
     autocmd FileType htmldjango set foldlevel=99
 augroup END
+" }}}
 
+" filetype_cs {{{
 augroup filetype_cs
     autocmd!
     autocmd FileType cs setlocal omnifunc=syntaxcomplete#Complete
@@ -71,36 +79,56 @@ augroup filetype_cs
     autocmd FileType cs setlocal foldlevelstart=2
     autocmd FileType cs setlocal smartindent
 augroup END
+" }}}
 
+" filetype_text {{{
 augroup filetype_text
     autocmd!
     autocmd FileType text setlocal spell spelllang=en_us
     autocmd FileType text setlocal noexpandtab
 augroup END
+" }}}
 
+" filetype_md {{{
 augroup filetype_md
     autocmd!
     autocmd FileType markdown setlocal spell spelllang=en_us
     autocmd FileType markdown setlocal noexpandtab
 augroup END
+" }}}
 
+" filetype_help {{{
 augroup filetype_help
     autocmd!
     autocmd FileType help setlocal nospell
 augroup END
+" }}}
 
+" filetype_term {{{
 augroup filetype_term
     autocmd!
     autocmd TermOpen * setlocal nonumber
 augroup END
+" }}}
 
 " TODO: Consolidate settings for filetypes in the edit augroup
+" filetype_git {{{
 augroup filetype_git
     autocmd!
     autocmd FileType git setlocal nospell
 augroup END
+" }}}
 
+" filetype_make {{{
 augroup filetype_make
     autocmd!
     autocmd FileType make setlocal noexpandtab
 augroup END
+" }}}
+
+" filetype_vim {{{
+augroup filetype_vim
+    autocmd!
+    autocmd FileType vim set foldmethod=marker
+augroup END
+" }}}

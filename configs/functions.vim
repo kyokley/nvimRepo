@@ -289,7 +289,6 @@ def RemoveBreakpoints():
     vim.command("normal %dG" % nCurrentLine)
 
 EOF
-"vim:syntax=vim
 
 
 function! InitializeDirectories() abort

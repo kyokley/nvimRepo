@@ -1,3 +1,4 @@
+" Install Plugins {{{
 filetype off
 call plug#begin('~/.config/nvim/plugged')
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
@@ -46,44 +47,54 @@ Plug '~/.config/nvim/manual/django-custom'
 call plug#end()
 
 filetype plugin indent on
+" }}}
 
-" Context Settings
+" Context Settings {{{
 let g:context_add_mappings = 0
+" }}}
 
-" Bufferline
+" Bufferline {{{
 " let g:bufferline_fname_mod = ':p'
 let g:bufferline_pathshorten = 1
 let g:bufferline_rotate = 2
+" }}}
 
-" Polyglot
+" Polyglot {{{
 let g:polyglot_disabled = ['csv']
+" }}}
 
-"Black
+" Black {{{
 let g:black_virtualenv = '~/.pyenv/versions/neovim3'
+" }}}
 
-"QuickSilver Config
+" QuickSilver Config {{{
 let g:QSMatchFn = 'fuzzy'
 let g:QSIgnore = ".*\.pyc$;.*\.swp$;__pycache__$"
+" }}}
 
-"NERDTree
+" NERDTree {{{
 let NERDChristmasTree=1
 let NERDTreeHijackNetrw=1
 let NERDTreeIgnore=['\.pyc$', '\.swp$']
+" }}}
 
-"Tagbar
+" Tagbar {{{
 let g:tagbar_autofocus = 1
+" }}}
 
-" Python configs
+" Python configs {{{
 let g:loaded_python_provider = 0
 let g:python3_dir = $HOME . '/.pyenv/versions/neovim3/bin/'
 
 let g:python3_host_prog = g:python3_dir . 'python'
+" }}}
 
-"SuperTab
+" SuperTab {{{
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<c-n>"
+" }}}
 
-" Rainbow Config
+" Rainbow Config {{{
 let g:rainbow_active = 1
 let g:rainbow_conf = {
     \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
@@ -108,8 +119,9 @@ let g:rainbow_conf = {
     \       'diff': 0,
     \   }
     \}
+" }}}
 
-" ALE Config
+" ALE Config {{{
 let g:ale_python_flake8_use_global = 1
 let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
 let g:ale_python_isort_use_global = 1
@@ -132,36 +144,44 @@ highlight link ALEError SpellBad
 highlight link ALEErrorSign ALEError
 " set completeopt=menu,menuone,preview,noselect,noinsert " Need this for ALE completion to work right?
 "
+" }}}
 
-" GitGutter
+" GitGutter {{{
 let g:gitgutter_map_keys = 0
 let g:gitgutter_enabled = 1
+" }}}
 
-" Jedi
+" Jedi {{{
 let g:jedi#completions_enabled = 0
 let g:jedi#documentation_command=''
 let g:jedi#show_call_signatures = "0"
+" }}}
 
-" Deoplete
+" Deoplete {{{
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_delay = 100
 let g:deoplete#ignore_sources = {'_': ['denite']}
+" }}}
 
-" AsyncRun
+" AsyncRun {{{
 let g:asyncrun_open = 10
 let g:asyncrun_bell = 1
+" }}}
 
-" Rooter
+" Rooter {{{
 let g:rooter_silent_chdir = 1
 let g:rooter_manual_only = 1
+" }}}
 
-" Semshi
+" Semshi {{{
 let g:semshi#error_sign = v:false
+" }}}
 
-" Python PEP-8 Indent
+" Python PEP-8 Indent {{{
 let g:python_pep8_indent_hang_closing = 0
+" }}}
 
-" Define Denite mappings
+" Define Denite mappings {{{
 autocmd FileType denite call s:denite_my_settings()
 function! s:denite_my_settings() abort
     nnoremap <silent><buffer><expr> <CR>
@@ -267,8 +287,9 @@ nnoremap <leader>d :<C-u>DeniteBufferDir file/rec -start-filter<CR>
 nnoremap <leader>r :<C-u>Denite -resume -cursor-pos=+1<CR>
 nnoremap <leader><C-r> :<C-u>Denite register:.<CR>
 nnoremap <leader>g :<C-u>Denite gitstatus<CR>
+" }}}
 
-" LineNoIndicator
+" LineNoIndicator {{{
 "let g:line_no_indicator_chars = ['⎺', '⎻', '⎼', '⎽'] " on Linux
 
 " one char wide solid vertical bar
@@ -287,3 +308,4 @@ let g:line_no_indicator_chars = [
 "let g:line_no_indicator_chars = [
 "  \ '  ', '░ ', '▒ ', '▓ ', '█ ', '█░', '█▒', '█▓', '██'
 "  \ ]
+" }}}
