@@ -17,6 +17,7 @@ augroup END
 " GeneralSetup {{{
 augroup GeneralSetup
     autocmd!
+
     autocmd InsertEnter * if &buftype != 'nofile' | highlight LineNr ctermbg=darkred   guibg=darkred | endif
     autocmd InsertEnter * if &buftype != 'nofile' | highlight CursorLine ctermbg=darkred guibg=darkred | else | highlight CursorLine ctermbg=NONE guibg=NONE | endif
     autocmd InsertEnter * if &buftype != 'nofile' | highlight statusline ctermbg=darkred   guibg=#690000 | endif
@@ -28,6 +29,10 @@ augroup GeneralSetup
     autocmd BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
     autocmd VimEnter * set title
+
+    " Highlight all tabs and trailing whitespace characters.
+    autocmd VimEnter * highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
+    autocmd VimEnter * match ExtraWhitespace /\s\+$\|\t/
     autocmd BufEnter * let &titlestring = "nvim " . expand("%:p")
 
     "recalculate the trailing whitespace warning when idle, and after saving
@@ -46,26 +51,18 @@ augroup END
 " filetype_python {{{
 augroup filetype_python
     autocmd!
-    autocmd FileType python set foldmethod=indent
-    autocmd FileType python set foldlevel=99
-    autocmd FileType python set omnifunc=pythoncomplete#Complete
-    "autocmd FileType python BracelessEnable +indent +highlight-cc2
-    " Tell Vim which characters to show for expanded TABs,
-    " trailing whitespace, and end-of-lines. VERY useful!
-    autocmd FileType python set listchars=trail:_
-    autocmd FileType python set list
+    autocmd FileType python setlocal foldmethod=indent
+    autocmd FileType python setlocal foldlevel=99
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 
-    " Also highlight all tabs and trailing whitespace characters.
-    autocmd FileType python highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
-    autocmd FileType python match ExtraWhitespace /\s\+$\|\t/
 augroup END
 " }}}
 
 " filetype_htmldjango {{{
 augroup filetype_htmldjango
     autocmd!
-    autocmd FileType htmldjango set foldmethod=indent
-    autocmd FileType htmldjango set foldlevel=99
+    autocmd FileType htmldjango setlocal foldmethod=indent
+    autocmd FileType htmldjango setlocal foldlevel=99
 augroup END
 " }}}
 
@@ -115,7 +112,8 @@ augroup END
 " filetype_git {{{
 augroup filetype_git
     autocmd!
-    autocmd FileType git setlocal nospell
+    autocmd FileType git,gitcommit setlocal nospell
+    autocmd FileType git,gitcommit setlocal nolist
 augroup END
 " }}}
 
@@ -129,6 +127,6 @@ augroup END
 " filetype_vim {{{
 augroup filetype_vim
     autocmd!
-    autocmd FileType vim set foldmethod=marker
+    autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}

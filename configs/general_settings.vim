@@ -22,6 +22,11 @@ set mouse=""
 set autoread
 set relativenumber
 
+" Tell Vim which characters to show for expanded TABs,
+" trailing whitespace, and end-of-lines
+set listchars=trail:_
+set list
+
 
 set cursorline
 
