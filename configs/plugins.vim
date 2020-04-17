@@ -51,6 +51,7 @@ filetype plugin indent on
 
 " Context Settings {{{
 let g:context_add_mappings = 0
+let g:context_enabled = 0
 " }}}
 
 " Bufferline {{{
