@@ -31,8 +31,8 @@ augroup GeneralSetup
     autocmd VimEnter * set title
 
     " Highlight all tabs and trailing whitespace characters.
-    autocmd VimEnter * highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow
-    autocmd VimEnter * match ExtraWhitespace /\s\+$\|\t/
+    autocmd VimEnter * if &filetype != 'gitcommit' | highlight ExtraWhitespace ctermbg=darkred guibg=darkred ctermfg=yellow guifg=yellow | endif
+    autocmd VimEnter * if &filetype != 'gitcommit' | match ExtraWhitespace /\s\+$\|\t/ | endif
     autocmd BufEnter * let &titlestring = "nvim " . expand("%:p")
 
     "recalculate the trailing whitespace warning when idle, and after saving
@@ -114,6 +114,11 @@ augroup filetype_git
     autocmd!
     autocmd FileType git,gitcommit setlocal nospell
     autocmd FileType git,gitcommit setlocal nolist
+
+    " When amending git commits :q can accidentally succeed if a message
+    " already exists. Instead, replace :q with :cq to force vim to exit with
+    " an error code.
+    autocmd FileType gitcommit cnoreabbrev <expr> q getcmdtype() == ":" && getcmdline()[0] == 'q' ? 'cq' : 'q'
 augroup END
 " }}}
 
