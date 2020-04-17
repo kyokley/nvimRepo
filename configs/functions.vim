@@ -62,6 +62,9 @@ function! RaiseExceptionForUnresolvedErrors() abort
         silent %yank p
         new
         silent 0put p
+
+        " Open all folds before messing with the buffer
+        silent normal zR
         silent $,$delete
 
         try
