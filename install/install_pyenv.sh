@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PY3='3.6.7'
+PY3='3.8.2'
 
 if [ ! -h $HOME/.pyenv ]; then
     git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
@@ -8,6 +8,10 @@ fi
 
 if [ ! -h $HOME/.pyenv/plugins/pyenv-virtualenv ]; then
     git clone https://github.com/pyenv/pyenv-virtualenv.git $HOME/.pyenv/plugins/pyenv-virtualenv
+fi
+
+if [ ! -h $HOME/.pyenv/plugins/pyenv-update ]; then
+    git clone https://github.com/pyenv/pyenv-update.git $(pyenv root)/plugins/pyenv-update
 fi
 
 apt-get update
