@@ -3,6 +3,7 @@ if !exists('g:syntax_on')
 endif
 
 set number
+set relativenumber
 set tabstop=8
 set softtabstop=4
 set shiftwidth=4
@@ -20,7 +21,6 @@ set nowrapscan
 set textwidth=0
 set mouse=""
 set autoread
-set relativenumber
 
 " Tell Vim which characters to show for expanded TABs,
 " trailing whitespace, and end-of-lines
