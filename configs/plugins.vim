@@ -39,6 +39,7 @@ Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-git'
 Plug 'drzel/vim-line-no-indicator'
 Plug 'wellle/context.vim'
+Plug 'romainl/vim-cool'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
