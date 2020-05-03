@@ -6,7 +6,7 @@ function! ApplyHighlight() abort
 
     highlight CursorLine cterm=NONE ctermbg=18 ctermfg=white guibg=darkblue guifg=white
     highlight colorcolumn cterm=NONE ctermbg=black guibg=black
-    highlight LineNr cterm=NONE ctermbg=NONE ctermfg=yellow guibg=NONE guifg=yellow
+    "highlight LineNr cterm=NONE ctermbg=NONE ctermfg=yellow guibg=NONE guifg=yellow
     highlight search cterm=NONE ctermbg=lightblue ctermfg=black guibg=lightblue guifg=black
     highlight signcolumn cterm=NONE ctermbg=black guibg=NONE
     " highlight Pmenu cterm=NONE ctermbg=NONE ctermfg=white guibg=black guifg=white
@@ -16,7 +16,7 @@ function! ApplyHighlight() abort
     highlight statusline cterm=NONE ctermbg=4 ctermfg=white guibg=#203780 guifg=white
     " highlight statuslinenc cterm=NONE ctermbg=black ctermfg=white guibg=NONE
 
-    highlight TermCursorNC ctermbg=1 ctermfg=15
+    "highlight TermCursorNC ctermbg=1 ctermfg=15
 
     highlight SpellBad cterm=NONE ctermbg=darkred ctermfg=yellow guibg=darkred guifg=yellow
 
@@ -61,6 +61,7 @@ function! RaiseExceptionForUnresolvedErrors() abort
 
         silent %yank p
         new
+        setlocal nobuflisted buftype=nofile bufhidden=delete noswapfile
         silent 0put p
 
         " Open all folds before messing with the buffer
