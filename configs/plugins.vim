@@ -161,8 +161,11 @@ let g:jedi#show_call_signatures = "0"
 
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_complete_delay = 100
-let g:deoplete#ignore_sources = {'_': ['denite']}
+call deoplete#custom#option({
+\ 'auto_complete_delay': 100,
+\ 'smart_case': v:true,
+\ 'ignore_sources': {'_': ['denite']}
+\ })
 " }}}
 
 " AsyncRun {{{
