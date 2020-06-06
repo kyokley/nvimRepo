@@ -14,8 +14,6 @@ if [ ! -h $HOME/.pyenv/plugins/pyenv-update ]; then
     git clone https://github.com/pyenv/pyenv-update.git $(pyenv root)/plugins/pyenv-update
 fi
 
-apt-get update
-apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
 
 export PATH="$HOME/.pyenv/bin:$PATH"
 export PYENV_VERSION="$PY3"

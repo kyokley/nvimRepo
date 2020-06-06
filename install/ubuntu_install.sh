@@ -7,7 +7,9 @@ git submodule update --init --recursive
 sudo add-apt-repository ppa:neovim-ppa/unstable
 sudo apt-get update
 sudo apt-get install -y neovim xclip aptitude
-sudo aptitude install -y python-pip python3-pip
+sudo apt-get install -y python-pip python3-pip
+
+sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev
 
 sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
 sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
@@ -22,4 +24,4 @@ if [ ! -h ~/.config/nvim ]; then
     ln -s ~/.nvim ~/.config/nvim
 fi
 
-nvim -c ':PlugInstall'
+nvim +PlugInstall +qall
