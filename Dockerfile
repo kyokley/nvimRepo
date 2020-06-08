@@ -3,9 +3,10 @@ FROM python:3.7-slim-buster
 SHELL ["/bin/bash", "-c"]
 
 RUN apt-get update && \
-        apt-get install -y --no-install-recommends neovim python3-neovim git && \
+        apt-get install -y --no-install-recommends neovim python3-neovim git gcc python-dev && \
         git clone https://github.com/kyokley/color_blame.git /tmp/color_blame && \
         cd /tmp/color_blame && \
+        pip install -U pip && \
         pip install -r requirements.txt --force --upgrade && \
         pip install python-language-server[all] pynvim neovim pip pyflakes flake8 bandit black isort --upgrade && \
         python setup.py install --force
