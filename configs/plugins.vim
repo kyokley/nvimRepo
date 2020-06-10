@@ -40,6 +40,8 @@ Plug 'chemzqm/denite-git'
 Plug 'drzel/vim-line-no-indicator'
 Plug 'wellle/context.vim'
 " Plug 'romainl/vim-cool'
+Plug 'kana/vim-textobj-user'
+Plug 'thalesmello/vim-textobj-multiline-str'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
