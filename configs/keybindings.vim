@@ -103,10 +103,6 @@ nnoremap <C-Down> <C-w>j
 nnoremap <C-Up> <C-w>k
 nnoremap <C-Right> <C-w>l
 nnoremap <C-Left> <C-w>h
-nnoremap <Tab> w
-vnoremap <Tab> w
-nnoremap <S-Tab> b
-vnoremap <S-Tab> b
 
 nnoremap <leader>sb :<C-U>tabnew \| terminal svn blame <C-R>=expand("%:p") <CR> \| color_svn_blame \| less +<C-R>=line("w0") <CR><CR>
 vnoremap <leader>sb :<C-U>tabnew \| terminal svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p \| color_svn_blame \| less <CR><CR>
