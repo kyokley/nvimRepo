@@ -8,8 +8,8 @@ RUN apt-get update && \
         cd /tmp/color_blame && \
         pip install -U pip --no-cache-dir && \
         pip install -r requirements.txt --force --upgrade --no-cache-dir && \
-        pip install python-language-server[all] pynvim neovim pip pyflakes flake8 bandit black isort --upgrade --no-cache-dir && \
-        find / -type d -name '*.git' -exec rm -rf {} \+ ; \
+        pip install python-language-server[all] pynvim neovim pyflakes flake8 bandit --upgrade --no-cache-dir && \
+        find / -name '*.git' -exec rm -rf {} \+ ; \
         python setup.py install --force && \
         apt-get autoremove -y && \
         apt-get clean && \
@@ -17,11 +17,7 @@ RUN apt-get update && \
 
 COPY . /root/.config/nvim
 RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/usr/local/bin/'#" $HOME/.config/nvim/configs/plugins.vim && \
-        sed -i "s#let g:black_virtualenv.*##" $HOME/.config/nvim/configs/plugins.vim && \
         nvim +'PlugInstall --sync' +'UpdateRemotePlugins' +qa && \
-        apt-get autoremove -y && \
-        apt-get clean && \
-        rm -rf /var/lib/apt/lists/* && \
         find / -type d -name '*.git' -exec rm -rf {} \+ ; \
         find / -name '__pycache__' -exec rm -rf {} \+ ; \
         exit 0

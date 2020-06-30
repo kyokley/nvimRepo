@@ -32,7 +32,6 @@ Plug 'fisadev/vim-isort'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'airblade/vim-rooter'
 Plug 'sheerun/vim-polyglot'
-Plug 'ambv/black'
 Plug 'moby/moby' , {'rtp': '/contrib/syntax/vim/'}
 Plug 'mhinz/vim-startify'
 Plug 'Shougo/denite.nvim'
@@ -65,10 +64,6 @@ let g:bufferline_rotate = 2
 
 " Polyglot {{{
 let g:polyglot_disabled = ['csv']
-" }}}
-
-" Black {{{
-let g:black_virtualenv = '~/.pyenv/versions/neovim3'
 " }}}
 
 " QuickSilver Config {{{
