@@ -32,7 +32,6 @@ Plug 'fisadev/vim-isort'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'airblade/vim-rooter'
 Plug 'sheerun/vim-polyglot'
-Plug 'moby/moby' , {'rtp': '/contrib/syntax/vim/'}
 Plug 'mhinz/vim-startify'
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-git'
