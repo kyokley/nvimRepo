@@ -157,11 +157,16 @@ let g:jedi#show_call_signatures = "0"
 
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
-call deoplete#custom#option({
-\ 'auto_complete_delay': 100,
-\ 'smart_case': v:true,
-\ 'ignore_sources': {'_': ['denite']}
-\ })
+
+" Only run deoplete setup if enabled at start up
+" This is required for the docker install
+if g:deoplete#enable_at_startup
+    call deoplete#custom#option({
+                \ 'auto_complete_delay': 100,
+                \ 'smart_case': v:true,
+                \ 'ignore_sources': {'_': ['denite']}
+                \ })
+endif
 " }}}
 
 " AsyncRun {{{
@@ -209,17 +214,19 @@ endfunction
 "             \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 
 " Change matchers.
-call denite#custom#source(
-            \ 'file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
-call denite#custom#source(
-            \ 'file/rec', 'matchers', ['matcher/cpsm'])
+if g:deoplete#enable_at_startup
+    call denite#custom#source(
+                \ 'file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
+    call denite#custom#source(
+                \ 'file/rec', 'matchers', ['matcher/cpsm'])
 
-" Change sorters.
-call denite#custom#source(
-            \ 'file/rec', 'sorters', ['sorter/sublime'])
+    " Change sorters.
+    call denite#custom#source(
+                \ 'file/rec', 'sorters', ['sorter/sublime'])
 
-" Change default action.
-call denite#custom#kind('file', 'default_action', 'switch')
+    " Change default action.
+    call denite#custom#kind('file', 'default_action', 'switch')
+endif
 
 " Add custom menus
 let s:menus = {}
@@ -241,30 +248,32 @@ let s:menus.my_commands.command_candidates = [
             \ ['Format code', 'FormatCode', 'go,python'],
             \ ]
 
-call denite#custom#var('menu', 'menus', s:menus)
+if g:deoplete#enable_at_startup
+    call denite#custom#var('menu', 'menus', s:menus)
 
-" Ag command on grep source
-call denite#custom#var('grep', 'command', ['ag'])
-call denite#custom#var('grep', 'default_opts',
-            \ ['-i', '--vimgrep'])
-call denite#custom#var('grep', 'recursive_opts', [])
-call denite#custom#var('grep', 'pattern_opt', [])
-call denite#custom#var('grep', 'separator', ['--'])
-call denite#custom#var('grep', 'final_opts', [])
+    " Ag command on grep source
+    call denite#custom#var('grep', 'command', ['ag'])
+    call denite#custom#var('grep', 'default_opts',
+                \ ['-i', '--vimgrep'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'pattern_opt', [])
+    call denite#custom#var('grep', 'separator', ['--'])
+    call denite#custom#var('grep', 'final_opts', [])
 
-" Define alias
-call denite#custom#alias('source', 'file/rec/git', 'file/rec')
-call denite#custom#var('file/rec/git', 'command',
-            \ ['git', 'ls-files', '-co', '--exclude-standard'])
+    " Define alias
+    call denite#custom#alias('source', 'file/rec/git', 'file/rec')
+    call denite#custom#var('file/rec/git', 'command',
+                \ ['git', 'ls-files', '-co', '--exclude-standard'])
 
-call denite#custom#alias('source', 'file/rec/py', 'file/rec')
-call denite#custom#var('file/rec/py', 'command',
-            \ ['scantree.py', '--path', ':directory'])
+    call denite#custom#alias('source', 'file/rec/py', 'file/rec')
+    call denite#custom#var('file/rec/py', 'command',
+                \ ['scantree.py', '--path', ':directory'])
 
-" Change ignore_globs
-call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
-            \ [ '.git/', '.ropeproject/', '__pycache__/',
-            \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+    " Change ignore_globs
+    call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+                \ [ '.git/', '.ropeproject/', '__pycache__/',
+                \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+endif
 
 nnoremap <silent> <C-p> :<C-u>DeniteProjectDir
         \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`
