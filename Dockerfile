@@ -1,4 +1,4 @@
-FROM python:3.7-alpine
+FROM python:3.7-alpine AS builder
 
 RUN apk update && \
         apk --no-cache add \
@@ -21,34 +21,28 @@ RUN apk update && \
             python3-dev \
             unzip \
             && \
-        pip install pip python-language-server[pyflakes] pynvim neovim pyflakes flake8 bandit --upgrade --no-cache-dir && \
         git clone https://github.com/neovim/neovim.git && \
         cd neovim && \
         make && \
-        make install && \
-        cd ../ && rm -rf neovim
+        make install
+
+FROM python:3.7-alpine AS final
+RUN apk add --update --no-cache \
+        musl-dev \
+        python3-dev \
+        gcc \
+        git && \
+        pip install pip python-language-server[pyflakes] pynvim neovim pyflakes flake8 bandit --upgrade --no-cache-dir
+
+COPY --from=builder /usr/local/bin/nvim /usr/local/bin/nvim
+COPY --from=builder /usr/local/share/nvim /usr/local/share/nvim
 
 COPY . /root/.config/nvim
 RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/usr/local/bin/'#" $HOME/.config/nvim/configs/plugins.vim && \
-        nvim +'PlugInstall --sync' +'UpdateRemotePlugins' +qa && \
-        find / -type d -name '*.git' -exec rm -rf {} \+ ; \
-        find / -name '__pycache__' -exec rm -rf {} \+ ; \
-        apk del \
-            alpine-sdk \
-            autoconf \
-            automake \
-            cmake \
-            g++ \
-            gcc \
-            icu-dev \
-            libintl \
-            libtool \
-            lua-md5 \
-            m4 \
-            make \
-            pkgconf \
-            python3-dev \
-            unzip
+        sed -i 's!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 0!' $HOME/.config/nvim/configs/plugins.vim && \
+        nvim +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
+        sed -i "s!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 1!" $HOME/.config/nvim/configs/plugins.vim && \
+        find $HOME -name '*.git' -exec rm -rf {} \+
 
 WORKDIR /files
 
