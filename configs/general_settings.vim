@@ -34,7 +34,7 @@ if !exists('g:loaded_color')
     let g:loaded_color = 1
 
     set background=dark
-    colorscheme CandyPaper
+    silent! colorscheme CandyPaper
 endif
 
 set incsearch
