@@ -40,6 +40,7 @@ COPY --from=builder /usr/local/share/nvim /usr/local/share/nvim
 COPY . /root/.config/nvim
 RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/usr/local/bin/'#" $HOME/.config/nvim/configs/plugins.vim && \
         sed -i 's!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 0!' $HOME/.config/nvim/configs/plugins.vim && \
+        sed -i '/let &titlestring/d' $HOME/.config/nvim/configs/autocommands.vim && \
         nvim +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
         sed -i "s!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 1!" $HOME/.config/nvim/configs/plugins.vim && \
         find $HOME -name '*.git' -exec rm -rf {} \+
