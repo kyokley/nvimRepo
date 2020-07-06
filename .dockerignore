@@ -1,2 +1,4 @@
 .git
 plugged
+Dockerfile
+Makefile

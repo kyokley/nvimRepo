@@ -27,7 +27,6 @@ RUN apk update && \
         make install
 
 FROM python:3.7-alpine AS final
-ENV HOME /home/user
 RUN apk add --update --no-cache \
         musl-dev \
         python3-dev \
@@ -39,20 +38,15 @@ RUN apk add --update --no-cache \
 COPY --from=builder /usr/local/bin/nvim /usr/local/bin/nvim
 COPY --from=builder /usr/local/share/nvim /usr/local/share/nvim
 
-COPY . $HOME/.config/nvim
+COPY . /root/.config/nvim
 
-RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/usr/local/bin/'#" $HOME/.config/nvim/configs/plugins.vim && \
-        sed -i 's!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 0!' $HOME/.config/nvim/configs/plugins.vim && \
-        sed -i '/let &titlestring/d' $HOME/.config/nvim/configs/autocommands.vim && \
+RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/usr/local/bin/'#" /root/.config/nvim/configs/plugins.vim && \
+        sed -i 's!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 0!' /root/.config/nvim/configs/plugins.vim && \
+        sed -i 's!autocmd BufEnter \* let \&titlestring = "nvim " \. expand("%:p")!autocmd BufEnter * let \&titlestring = "dvim " . g:git_root . " " . expand("%:t")!' /root/.config/nvim/configs/autocommands.vim && \
         nvim +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
-        sed -i "s!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 1!" $HOME/.config/nvim/configs/plugins.vim && \
-        find $HOME -name '*.git' -exec rm -rf {} \+
+        sed -i "s!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 1!" /root/.config/nvim/configs/plugins.vim && \
+        find /root -name '*.git' -exec rm -rf {} \+
 
-RUN adduser -S user -h $HOME && \
-        chown -R user $HOME && \
-        mkdir /files && \
-        chown -R user /files
 WORKDIR /files
-USER user
 
 ENTRYPOINT ["nvim"]
