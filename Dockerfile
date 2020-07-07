@@ -33,6 +33,7 @@ RUN apk add --update --no-cache \
         gcc \
         git \
         the_silver_searcher \
+        ctags \
         && \
         pip install pip python-language-server[pyflakes] pynvim neovim pyflakes flake8 bandit --upgrade --no-cache-dir
 
