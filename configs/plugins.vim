@@ -276,7 +276,10 @@ if g:deoplete#enable_at_startup
 endif
 
 nnoremap <silent> <C-p> :<C-u>DeniteProjectDir
-        \ `finddir('.git', ';') != '' ? 'file/rec/git' : 'file/rec'`
+        \ `finddir('.git', ';') != ''
+        \   ? 'file/rec/git'
+        \   : findfile('.git', ';') != ''
+        \       ? 'file/rec/git' : 'file/rec'`
         \ -split=floating
         \ -highlight-window-background=statuslinenc
         \ -highlight-filter-background=statusline
