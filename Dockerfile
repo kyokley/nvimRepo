@@ -20,6 +20,7 @@ RUN apk update && \
             pkgconf \
             python3-dev \
             unzip \
+            xclip \
             && \
         git clone https://github.com/neovim/neovim.git && \
         cd neovim && \
@@ -34,6 +35,7 @@ RUN apk add --update --no-cache \
         git \
         the_silver_searcher \
         ctags \
+        xclip \
         && \
         pip install pip python-language-server[pyflakes] pynvim neovim pyflakes flake8 bandit --upgrade --no-cache-dir
 
