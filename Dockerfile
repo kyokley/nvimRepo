@@ -27,21 +27,30 @@ RUN apk update && \
         make && \
         make install
 
-FROM python:3.8-alpine AS final
+FROM python:3.8-alpine AS base
+
 RUN apk add --update --no-cache \
         musl-dev \
-        python3-dev \
         gcc \
-        git \
-        the_silver_searcher \
-        ctags \
         xclip \
         && \
-        pip install pip python-language-server[pyflakes] pynvim neovim pyflakes flake8 bandit --upgrade --no-cache-dir
-
+        pip install pynvim pip --upgrade --no-cache-dir
 
 COPY --from=builder /usr/local/bin/nvim /usr/local/bin/nvim
 COPY --from=builder /usr/local/share/nvim /usr/local/share/nvim
+
+WORKDIR /files
+ENTRYPOINT ["nvim"]
+
+
+FROM base AS custom
+RUN apk add --update --no-cache \
+        python3-dev \
+        git \
+        the_silver_searcher \
+        ctags \
+        && \
+        pip install pip python-language-server[pyflakes] pynvim neovim pyflakes flake8 bandit --upgrade --no-cache-dir
 
 COPY . /root/.config/nvim
 
