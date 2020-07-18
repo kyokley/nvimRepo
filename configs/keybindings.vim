@@ -50,6 +50,8 @@ xnoremap M :join<CR>
 nnoremap gM :join!<CR>
 xnoremap gM :join!<CR>
 
+inoremap <C-r> <C-r><C-o>
+
 cnoremap w!! w !sudo tee % > /dev/null
 "
 " A little macro to remove special aligning
