@@ -103,15 +103,12 @@ nnoremap <C-Up> <C-w>k
 nnoremap <C-Right> <C-w>l
 nnoremap <C-Left> <C-w>h
 
-nnoremap <leader>sb :<C-U>tabnew \| terminal svn blame <C-R>=expand("%:p") <CR> \| color_svn_blame \| less +<C-R>=line("w0") <CR><CR>
-vnoremap <leader>sb :<C-U>tabnew \| terminal svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p \| color_svn_blame \| less <CR><CR>
+nnoremap <leader>gb :<C-U>tabnew \| terminal svn blame <C-R>=expand("%:p") <CR> \| color_svn_blame \| less +<C-R>=max([0, line('.') - winline()]) <CR><CR>
+vnoremap <leader>sb :<C-U>tabnew \| terminal svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p \| color_svn_blame \| less <CR>
 
-nnoremap <leader>sl :<C-U>tabnew \| terminal svn blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line(".") <CR>p \| awk '{print $1}' \| xargs svn log $T -r<CR><CR>
-" nnoremap <leader>gb :<C-U>tabnew \| terminal git blame <C-R>=expand("%:p") <CR> \| color_git_blame \| less +<C-R>=line("w0") <CR><CR>
-" Take folds into account when determining *less* offset
 nnoremap <leader>gb :<C-U>tabnew \| terminal git blame <C-R>=expand("%:p") <CR> \| color_git_blame \| less +<C-R>=max([0, line('.') - winline()]) <CR><CR>
-vnoremap <leader>gb :<C-U>tabnew \| terminal git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p \| color_git_blame \| less <CR><CR>
-nnoremap <leader>gl :<C-U>tabnew \| terminal git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line(".") <CR>p \| awk '{print $1}' \| tr -d '^' \| xargs git show <CR><CR>
+vnoremap <leader>gb :<C-U>tabnew \| terminal git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p \| color_git_blame \| less <CR>
+nnoremap <leader>gl :<C-U>tabnew \| terminal git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line(".") <CR>p \| awk '{print $1}' \| tr -d '^' \| xargs git show <CR>
 
 nnoremap ,v :source $MYVIMRC<CR>
 nnoremap ,e :e $MYVIMRC<CR>

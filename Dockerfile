@@ -1,3 +1,5 @@
+FROM kyokley/color_blame AS color_blame
+
 FROM python:3.8-alpine AS builder
 
 RUN apk update && \
@@ -44,17 +46,22 @@ ENTRYPOINT ["nvim"]
 
 
 FROM base AS custom
+ENV PATH="$PATH:/color_blame_venv/bin"
+COPY --from=color_blame /venv /color_blame_venv
+
 RUN apk add --update --no-cache \
         python3-dev \
         git \
         the_silver_searcher \
         ctags \
+        less \
         && \
         pip install pip python-language-server[pyflakes] pynvim neovim pyflakes flake8 bandit --upgrade --no-cache-dir
 
 COPY . /root/.config/nvim
 
 RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/usr/local/bin/'#" /root/.config/nvim/configs/plugins.vim && \
+        sed -i 's!endif!source $HOME/.config/nvim/configs/docker.vim\nendif!' /root/.config/nvim/init.vim && \
         sed -i 's!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 0!' /root/.config/nvim/configs/plugins.vim && \
         sed -i 's!autocmd BufEnter \* let \&titlestring = "nvim " \. expand("%:p")!autocmd BufEnter * let \&titlestring = exists("git_root") \? "dvim (" . g:git_root . ") " . expand("%:p")[len("/files") + 1:] : "dvim " . expand("%:p")!' /root/.config/nvim/configs/autocommands.vim && \
         nvim +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
