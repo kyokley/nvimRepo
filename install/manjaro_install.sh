@@ -1,7 +1,7 @@
 #!/bin/bash
 
 git submodule update --init --recursive
-pamac install xclip neovim
+pamac install xclip neovim ctags
 
 mkdir ~/.config
 if [ ! -h ~/.config/nvim ]; then
