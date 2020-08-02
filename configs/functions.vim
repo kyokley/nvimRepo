@@ -126,7 +126,6 @@ function! RaiseExceptionForUnresolvedErrors() abort
         bdelete!
     endif
 endfunction
-autocmd BufWritePre * call RaiseExceptionForUnresolvedErrors()
 
 function! s:DiffWithSaved() abort
   let filetype=&ft
