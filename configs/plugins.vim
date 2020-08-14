@@ -287,6 +287,7 @@ nnoremap <silent> <C-p> :<C-u>DeniteProjectDir
         \ -auto-resize
         \ -filter-split-direction=floating
         \ -start-filter<CR>
+
 nnoremap <leader>a :<C-u>Denite
         \ grep:`GetGitDir()`
         \ -split=floating
@@ -296,6 +297,17 @@ nnoremap <leader>a :<C-u>Denite
         \ -auto-resize
         \ -filter-split-direction=floating
         \ <CR>
+
+" TODO: Fix the weird sorting order in the command below
+nnoremap <silent> <leader>8 :<C-u>DeniteCursorWord
+        \ grep:`GetGitDir()`
+        \ -split=floating
+        \ -highlight-window-background=statuslinenc
+        \ -highlight-filter-background=statusline
+        \ -highlight-matched-char=none
+        \ -filter-split-direction=floating
+        \ <CR>
+
 nnoremap <leader>d :<C-u>DeniteBufferDir file/rec -start-filter<CR>
 nnoremap <leader>r :<C-u>Denite -resume -cursor-pos=+1<CR>
 nnoremap <leader><C-r> :<C-u>Denite register:.<CR>
