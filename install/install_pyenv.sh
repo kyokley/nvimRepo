@@ -26,7 +26,7 @@ pyenv virtualenv $PY3 neovim3
 
 pyenv shell neovim3
 pip install pip --upgrade
-pip install python-language-server[all] neovim pip pyflakes flake8 bandit black isort --upgrade
+pip install python-language-server[all] neovim pip pyflakes flake8 bandit --upgrade
 pyenv which python  # Note the path
 
 pyenv global $PY3

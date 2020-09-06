@@ -28,7 +28,6 @@ Plug 'w0rp/ale'
 Plug 'davidhalter/jedi-vim'
 Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'fisadev/vim-isort'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'airblade/vim-rooter'
 Plug 'sheerun/vim-polyglot'
@@ -122,8 +121,6 @@ let g:rainbow_conf = {
 " ALE Config {{{
 let g:ale_python_flake8_use_global = 1
 let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
-let g:ale_python_isort_use_global = 1
-let g:ale_python_isort_executable = g:python3_dir . 'isort'
 let g:ale_completion_enabled = 0
 let g:ale_completion_delay = 100
 let g:ale_lint_on_enter = 1
