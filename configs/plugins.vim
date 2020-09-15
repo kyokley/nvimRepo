@@ -30,7 +30,6 @@ Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'skywind3000/asyncrun.vim'
 Plug 'airblade/vim-rooter'
-Plug 'sheerun/vim-polyglot'
 Plug 'mhinz/vim-startify'
 Plug 'Shougo/denite.nvim'
 Plug 'chemzqm/denite-git'
@@ -58,10 +57,6 @@ let g:context_enabled = 0
 " let g:bufferline_fname_mod = ':p'
 let g:bufferline_pathshorten = 1
 let g:bufferline_rotate = 2
-" }}}
-
-" Polyglot {{{
-let g:polyglot_disabled = ['csv']
 " }}}
 
 " QuickSilver Config {{{
