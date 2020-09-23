@@ -156,7 +156,6 @@ if g:deoplete#enable_at_startup
     call deoplete#custom#option({
                 \ 'auto_complete_delay': 100,
                 \ 'smart_case': v:true,
-                \ 'ignore_sources': {'_': ['denite']}
                 \ })
 endif
 " }}}
@@ -194,6 +193,7 @@ function! s:denite_my_settings() abort
                 \ denite#do_map('open_filter_buffer')
     nnoremap <silent><buffer><expr> <Space>
                 \ denite#do_map('toggle_select').'j'
+    call deoplete#disable()
 endfunction
 
 autocmd FileType denite-filter call s:denite_filter_my_settings()
@@ -201,47 +201,44 @@ function! s:denite_filter_my_settings() abort
     imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
 endfunction
 
-" Change file/rec command.
-" call denite#custom#var('file/rec', 'command',
-"             \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+" Borrowed from
+" https://github.com/ctaylo21/jarvis/blob/master/config/nvim/init.vim#L58
+"
+" Custom options for Denite
+"   auto_resize             - Auto resize the Denite window height automatically.
+"   prompt                  - Customize denite prompt
+"   direction               - Specify Denite window direction as directly below current pane
+"   winminheight            - Specify min height for Denite window
+"   highlight_mode_insert   - Specify h1-CursorLine in insert mode
+"   prompt_highlight        - Specify color of prompt
+"   highlight_matched_char  - Matched characters highlight
+"   highlight_matched_range - matched range highlight
+let s:denite_options = {'default' : {
+\ 'split': 'floating',
+"\ 'start_filter': 1,
+\ 'auto_resize': 1,
+\ 'source_names': 'short',
+\ 'prompt': 'λ ',
+\ 'highlight_matched_char': 'QuickFixLine',
+\ 'highlight_matched_range': 'Visual',
+\ 'highlight_window_background': 'PmenuSel',
+\ 'highlight_filter_background': 'DiffAdd',
+\ 'winrow': 1,
+\ 'vertical_preview': 1
+\ }}
 
-" Change matchers.
-if g:deoplete#enable_at_startup
-    call denite#custom#source(
-                \ 'file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
-    call denite#custom#source(
-                \ 'file/rec', 'matchers', ['matcher/cpsm'])
-
-    " Change sorters.
-    call denite#custom#source(
-                \ 'file/rec', 'sorters', ['sorter/sublime'])
-
-    " Change default action.
-    call denite#custom#kind('file', 'default_action', 'switch')
-endif
-
-" Add custom menus
-let s:menus = {}
-
-let s:menus.zsh = {
-            \ 'description': 'Edit your import zsh configuration'
-            \ }
-let s:menus.zsh.file_candidates = [
-            \ ['zshrc', '~/.config/zsh/.zshrc'],
-            \ ['zshenv', '~/.zshenv'],
-            \ ]
-
-let s:menus.my_commands = {
-            \ 'description': 'Example commands'
-            \ }
-let s:menus.my_commands.command_candidates = [
-            \ ['Split the window', 'vnew'],
-            \ ['Open zsh menu', 'Denite menu:zsh'],
-            \ ['Format code', 'FormatCode', 'go,python'],
-            \ ]
+" Loop through denite options and enable them
+function! s:profile(opts) abort
+  for l:fname in keys(a:opts)
+    for l:dopt in keys(a:opts[l:fname])
+      call denite#custom#option(l:fname, l:dopt, a:opts[l:fname][l:dopt])
+    endfor
+  endfor
+endfunction
 
 if g:deoplete#enable_at_startup
-    call denite#custom#var('menu', 'menus', s:menus)
+    call s:profile(s:denite_options)
+    "call denite#custom#var('menu', 'menus', s:menus)
 
     " Ag command on grep source
     call denite#custom#var('grep', 'command', ['ag'])
@@ -265,6 +262,24 @@ if g:deoplete#enable_at_startup
     call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
                 \ [ '.git/', '.ropeproject/', '__pycache__/',
                 \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/'])
+
+" Change file/rec command.
+" call denite#custom#var('file/rec', 'command',
+"             \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+
+" Change matchers.
+    call denite#custom#source(
+                \ 'file_mru', 'matchers', ['matcher/fuzzy', 'matcher/project_files'])
+    call denite#custom#source(
+                \ 'file/rec', 'matchers', ['matcher/cpsm'])
+
+    " Change sorters.
+    call denite#custom#source(
+                \ 'file/rec', 'sorters', ['sorter/sublime'])
+
+    " Change default action.
+    call denite#custom#kind('file', 'default_action', 'switch')
+
 endif
 
 nnoremap <silent> <C-p> :<C-u>DeniteProjectDir
@@ -272,32 +287,34 @@ nnoremap <silent> <C-p> :<C-u>DeniteProjectDir
         \   ? 'file/rec/git'
         \   : findfile('.git', ';') != ''
         \       ? 'file/rec/git' : 'file/rec'`
-        \ -split=floating
-        \ -highlight-window-background=statuslinenc
-        \ -highlight-filter-background=statusline
-        \ -highlight-matched-char=none
-        \ -auto-resize
-        \ -filter-split-direction=floating
+        "\ -split=floating
+        "\ -highlight-window-background=statuslinenc
+        "\ -highlight-filter-background=statusline
+        "\ -highlight-matched-char=none
+        "\ -auto-resize
+        "\ -filter-split-direction=floating
         \ -start-filter<CR>
 
 nnoremap <leader>a :<C-u>Denite
         \ grep:`GetGitDir()`
-        \ -split=floating
-        \ -highlight-window-background=statuslinenc
-        \ -highlight-filter-background=statusline
-        \ -highlight-matched-char=none
-        \ -auto-resize
-        \ -filter-split-direction=floating
+        "\ -split=floating
+        "\ -highlight-window-background=statuslinenc
+        "\ -highlight-filter-background=statusline
+        "\ -highlight-matched-char=none
+        "\ -auto-resize
+        "\ -filter-split-direction=floating
+        \ -sorters='sorter/path'
         \ <CR>
 
 " TODO: Fix the weird sorting order in the command below
 nnoremap <silent> <leader>8 :<C-u>DeniteCursorWord
         \ grep:`GetGitDir()`
-        \ -split=floating
-        \ -highlight-window-background=statuslinenc
-        \ -highlight-filter-background=statusline
-        \ -highlight-matched-char=none
-        \ -filter-split-direction=floating
+        "\ -split=floating
+        "\ -highlight-window-background=statuslinenc
+        "\ -highlight-filter-background=statusline
+        "\ -highlight-matched-char=none
+        "\ -filter-split-direction=floating
+        \ -sorters='sorter/path'
         \ <CR>
 
 nnoremap <leader>d :<C-u>DeniteBufferDir file/rec -start-filter<CR>

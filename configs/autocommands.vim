@@ -56,6 +56,7 @@ augroup filetype_python
     autocmd FileType python setlocal foldmethod=indent
     autocmd FileType python setlocal foldlevel=99
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+    autocmd BufEnter *.py call deoplete#enable()
 
 augroup END
 " }}}
