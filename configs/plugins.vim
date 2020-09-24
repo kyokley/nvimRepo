@@ -199,6 +199,13 @@ endfunction
 autocmd FileType denite-filter call s:denite_filter_my_settings()
 function! s:denite_filter_my_settings() abort
     imap <silent><buffer> <C-o> <Plug>(denite_filter_quit)
+    call deoplete#disable()
+endfunction
+
+
+function! Reset_denite_changes() abort
+    set cursorline
+    call deoplete#enable()
 endfunction
 
 " Borrowed from
@@ -222,7 +229,8 @@ let s:denite_options = {'default' : {
 \ 'highlight_matched_char': 'QuickFixLine',
 \ 'highlight_matched_range': 'Visual',
 \ 'highlight_window_background': 'PmenuSel',
-\ 'highlight_filter_background': 'DiffAdd',
+\ 'highlight_filter_background': 'PmenuSbar',
+\ 'highlight_prompt': 'Special',
 \ 'winrow': 1,
 \ 'vertical_preview': 1
 \ }}
@@ -306,7 +314,6 @@ nnoremap <leader>a :<C-u>Denite
         \ -sorters='sorter/path'
         \ <CR>
 
-" TODO: Fix the weird sorting order in the command below
 nnoremap <silent> <leader>8 :<C-u>DeniteCursorWord
         \ grep:`GetGitDir()`
         "\ -split=floating
@@ -317,10 +324,8 @@ nnoremap <silent> <leader>8 :<C-u>DeniteCursorWord
         \ -sorters='sorter/path'
         \ <CR>
 
-nnoremap <leader>d :<C-u>DeniteBufferDir file/rec -start-filter<CR>
 nnoremap <leader>r :<C-u>Denite -resume -cursor-pos=+1<CR>
 nnoremap <leader><C-r> :<C-u>Denite register:.<CR>
-nnoremap <leader>g :<C-u>Denite gitstatus<CR>
 " }}}
 
 " LineNoIndicator {{{
