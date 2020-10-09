@@ -24,7 +24,6 @@ Plug 'whiteinge/diffconflicts'
 Plug 'kshenoy/vim-signature'
 Plug 'junegunn/vader.vim'
 Plug 'w0rp/ale'
-" Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'davidhalter/jedi-vim'
 Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -38,6 +37,7 @@ Plug 'wellle/context.vim'
 " Plug 'romainl/vim-cool'
 Plug 'kana/vim-textobj-user'
 Plug 'thalesmello/vim-textobj-multiline-str'
+Plug 'vim-scripts/indentpython.vim'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
@@ -172,10 +172,6 @@ let g:rooter_manual_only = 1
 
 " Semshi {{{
 let g:semshi#error_sign = v:false
-" }}}
-
-" Python PEP-8 Indent {{{
-let g:python_pep8_indent_hang_closing = 0
 " }}}
 
 " Define Denite mappings {{{
