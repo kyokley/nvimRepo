@@ -1,8 +1,8 @@
 .PHONY: build publish
 
 build:
-	docker build --target=custom -t kyokley/neovim-custom .
 	docker build --target=base -t kyokley/neovim .
+	docker build --target=custom -t kyokley/neovim-custom .
 
 publish: build
 	docker push kyokley/neovim
