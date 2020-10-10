@@ -1,3 +1,4 @@
+" Highlights {{{
 function! ApplyHighlight() abort
     highlight MatchParen ctermbg=4
 
@@ -27,7 +28,9 @@ function! ApplyHighlight() abort
 
     match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 endfunction
+" }}}
 
+" Error Functions {{{
 function! s:FindError(file_name, bad_str, error_msg, ...) abort
     " Sometimes need to remove a temporary buffer
     let l:remove_temp_buffer = get(a:000, 0, 0)
@@ -126,16 +129,9 @@ function! RaiseExceptionForUnresolvedErrors() abort
         bdelete!
     endif
 endfunction
+" }}}
 
-function! s:DiffWithSaved() abort
-  let filetype=&ft
-  diffthis
-  vnew | r # | normal! 1Gdd
-  diffthis
-  execute "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-endfunction
-command! DiffSaved call s:DiffWithSaved()
-
+" Statusline {{{
 function! StatuslineConflictWarning() abort
     if !exists("b:statusline_conflict_warning")
 
@@ -256,7 +252,9 @@ function! s:Median(nums) abort
         return (nums[l/2] + nums[(l/2)-1]) / 2
     endif
 endfunction
+" }}}
 
+" Python Breakpoints {{{
 python3 << EOF
 import vim
 def SetBreakpoint():
@@ -292,8 +290,9 @@ def RemoveBreakpoints():
     vim.command("normal %dG" % nCurrentLine)
 
 EOF
+" }}}
 
-
+" Initialize Directories {{{
 function! InitializeDirectories() abort
   let parent = $HOME
   let prefix = '.vim'
@@ -320,8 +319,9 @@ function! InitializeDirectories() abort
   endfor
 endfunction
 call InitializeDirectories()
+" }}}
 
-
+" Indentation Text Objects {{{
 " Thanks to Dylan McClure for the following indent text objects. They are
 " awesome!
 " https://vimways.org/2018/transactions-pending/
@@ -449,7 +449,9 @@ function! AroundIndentation()
     " restore magic
     let &magic = l:magic
 endfunction
+" }}}
 
+" Generat Functions {{{
 function! GetGitDir() abort
     if finddir('.git', ';') == ''
         let l:directory = '.'
@@ -458,8 +460,9 @@ function! GetGitDir() abort
     endif
     return l:directory
 endfunction
+" }}}
 
-" Floating Term
+" Floating Term {{{
 function! FloatTerm()
     let found_winnr = 0
     for winnr in range(1, winnr('$'))
@@ -530,3 +533,4 @@ function! s:openFloatingTerm()
   " Close border window when terminal window close
   autocmd TermClose * ++once call nvim_win_close(s:float_term_border_win, v:true)
 endfunction
+" }}}
