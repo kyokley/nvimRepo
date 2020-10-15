@@ -37,7 +37,7 @@ Plug 'wellle/context.vim'
 " Plug 'romainl/vim-cool'
 Plug 'kana/vim-textobj-user'
 Plug 'thalesmello/vim-textobj-multiline-str'
-Plug 'vim-scripts/indentpython.vim'
+Plug 'Vimjas/vim-python-pep8-indent'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
