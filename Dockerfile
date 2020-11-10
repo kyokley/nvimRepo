@@ -34,7 +34,7 @@ ENV VIRTUAL_ENV=/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
-RUN apk add --update --no-cache \
+RUN apk update && apk add --no-cache \
         python3-dev \
         g++ \
         gcc \
@@ -43,7 +43,7 @@ RUN apk add --update --no-cache \
 
 FROM python:3.8-alpine AS base
 
-RUN apk add --update --no-cache \
+RUN apk update && apk add --no-cache \
         musl-dev \
         gcc \
         xclip \
@@ -62,7 +62,7 @@ ENV PATH="$PATH:/color_blame_venv/bin"
 COPY --from=color_blame /venv /color_blame_venv
 COPY --from=py-builder /venv /nvim_venv
 
-RUN apk add --update --no-cache \
+RUN apk update && apk add --no-cache \
         python3-dev \
         git \
         the_silver_searcher \
