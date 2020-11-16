@@ -451,7 +451,7 @@ function! AroundIndentation()
 endfunction
 " }}}
 
-" Generat Functions {{{
+" Generate Functions {{{
 function! GetGitDir() abort
     if finddir('.git', ';') == ''
         let l:directory = '.'
