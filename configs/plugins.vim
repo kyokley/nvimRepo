@@ -38,6 +38,7 @@ Plug 'wellle/context.vim'
 Plug 'kana/vim-textobj-user'
 Plug 'thalesmello/vim-textobj-multiline-str'
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'Xuyuanp/scrollbar.nvim'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
