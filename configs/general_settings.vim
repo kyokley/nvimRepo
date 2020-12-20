@@ -55,3 +55,5 @@ set inccommand=split
 set guicursor=
 
 set termguicolors
+
+let $PYTHONUNBUFFERED=1

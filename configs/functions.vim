@@ -62,6 +62,9 @@ function! RaiseExceptionForUnresolvedErrors() abort
 
     if &filetype == 'python'
 
+        let current_lazyredraw = &lazyredraw
+
+        set lazyredraw
         silent %yank p
         new
         setlocal nobuflisted buftype=nofile bufhidden=delete noswapfile
@@ -72,11 +75,10 @@ function! RaiseExceptionForUnresolvedErrors() abort
         silent $,$delete
 
         try
-            let pyflakes_cmd = '%!' . g:python3_dir . 'pyflakes'
+            let pyflakes_cmd = '%!' . g:python3_dir . 'flake8 -j1 --stdin-display-name ' . s:file_name . ' -'
             let bandit_cmd = '%!' . g:python3_dir . 'bandit -ll -s B322,B101 -'
 
             silent execute pyflakes_cmd
-            silent execute '%s/<stdin>/' . s:file_name . '/e'
 
             call s:FindError(s:file_name, '\(unable to detect \)\@<!undefined name', 'Syntax error!', 1)
             call s:FindError(s:file_name, 'unexpected indent', 'Syntax error!', 1)
@@ -103,6 +105,7 @@ function! RaiseExceptionForUnresolvedErrors() abort
             call s:FindError(s:file_name, 'problem decoding source', 'Syntax error!', 1)
             call s:FindError(s:file_name, 'unexpected EOF', 'Syntax error!', 1)
         catch
+            let &lazyredraw = current_lazyredraw
             throw v:exception
         endtry
 
@@ -123,10 +126,12 @@ function! RaiseExceptionForUnresolvedErrors() abort
             endfor
 
             bdelete!
+            let &lazyredraw = current_lazyredraw
             throw 'Bandit Error'
         endif
 
         bdelete!
+        let &lazyredraw = current_lazyredraw
     endif
 endfunction
 " }}}
