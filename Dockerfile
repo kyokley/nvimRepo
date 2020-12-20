@@ -60,7 +60,7 @@ ENTRYPOINT ["nvim"]
 FROM base AS custom
 ENV PATH="$PATH:/color_blame_venv/bin"
 COPY --from=color_blame /venv /color_blame_venv
-COPY --from=py-builder /venv /nvim_venv
+COPY --from=py-builder /venv /venv
 
 RUN apk update && apk add --no-cache \
         python3-dev \
@@ -71,7 +71,7 @@ RUN apk update && apk add --no-cache \
 
 COPY . /root/.config/nvim
 
-RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/nvim_venv/bin/'#" /root/.config/nvim/configs/plugins.vim && \
+RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/venv/bin/'#" /root/.config/nvim/configs/plugins.vim && \
         sed -i 's!endif!source $HOME/.config/nvim/configs/docker.vim\nendif!' /root/.config/nvim/init.vim && \
         sed -i 's!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 0!' /root/.config/nvim/configs/plugins.vim && \
         sed -i 's!autocmd BufEnter \* let \&titlestring = "nvim " \. expand("%:p")!autocmd BufEnter * let \&titlestring = exists("git_root") \? "dvim (" . g:git_root . ") " . expand("%:p")[len("/files") + 1:] : "dvim " . expand("%:p")!' /root/.config/nvim/configs/autocommands.vim && \
