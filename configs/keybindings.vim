@@ -131,4 +131,4 @@ tnoremap <silent> <C-t>           <C-\><C-n>:bd!<CR>
 
 " Because BufWritePre can end up doing a lot of work, force vim to write files
 " one at a time.
-cnoremap wa bufdo update
+cnoremap wa call SyncWriteAll()

@@ -539,3 +539,9 @@ function! s:openFloatingTerm()
   autocmd TermClose * ++once call nvim_win_close(s:float_term_border_win, v:true)
 endfunction
 " }}}
+
+function! SyncWriteAll()
+    let cur_buf = bufnr()
+    bufdo update
+    execute 'buffer' . cur_buf
+endfunction
