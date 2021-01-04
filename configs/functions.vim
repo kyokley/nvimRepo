@@ -540,8 +540,12 @@ function! s:openFloatingTerm()
 endfunction
 " }}}
 
+" Because BufWritePre can end up doing a lot of work, force vim to write files
+" one at a time.
 function! SyncWriteAll()
     let cur_buf = bufnr()
     bufdo update
     execute 'buffer' . cur_buf
 endfunction
+
+command -bar -bang -nargs=0 Wa call SyncWriteAll()

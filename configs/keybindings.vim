@@ -128,7 +128,3 @@ onoremap <silent> ai :<c-u>call AroundIndentation()<cr>
 
 nnoremap  <silent> <C-t>           :call FloatTerm()<CR>
 tnoremap <silent> <C-t>           <C-\><C-n>:bd!<CR>
-
-" Because BufWritePre can end up doing a lot of work, force vim to write files
-" one at a time.
-cnoremap wa call SyncWriteAll()
