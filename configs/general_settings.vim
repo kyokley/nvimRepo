@@ -21,6 +21,7 @@ set nowrapscan
 set textwidth=0
 set mouse=""
 set autoread
+set shiftround
 
 " Tell Vim which characters to show for expanded TABs,
 " trailing whitespace, and end-of-lines
