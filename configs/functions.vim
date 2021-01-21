@@ -548,4 +548,4 @@ function! SyncWriteAll()
     execute 'buffer' . cur_buf
 endfunction
 
-command -bar -bang -nargs=0 Wa call SyncWriteAll()
+command! -bar -bang -nargs=0 Wa call SyncWriteAll()
