@@ -11,7 +11,6 @@ Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 Plug 'kyokley/quicksilver.vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'mileszs/ack.vim'
-Plug 'majutsushi/tagbar'
 Plug 'bling/vim-bufferline'
 " Plug 'kyokley/JavaScript-Indent'
 " Plug 'jelera/vim-javascript-syntax'
@@ -40,6 +39,7 @@ Plug 'thalesmello/vim-textobj-multiline-str'
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
 Plug 'moll/vim-bbye'
+Plug 'liuchengxu/vista.vim'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
@@ -70,10 +70,6 @@ let g:QSIgnore = ".*\.pyc$;.*\.swp$;__pycache__$"
 let NERDChristmasTree=1
 let NERDTreeHijackNetrw=1
 let NERDTreeIgnore=['\.pyc$', '\.swp$']
-" }}}
-
-" Tagbar {{{
-let g:tagbar_autofocus = 1
 " }}}
 
 " Python configs {{{
@@ -345,4 +341,13 @@ let g:line_no_indicator_chars = [
 "let g:line_no_indicator_chars = [
 "  \ '  ', '░ ', '▒ ', '▓ ', '█ ', '█░', '█▒', '█▓', '██'
 "  \ ]
+" }}}
+
+" {{{ Vista
+let g:vista_highlight_whole_line = 1
+let g:vista_blank = [0, 0]
+let g:vista_top_level_blink = [0, 0]
+let g:vista_echo_cursor = 1
+let g:vista_echo_cursor_strategy = 'floating_win'
+let g:vista_cursor_delay = 1000
 " }}}

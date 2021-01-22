@@ -36,7 +36,7 @@ inoremap <right> <nop>
 
 nnoremap <F2> :set nonumber!<CR>:set foldcolumn=0<CR>
 nnoremap <F3> :NERDTreeToggle<CR>
-nnoremap <F4> :TagbarToggle<CR>
+nnoremap <F4> :Vista!!<CR>
 nnoremap <F5> :MundoToggle<CR>
 nnoremap <F6> :set nolist!<CR>
 

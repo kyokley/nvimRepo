@@ -26,6 +26,8 @@ function! ApplyHighlight() abort
     highlight DiffChange        cterm=bold ctermbg=none ctermfg=Yellow guibg=none guifg=Yellow
     highlight DiffText        cterm=bold ctermbg=Red ctermfg=Yellow guibg=Red guifg=Yellow
 
+    highlight default link VistaFloat statusline
+
     match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 endfunction
 " }}}

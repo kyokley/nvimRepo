@@ -9,12 +9,12 @@ RUN apk update && \
             automake \
             cmake \
             g++ \
-            gcc \
             gettext-dev \
             git \
             icu-dev \
             libintl \
             libtool \
+            jansson-dev \
             lua-md5 \
             m4 \
             make \
@@ -27,7 +27,15 @@ RUN apk update && \
         git clone https://github.com/neovim/neovim.git && \
         cd neovim && \
         make && \
+        make install && \
+        cd - && \
+        git clone https://github.com/universal-ctags/ctags.git && \
+        cd ctags && \
+        ./autogen.sh && \
+        ./configure && \
+        make && \
         make install
+
 
 FROM python:3.8-alpine AS py-builder
 ENV VIRTUAL_ENV=/venv
@@ -59,15 +67,19 @@ ENTRYPOINT ["nvim"]
 
 FROM base AS custom
 ENV PATH="$PATH:/color_blame_venv/bin"
-COPY --from=color_blame /venv /color_blame_venv
-COPY --from=py-builder /venv /venv
 
 RUN apk update && apk add --no-cache \
         python3-dev \
         git \
+        jansson \
         the_silver_searcher \
-        ctags \
         less
+
+COPY --from=color_blame /venv /color_blame_venv
+COPY --from=py-builder /venv /venv
+
+COPY --from=builder /usr/local/bin/ctags /usr/local/bin/ctags
+
 
 COPY . /root/.config/nvim
 
