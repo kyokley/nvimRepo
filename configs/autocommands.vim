@@ -44,7 +44,7 @@ augroup GeneralSetup
     autocmd FocusLost,WinLeave * setlocal nocursorline
     autocmd FocusGained * checktime
 
-    autocmd TermClose <buffer> if &buftype=='terminal' | bdelete! | endif
+    autocmd TermClose <buffer> if &buftype == 'terminal' | bdelete! | endif
 
     autocmd BufWritePre * call RaiseExceptionForUnresolvedErrors()
 augroup END

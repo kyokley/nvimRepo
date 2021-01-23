@@ -7,10 +7,11 @@ git submodule update --init --recursive
 
 if [ -n $USE_PAMAC ]
 then
-    pamac install xclip neovim ctags
+    pamac install xclip neovim uctags-git
 
     mkdir -p ~/.local/bin
     ln -s $(which nvim) ~/.local/bin/vim
+    sudo ln -s $(which uctags) /usr/bin/ctags
 fi
 
 if [ -n $USE_APT_GET ]
@@ -29,6 +30,13 @@ then
     sudo update-alternatives --config vi
     sudo update-alternatives --config vim
     sudo update-alternatives --config editor
+
+    git clone https://github.com/universal-ctags/ctags.git
+    cd ctags
+    ./autogen.sh
+    ./configure
+    make
+    make install # may require extra privileges depending on where to install
 fi
 
 mkdir ~/.config
