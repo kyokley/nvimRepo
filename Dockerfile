@@ -48,7 +48,16 @@ RUN apk update && apk add --no-cache \
         python3-dev \
         g++ \
         && \
-        pip install pip python-language-server[pyflakes] pynvim neovim pyflakes flake8 bandit --upgrade --no-cache-dir
+        pip install \
+        --upgrade --no-cache-dir \
+        pip \
+        python-language-server[pyflakes] \
+        pynvim \
+        neovim \
+        pyflakes \
+        flake8 \
+        bandit \
+        wheel
 
 FROM ${BASE_IMAGE} AS base
 
@@ -57,7 +66,7 @@ RUN apk update && apk add --no-cache \
         g++ \
         xclip \
         && \
-        pip install pynvim pip --upgrade --no-cache-dir
+        pip install wheel pynvim pip --upgrade --no-cache-dir
 
 COPY --from=builder /usr/local/bin/nvim /usr/local/bin/nvim
 COPY --from=builder /usr/local/share/nvim /usr/local/share/nvim
