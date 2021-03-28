@@ -1,6 +1,8 @@
+ARG BASE_IMAGE=python:3.9-alpine
+
 FROM kyokley/color_blame AS color_blame
 
-FROM python:3.8-alpine AS builder
+FROM ${BASE_IMAGE} AS builder
 
 RUN apk update && \
         apk --no-cache add \
@@ -37,7 +39,7 @@ RUN apk update && \
         make install
 
 
-FROM python:3.8-alpine AS py-builder
+FROM ${BASE_IMAGE} AS py-builder
 ENV VIRTUAL_ENV=/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
@@ -45,15 +47,14 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 RUN apk update && apk add --no-cache \
         python3-dev \
         g++ \
-        gcc \
         && \
         pip install pip python-language-server[pyflakes] pynvim neovim pyflakes flake8 bandit --upgrade --no-cache-dir
 
-FROM python:3.8-alpine AS base
+FROM ${BASE_IMAGE} AS base
 
 RUN apk update && apk add --no-cache \
         musl-dev \
-        gcc \
+        g++ \
         xclip \
         && \
         pip install pynvim pip --upgrade --no-cache-dir
