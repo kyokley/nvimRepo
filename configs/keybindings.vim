@@ -109,6 +109,7 @@ vnoremap <leader>sb :<C-U>tabnew \| terminal svn blame <C-R>=expand("%:p") <CR> 
 nnoremap <leader>gb :<C-U>tabnew \| terminal git blame <C-R>=expand("%:p") <CR> \| color_git_blame \| less +<C-R>=max([0, line('.') - winline()]) <CR><CR>
 vnoremap <leader>gb :<C-U>tabnew \| terminal git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p \| color_git_blame \| less <CR>
 nnoremap <leader>gl :<C-U>tabnew \| terminal git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line(".") <CR>p \| awk '{print $1}' \| tr -d '^' \| xargs git show <CR>
+nnoremap <leader>gm :LivedownPreview<CR>
 
 nnoremap ,v :source $MYVIMRC<CR>
 nnoremap ,e :e $MYVIMRC<CR>

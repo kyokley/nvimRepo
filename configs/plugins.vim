@@ -40,6 +40,7 @@ Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
 Plug 'moll/vim-bbye'
 Plug 'liuchengxu/vista.vim'
+Plug 'shime/vim-livedown'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
