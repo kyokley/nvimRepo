@@ -82,30 +82,35 @@ function! RaiseExceptionForUnresolvedErrors() abort
 
             silent execute pyflakes_cmd
 
-            call s:FindError(s:file_name, '\(unable to detect \)\@<!undefined name', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'unexpected indent', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'expected an indented block', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'invalid syntax', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'unindent does not match any outer indentation level', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'EOL while scanning string literal', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'redefinition of unused', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'list comprehension redefines', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'shadowed by loop variable', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'syntax error', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'referenced before assignment', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'duplicate argument', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'repeated with different values', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'imports must occur at the beginning of the file', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'outside function', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'not properly in loop', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'outside loop', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'two starred expressions in assignment', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'too many expressions in star-unpacking assignment', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'assertion is always true', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'trailing comma not allowed without surrounding parentheses', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'keyword argument repeated', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'problem decoding source', 'Syntax error!', 1)
-            call s:FindError(s:file_name, 'unexpected EOF', 'Syntax error!', 1)
+            let error_strs = ['\(unable to detect \)\@<!undefined name',
+                        \ 'unexpected indent',
+                        \ 'expected an indented block',
+                        \ 'invalid syntax',
+                        \ 'unindent does not match any outer indentation level',
+                        \ 'EOL while scanning string literal',
+                        \ 'redefinition of unused',
+                        \ 'list comprehension redefines',
+                        \ 'shadowed by loop variable',
+                        \ 'syntax error',
+                        \ 'referenced before assignment',
+                        \ 'duplicate argument',
+                        \ 'repeated with different values',
+                        \ 'imports must occur at the beginning of the file',
+                        \ 'outside function',
+                        \ 'not properly in loop',
+                        \ 'outside loop',
+                        \ 'two starred expressions in assignment',
+                        \ 'too many expressions in star-unpacking assignment',
+                        \ 'assertion is always true',
+                        \ 'trailing comma not allowed without surrounding parentheses',
+                        \ 'keyword argument repeated',
+                        \ 'problem decoding source',
+                        \ 'unexpected EOF']
+
+            for error_str in error_strs
+                call s:FindError(s:file_name, error_str, 'Syntax error!', 1)
+            endfor
+
         catch
             let &lazyredraw = current_lazyredraw
             throw v:exception
