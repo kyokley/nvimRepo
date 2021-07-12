@@ -137,3 +137,10 @@ augroup filetype_vim
     autocmd FileType vim setlocal foldmethod=marker
 augroup END
 " }}}
+
+" filetype_yaml {{{
+augroup filetype_yaml
+    autocmd!
+    autocmd FileType yaml setlocal shiftwidth=2
+augroup END
+" }}}
