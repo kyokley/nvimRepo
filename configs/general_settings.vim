@@ -17,6 +17,8 @@ set scrolloff=5
 set visualbell
 set autochdir
 set wildignore=*.swp,*.bak,*.pyc,*.class,*.o,*.obj,*.git
+set wildmode=longest:full,full
+set wildmenu
 set nowrapscan
 set textwidth=0
 set mouse=""
