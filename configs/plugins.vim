@@ -126,13 +126,7 @@ let g:ale_sign_warning = '->'
 let g:ale_linters = {
             \ 'python': ['flake8'],
             \}
-" highlight link ALEWarning WildMenu
-highlight clear ALEWarning
-highlight link ALEWarningSign WildMenu
-highlight link ALEError SpellBad
-highlight link ALEErrorSign ALEError
-" set completeopt=menu,menuone,preview,noselect,noinsert " Need this for ALE completion to work right?
-"
+" Check functions.vim for highlighting settings
 " }}}
 
 " GitGutter {{{

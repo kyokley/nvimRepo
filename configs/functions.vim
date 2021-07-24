@@ -28,6 +28,12 @@ function! ApplyHighlight() abort
 
     highlight default link VistaFloat statusline
 
+    " ALE Highlighting settings
+    highlight clear ALEWarning
+    highlight link ALEWarningSign WildMenu
+    highlight link ALEError SpellBad
+    highlight link ALEErrorSign ALEError
+
     match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 endfunction
 " }}}
