@@ -41,6 +41,10 @@ Plug 'dstein64/nvim-scrollview', { 'branch': 'main' }
 Plug 'moll/vim-bbye'
 Plug 'liuchengxu/vista.vim'
 Plug 'shime/vim-livedown'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/playground'
+Plug 'nvim-lua/completion-nvim'
+Plug 'neovim/nvim-lspconfig'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
