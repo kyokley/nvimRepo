@@ -593,7 +593,6 @@ function! ProjectGrep(word_regex, ...) abort
         let l:cmd = l:cmd . ' --word-regexp'
     endif
     let l:cmd = l:cmd . ' -- ' . l:args
-    echom l:cmd
 
     let l:cwd = getcwd()
 
