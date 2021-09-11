@@ -50,6 +50,12 @@ xnoremap M :join<CR>
 nnoremap gM :join!<CR>
 xnoremap gM :join!<CR>
 
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
 inoremap <C-r> <C-r><C-o>
 
 cnoremap w!! w !sudo tee % > /dev/null
