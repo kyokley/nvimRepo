@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PY3='3.8.2'
+PY3='3.9.7'
 
 if [ ! -h $HOME/.pyenv ]; then
     git clone https://github.com/pyenv/pyenv.git $HOME/.pyenv
@@ -22,6 +22,7 @@ eval "$(pyenv virtualenv-init -)"
 
 pyenv install $PY3
 
+pyenv virtualenv-delete neovim3
 pyenv virtualenv $PY3 neovim3
 
 pyenv shell neovim3
