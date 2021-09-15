@@ -93,7 +93,6 @@ augroup END
 augroup filetype_md
     autocmd!
     autocmd FileType markdown setlocal spell spelllang=en_us
-    autocmd FileType markdown setlocal noexpandtab
 augroup END
 " }}}
 
