@@ -47,6 +47,8 @@ augroup GeneralSetup
     autocmd TermClose <buffer> if &buftype == 'terminal' | bdelete! | endif
 
     autocmd BufWritePre * call RaiseExceptionForUnresolvedErrors()
+
+    autocmd FileType vista,vista_kind nnoremap <buffer> <silent> / :<c-u>call vista#finder#fzf#Run()<CR>
 augroup END
 " }}}
 
@@ -56,7 +58,6 @@ augroup filetype_python
     autocmd FileType python setlocal foldmethod=indent
     autocmd FileType python setlocal foldlevel=99
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-    autocmd FileType python call Reset_denite_changes()
 augroup END
 " }}}
 
@@ -92,7 +93,6 @@ augroup END
 augroup filetype_md
     autocmd!
     autocmd FileType markdown setlocal spell spelllang=en_us
-    autocmd FileType markdown setlocal noexpandtab
 augroup END
 " }}}
 
@@ -142,5 +142,17 @@ augroup END
 augroup filetype_yaml
     autocmd!
     autocmd FileType yaml setlocal shiftwidth=2
+augroup END
+" }}}
+
+" filetype_fzf {{{
+augroup filetype_fzf
+    autocmd!
+    autocmd FileType fzf tnoremap <buffer> <silent> <C-j> <down>
+    autocmd FileType fzf tnoremap <buffer> <silent> <C-k> <up>
+    autocmd FileType fzf tnoremap <buffer> <silent> <C-h> <nop>
+    autocmd FileType fzf tnoremap <buffer> <silent> <C-l> <nop>
+    autocmd FileType fzf tnoremap <buffer> <silent> <Esc> <C-c>
+    " autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 " }}}
