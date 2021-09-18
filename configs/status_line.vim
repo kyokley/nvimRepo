@@ -68,5 +68,4 @@ set statusline+=%{StatuslineTrailingSpaceWarning()}\ " Space at the end of the l
 set statusline+=%c,     "cursor column
 set statusline+=%l/%L\  "cursor line/total lines
 
-set statusline+=%{LineNoIndicator()}
 set laststatus=2

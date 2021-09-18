@@ -10,13 +10,8 @@ Plug 'tommcdo/vim-exchange'
 Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 Plug 'kyokley/quicksilver.vim'
 Plug 'airblade/vim-gitgutter'
-Plug 'mileszs/ack.vim'
 Plug 'bling/vim-bufferline'
-" Plug 'kyokley/JavaScript-Indent'
-" Plug 'jelera/vim-javascript-syntax'
-Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
 Plug 'ervandew/supertab'
-Plug 'tomlion/vim-solidity'
 Plug 'luochen1990/rainbow'
 Plug 'kyokley/vim-colorschemes'
 Plug 'whiteinge/diffconflicts'
@@ -24,14 +19,9 @@ Plug 'kshenoy/vim-signature'
 Plug 'junegunn/vader.vim'
 Plug 'w0rp/ale'
 Plug 'davidhalter/jedi-vim'
-Plug 'zchee/deoplete-jedi'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'skywind3000/asyncrun.vim'
 Plug 'airblade/vim-rooter'
 Plug 'mhinz/vim-startify'
-Plug 'drzel/vim-line-no-indicator'
-Plug 'wellle/context.vim'
-" Plug 'romainl/vim-cool'
 Plug 'kana/vim-textobj-user'
 Plug 'thalesmello/vim-textobj-multiline-str'
 Plug 'Vimjas/vim-python-pep8-indent'
@@ -45,6 +35,8 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'neovim/nvim-lspconfig'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'ChristianChiarulli/nvcode-color-schemes.vim'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
@@ -53,11 +45,6 @@ Plug '~/.config/nvim/manual/django-custom'
 call plug#end()
 
 filetype plugin indent on
-" }}}
-
-" Context Settings {{{
-let g:context_add_mappings = 0
-let g:context_enabled = 0
 " }}}
 
 " Bufferline {{{
@@ -144,17 +131,8 @@ let g:jedi#documentation_command=''
 let g:jedi#show_call_signatures = "0"
 " }}}
 
-" Deoplete {{{
-let g:deoplete#enable_at_startup = 1
+" CoC {{{
 
-" Only run deoplete setup if enabled at start up
-" This is required for the docker install
-if g:deoplete#enable_at_startup
-    call deoplete#custom#option({
-                \ 'auto_complete_delay': 100,
-                \ 'smart_case': v:true,
-                \ })
-endif
 " }}}
 
 " AsyncRun {{{
@@ -181,31 +159,10 @@ require'nvim-treesitter.configs'.setup {
     ignore_install = { "javascript" }, -- List of parsers to ignore installing
     highlight = {
         enable = true,              -- false will disable the whole extension
-        disable = { "python", },  -- list of language that will be disabled
+        -- disable = { "python", },  -- list of language that will be disabled
     },
 }
 EOF
-
-" LineNoIndicator {{{
-"let g:line_no_indicator_chars = ['⎺', '⎻', '⎼', '⎽'] " on Linux
-
-" one char wide solid vertical bar
-let g:line_no_indicator_chars = [
-  \  '█',
-  \  '▇',
-  \  '▆',
-  \  '▅',
-  \  '▄',
-  \  '▃',
-  \  '▂',
-  \  '▁',
-  \  ' '
-  \  ]
-"
-"let g:line_no_indicator_chars = [
-"  \ '  ', '░ ', '▒ ', '▓ ', '█ ', '█░', '█▒', '█▓', '██'
-"  \ ]
-" }}}
 
 " {{{ Vista
 let g:vista_highlight_whole_line = 1
