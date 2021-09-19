@@ -83,6 +83,8 @@ RUN apk update && apk add --no-cache \
         git \
         jansson \
         the_silver_searcher \
+        ripgrep \
+        npm \
         less
 
 COPY --from=color_blame /venv /color_blame_venv
@@ -93,10 +95,11 @@ COPY --from=builder /usr/local/bin/ctags /usr/local/bin/ctags
 
 COPY . /root/.config/nvim
 
-RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/venv/bin/'#" /root/.config/nvim/configs/plugins.vim && \
+RUN npm i -g pyright && sed -i "s#let g:python3_dir.*#let g:python3_dir = '/venv/bin/'#" /root/.config/nvim/configs/plugins.vim && \
         sed -i 's!endif!source $HOME/.config/nvim/configs/docker.vim\nendif!' /root/.config/nvim/init.vim && \
         sed -i 's!autocmd BufEnter \* let \&titlestring = "nvim " \. expand("%:p")!autocmd BufEnter * let \&titlestring = exists("git_root") \? "dvim (" . g:git_root . ") " . expand("%:p")[len("/files") + 1:] : "dvim " . expand("%:p")!' /root/.config/nvim/configs/autocommands.vim && \
         nvim +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
+        nvim +qa && \
         find /root -name '*.git' -exec rm -rf {} \+
 
 WORKDIR /files
