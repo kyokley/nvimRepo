@@ -149,21 +149,6 @@ let g:rooter_manual_only = 1
 let g:semshi#error_sign = v:false
 " }}}
 
-lua << EOF
-require'lspconfig'.pyright.setup{}
-EOF
-
-lua <<EOF
-require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-    ignore_install = { "javascript" }, -- List of parsers to ignore installing
-    highlight = {
-        enable = true,              -- false will disable the whole extension
-        -- disable = { "python", },  -- list of language that will be disabled
-    },
-}
-EOF
-
 " {{{ Vista
 let g:vista_highlight_whole_line = 1
 let g:vista_blank = [0, 0]
