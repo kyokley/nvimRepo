@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "NeoVim"
+version = "0.1.0"
+description = ""
+authors = ["Kevin Yokley <kyokley2@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+python-lsp-server = {extras = ["all"], version = "^1.2.2"}
+pynvim = "^0.4.3"
+pyflakes = "^2.3.1"
+flake8 = "^3.9.2"
+bandit = "^1.7.0"
+wheel = "^0.37.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

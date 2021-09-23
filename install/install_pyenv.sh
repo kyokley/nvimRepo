@@ -20,6 +20,8 @@ export PYENV_VERSION="$PY3"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 
+pip install poetry
+
 pyenv install $PY3
 
 pyenv virtualenv-delete neovim3
@@ -27,7 +29,7 @@ pyenv virtualenv $PY3 neovim3
 
 pyenv shell neovim3
 pip install pip --upgrade
-pip install python-language-server[all] neovim pip pyflakes flake8 bandit --upgrade
+poetry install
 pyenv which python  # Note the path
 
 pyenv global $PY3

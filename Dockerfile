@@ -99,7 +99,7 @@ RUN npm i -g pyright && sed -i "s#let g:python3_dir.*#let g:python3_dir = '/venv
         sed -i 's!endif!source $HOME/.config/nvim/configs/docker.vim\nendif!' /root/.config/nvim/init.vim && \
         sed -i 's!autocmd BufEnter \* let \&titlestring = "nvim " \. expand("%:p")!autocmd BufEnter * let \&titlestring = exists("git_root") \? "dvim (" . g:git_root . ") " . expand("%:p")[len("/files") + 1:] : "dvim " . expand("%:p")!' /root/.config/nvim/configs/autocommands.vim && \
         nvim --headless +'PlugInstall! --sync' +UpdateRemotePlugins +qa && \
-        nvim --headless +'100sleep' +qa && \
+        nvim --headless +'120sleep' +qa && \
         find /root -name '*.git' -exec rm -rf {} \+
 
 WORKDIR /files
