@@ -24,6 +24,8 @@ set textwidth=0
 set mouse=""
 set autoread
 set shiftround
+set splitright
+set splitbelow
 
 " Tell Vim which characters to show for expanded TABs,
 " trailing whitespace, and end-of-lines
