@@ -103,6 +103,13 @@ augroup filetype_md
 augroup END
 " }}}
 
+" filetype_json {{{
+augroup filetype_json
+    autocmd!
+    autocmd FileType json setlocal foldmethod=indent
+augroup END
+" }}}
+
 " filetype_help {{{
 augroup filetype_help
     autocmd!

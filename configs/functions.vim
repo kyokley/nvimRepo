@@ -111,6 +111,7 @@ function! RaiseExceptionForUnresolvedErrors() abort
                         \ 'trailing comma not allowed without surrounding parentheses',
                         \ 'keyword argument repeated',
                         \ 'problem decoding source',
+                        \ 'EOF in multi-line statement',
                         \ 'unexpected EOF']
 
             for error_str in error_strs
