@@ -69,6 +69,13 @@ augroup filetype_htmldjango
 augroup END
 " }}}
 
+" filetype_html {{{
+augroup filetype_html
+    autocmd!
+    autocmd FileType html setlocal noexpandtab
+augroup END
+" }}}
+
 " filetype_cs {{{
 augroup filetype_cs
     autocmd!
