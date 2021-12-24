@@ -1,11 +1,13 @@
 #!/bin/bash
 
-USE_PAMAC=$(which apt-get >/dev/null 2>&1 && echo "true")
-USE_APT_GET=$(which apt-get >/dev/null 2>&1 && echo "true")
+set -e
+
+USE_PAMAC=$(which pamac >/dev/null 2>&1 && echo "true" || echo "false")
+USE_APT_GET=$(which apt-get >/dev/null 2>&1 && echo "true" || echo "false")
 
 git submodule update --init --recursive
 
-if [ -n $USE_PAMAC ]
+if [ $USE_PAMAC == "true" ]
 then
     pamac install xclip neovim uctags-git npm fzf bat
 
@@ -15,7 +17,7 @@ then
     npm install -g livedown
 fi
 
-if [ -n $USE_APT_GET ]
+if [ $USE_APT_GET == "true" ]
 then
     sudo add-apt-repository ppa:neovim-ppa/unstable
     sudo apt-get update
