@@ -72,6 +72,9 @@ noremap <leader>s :norm @i<CR><CR>
 nnoremap <leader>sp :%!docker run --rm -i kyokley/sqlparse<CR>
 xnoremap <leader>sp :!docker run --rm -i kyokley/sqlparse<CR>
 
+nnoremap <leader>j :%!python -m json.tool<CR>
+xnoremap <leader>j :!python -m json.tool<CR>
+
 " Add some mappings
 nnoremap ,# :call CommentLineToEnd('# ')<CR>+
 xnoremap ,# :call CommentLineToEnd('# ')<CR>+
