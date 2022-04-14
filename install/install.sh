@@ -40,9 +40,9 @@ then
     ./autogen.sh
     ./configure
     make
-    make install # may require extra privileges depending on where to install
+    sudo make install # may require extra privileges depending on where to install
 
-    npm install -g livedown
+    sudo npm install -g livedown
 fi
 
 mkdir ~/.config
