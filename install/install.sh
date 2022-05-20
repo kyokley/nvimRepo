@@ -23,9 +23,9 @@ then
     sudo apt-get update
     sudo apt-get install -y neovim xclip aptitude
     sudo apt-get install -y python3-pip
-    sudo apt-get install -y npm fzf bat
+    sudo apt-get install -y npm fzf
 
-    sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev exuberant-ctags bat automake
+    sudo apt-get install -y make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev exuberant-ctags automake
 
     sudo update-alternatives --install /usr/bin/vi vi /usr/bin/nvim 60
     sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
@@ -35,6 +35,7 @@ then
     sudo update-alternatives --config vim
     sudo update-alternatives --config editor
 
+    rm -rf ctags || true
     git clone https://github.com/universal-ctags/ctags.git
     cd ctags
     ./autogen.sh
@@ -45,7 +46,7 @@ then
     sudo npm install -g livedown
 fi
 
-mkdir ~/.config
+mkdir -p ~/.config
 if [ ! -h ~/.config/nvim ]; then
     ln -s ~/.nvim ~/.config/nvim
 fi
