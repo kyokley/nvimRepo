@@ -83,6 +83,9 @@ RUN apk update && apk add --no-cache \
         git \
         jansson \
         the_silver_searcher \
+        fzf \
+        bash \
+        ripgrep \
         less
 
 COPY --from=color_blame /venv /color_blame_venv
