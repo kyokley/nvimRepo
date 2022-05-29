@@ -102,6 +102,7 @@ RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/venv/bin/'#" /root/.conf
         sed -i 's!autocmd BufEnter \* let \&titlestring = "nvim " \. expand("%:p")!autocmd BufEnter * let \&titlestring = exists("git_root") \? "dvim (" . g:git_root . ") " . expand("%:p")[len("/files") + 1:] : "dvim " . expand("%:p")!' /root/.config/nvim/configs/autocommands.vim && \
         nvim +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
         sed -i "s!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 1!" /root/.config/nvim/configs/plugins.vim && \
+        git config --global --add safe.directory /files && \
         find /root -name '*.git' -exec rm -rf {} \+
 
 WORKDIR /files
