@@ -6,7 +6,8 @@ function! ApplyHighlight() abort
     highlight NonText ctermbg=none guibg=NONE
 
     highlight CursorLine cterm=NONE ctermbg=18 ctermfg=white guibg=darkblue guifg=white
-    highlight colorcolumn cterm=NONE ctermbg=black guibg=black
+    highlight ColorColumn cterm=NONE ctermbg=black guibg=black
+    highlight TabLineFill cterm=NONE ctermbg=black guibg=black
     "highlight LineNr cterm=NONE ctermbg=NONE ctermfg=yellow guibg=NONE guifg=yellow
     highlight search cterm=NONE ctermbg=lightblue ctermfg=black guibg=lightblue guifg=black
     highlight signcolumn cterm=NONE ctermbg=black guibg=NONE
