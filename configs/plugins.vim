@@ -117,7 +117,6 @@ unsaved = {
     fg = function(buffer)
       return buffer.is_modified and "#e5c463" or nil
     end,
-    delete_buffer_on_left_click = true,
     truncation = { priority = 1 },
   },
     right_cap = {
