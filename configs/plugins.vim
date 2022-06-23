@@ -41,72 +41,14 @@ Plug 'shime/vim-livedown'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
-Plug 'kyazdani42/nvim-web-devicons' " cokeline devicons
+Plug 'kyazdani42/nvim-web-devicons' " If you want devicons
 Plug 'noib3/nvim-cokeline'
-Plug 'neovim/nvim-lspconfig'
 
 Plug '~/.config/nvim/manual/togglecomment'
 Plug '~/.config/nvim/manual/pyfold'
 Plug '~/.config/nvim/manual/visincr'
 Plug '~/.config/nvim/manual/django-custom'
 call plug#end()
-" }}}
-
-" LSP Init {{{
-lua << EOF
--- Mappings.
--- See `:help vim.diagnostic.*` for documentation on any of the below functions
-local opts = { noremap=true, silent=true }
--- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
--- vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
--- vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
--- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
-
--- Use an on_attach function to only map the following keys
--- after the language server attaches to the current buffer
-local on_attach = function(client, bufnr)
-  -- Enable completion triggered by <c-x><c-o>
---  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
---
---  -- Mappings.
---  -- See `:help vim.lsp.*` for documentation on any of the below functions
---  local bufopts = { noremap=true, silent=true, buffer=bufnr }
---  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
---  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
---  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
---  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
---  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
---  vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
---  vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
---  vim.keymap.set('n', '<space>wl', function()
---    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
---  end, bufopts)
---  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
---  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
---  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
---  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
---  vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
-end
-
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
-require('lspconfig')['pyright'].setup{
-    on_attach = on_attach,
-    flags = lsp_flags,
-}
-require'lspconfig'.pyright.setup{}
-
-vim.diagnostic.config({
-  virtual_text = false,
-  signs = true,
-  underline = true,
-  update_in_insert = false,
-  severity_sort = false,
-})
-
-EOF
 " }}}
 
 " Cokeline Bufferline Config {{{
@@ -121,70 +63,68 @@ local components = {
     space = { text = ' ' , bg = 'none'},
     left_cap = {
         text = function(buffer) return buffer.is_focused and '' or ' ' end,
-        fg = function(buffer)
-            return buffer.is_focused and blue or 'none'
-        end,
-        bg = 'none',
+      fg = function(buffer)
+      return buffer.is_focused and blue or 'none'
+  end,
+      bg = 'none',
     },
     devicon = {
-        text = function(buffer) return buffer.devicon.icon .. ' ' end,
-        fg = function(buffer) return buffer.devicon.color end,
+      text = function(buffer) return buffer.devicon.icon .. ' ' end,
+      fg = function(buffer) return buffer.devicon.color end,
     },
     index = {
-        text = function(buffer) return buffer.index .. ': ' end,
+      text = function(buffer) return buffer.index .. ': ' end,
     },
     prefix = {
-        text = function(buffer) return buffer.unique_prefix end,
-        fg = get_hex('Comment', 'fg'),
-        style = 'italic',
+      text = function(buffer) return buffer.unique_prefix end,
+      fg = get_hex('Comment', 'fg'),
+      style = 'italic',
     },
     filename = {
-        text = function(buffer)
-            return buffer.filename
-        end,
-        fg = function(buffer)
-            -- if buffer.is_focused then
-            --     return "#78dce8"
-            -- end
-            -- if buffer.is_modified then
-            --     return "#e5c463"
-            -- end
-                if buffer.diagnostics.errors ~= 0 then
-                    return "#fc5d7c"
-                end
-                return 'none'
-            end,
-                style = function(buffer)
-                    if buffer.is_focused then
-                        return "bold"
+                    text = function(buffer)
+                        return buffer.filename
+                    end,
+                    -- fg = function(buffer)
+                    --     -- if buffer.is_focused then
+                    --     --     return "#78dce8"
+                    --     -- end
+                    --     if buffer.is_modified then
+                    --         return "#e5c463"
+                    --     end
+                    --     -- if buffer.lsp.errors ~= 0 then
+                    --     --     return "#fc5d7c"
+                    --     -- end
+                    -- end,
+                    style = function(buffer)
+                        if buffer.is_focused then
+                            return "bold"
+                        end
+                        return nil
                     end
-                    return nil
-                end
-                },
-            readonly = {
-                text = function(buffer)
-                if buffer.is_readonly then
-                    return " 🔒"
-                end
-                return "  "
-            end
-            },
-        unsaved = {
-            text = function(buffer)
-            return buffer.is_modified and ' ●' or '  '
-        end,
-        fg = "#e5c463",
-        truncation = {
-            priority = 1,
-            direction = 'left',
-        },
     },
+    readonly = {
+                    text = function(buffer)
+                        if buffer.is_readonly then
+                            return " 🔒"
+                        end
+                        return ""
+                    end
+    },
+unsaved = {
+    text = function(buffer)
+      return buffer.is_modified and ' ●' or '  '
+    end,
+    fg = function(buffer)
+      return buffer.is_modified and "#e5c463" or nil
+    end,
+    truncation = { priority = 1 },
+  },
     right_cap = {
         text = function(buffer) return buffer.is_focused and '' or ' ' end,
-        fg = function(buffer)
-        return buffer.is_focused and blue or 'none'
-    end,
-        bg = 'none',
+      fg = function(buffer)
+      return buffer.is_focused and blue or 'none'
+  end,
+      bg = 'none',
     },
   }
 
