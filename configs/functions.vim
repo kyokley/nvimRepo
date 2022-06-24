@@ -6,7 +6,8 @@ function! ApplyHighlight() abort
     highlight NonText ctermbg=none guibg=NONE
 
     highlight CursorLine cterm=NONE ctermbg=18 ctermfg=white guibg=darkblue guifg=white
-    highlight colorcolumn cterm=NONE ctermbg=black guibg=black
+    highlight ColorColumn cterm=NONE ctermbg=black guibg=black
+    highlight TabLineFill cterm=NONE ctermbg=black guibg=black
     "highlight LineNr cterm=NONE ctermbg=NONE ctermfg=yellow guibg=NONE guifg=yellow
     highlight search cterm=NONE ctermbg=lightblue ctermfg=black guibg=lightblue guifg=black
     highlight signcolumn cterm=NONE ctermbg=black guibg=NONE
@@ -554,6 +555,7 @@ function! s:openFloatingTerm()
 endfunction
 " }}}
 
+" Other Funcs {{{
 " Because BufWritePre can end up doing a lot of work, force vim to write files
 " one at a time.
 function! SyncWriteAll()
@@ -622,3 +624,4 @@ command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse']}), <bang>0)
 command! -bang -nargs=? -complete=dir GFiles
     \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse']}), <bang>0)
+" }}}
