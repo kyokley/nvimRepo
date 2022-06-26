@@ -14,3 +14,6 @@ endif
 publish: build
 	docker push kyokley/neovim
 	docker push kyokley/neovim-custom
+
+shell: build
+	docker run --rm -it --entrypoint /bin/sh kyokley/neovim-custom
