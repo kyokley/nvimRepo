@@ -40,8 +40,8 @@ augroup GeneralSetup
     autocmd cursorhold,bufwritepost * unlet! b:statusline_conflict_warning
     autocmd cursorhold,bufwritepost * unlet! b:statusline_tab_warning
 
-    " Automatically heal any display issues when running in a docker container
-    " by redrawing the screen on cursorhold
+    " Uncomment below to automatically heal any display issues when running in a
+    " docker container by redrawing the screen on cursorhold:
     " autocmd cursorhold * execute "mode"
 
     autocmd FocusGained,VimEnter,WinEnter,BufWinEnter * setlocal cursorline

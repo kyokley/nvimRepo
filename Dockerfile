@@ -100,7 +100,7 @@ RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/venv/bin/'#" /root/.conf
         sed -i 's!endif!source $HOME/.config/nvim/configs/docker.vim\nendif!' /root/.config/nvim/init.vim && \
         sed -i 's!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 0!' /root/.config/nvim/configs/plugins.vim && \
         sed -i 's!autocmd BufEnter \* let \&titlestring = "nvim " \. expand("%:p")!autocmd BufEnter * let \&titlestring = exists("git_root") \? "dvim (" . g:git_root . ") " . expand("%:p")[len("/files") + 1:] : "dvim " . expand("%:p")!' /root/.config/nvim/configs/autocommands.vim && \
-        sed -i 's!" autocmd cursorhold \* execute "mode"!autocmd cursorhold * execute "mode"!' /root/.config/nvim/configs/autocommands.vim && \
+        sed -Ei 's!" (autocmd cursorhold \* execute "mode")!\1!' /root/.config/nvim/configs/autocommands.vim && \
         nvim +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
         sed -i "s!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 1!" /root/.config/nvim/configs/plugins.vim && \
         git config --global --add safe.directory /files && \
