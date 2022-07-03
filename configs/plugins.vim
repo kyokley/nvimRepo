@@ -73,7 +73,7 @@ local components = {
       fg = function(buffer) return buffer.devicon.color end,
     },
     index = {
-      text = function(buffer) return buffer.index .. ': ' end,
+      text = function(buffer) return buffer.number .. ': ' end,
     },
     prefix = {
       text = function(buffer) return buffer.unique_prefix end,
