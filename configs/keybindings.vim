@@ -70,8 +70,8 @@ xnoremap <leader>u :norm @u<CR>
 let @i = ':silent! s/\<\(desc\|trigger\|after\|for\|each\|row\|returns\|replace\|function\|execute\|procedure\|with\|case\|when\|then\|else\|end\|type\|using\|foreign\|references\|cascade\|if\|check\|coalesce\|boolean\|union\|false\|true\|integer\|text\|serial\|primary\|key\|into\|insert\|drop\|limit\|unique\|index\|default\|column\|add\|table\|create\|alter\|delete\|interval\|set\|begin\|order by\|group by\|commit\|update\|rollback\|as\|select\|distinct\|from\|null\|or\|is\|inner\|right\|outer\|join\|in\|not\|exists\|on\|where\|and\|constraint\|having\)\>\c/\U&/g'
 noremap <leader>s :norm @i<CR><CR>
 
-nnoremap <leader>sp :%!docker run --rm -i kyokley/sqlparse<CR>
-xnoremap <leader>sp :!docker run --rm -i kyokley/sqlparse<CR>
+nnoremap <leader>sp :%!docker run --rm -i kyokley/sqlparse 2>/dev/null<CR>
+xnoremap <leader>sp :!docker run --rm -i kyokley/sqlparse 2>/dev/null<CR>
 
 nnoremap <leader>j :%!python -m json.tool<CR>
 xnoremap <leader>j :!python -m json.tool<CR>
