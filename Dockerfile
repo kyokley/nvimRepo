@@ -57,6 +57,7 @@ RUN apk update && apk add --no-cache \
         pyflakes \
         flake8 \
         bandit \
+        sqlparse \
         wheel
 
 FROM ${BASE_IMAGE} AS base
@@ -101,6 +102,7 @@ RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/venv/bin/'#" /root/.conf
         sed -i 's!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 0!' /root/.config/nvim/configs/plugins.vim && \
         sed -i 's!autocmd BufEnter \* let \&titlestring = "nvim " \. expand("%:p")!autocmd BufEnter * let \&titlestring = exists("git_root") \? "dvim (" . g:git_root . ") " . expand("%:p")[len("/files") + 1:] : "dvim " . expand("%:p")!' /root/.config/nvim/configs/autocommands.vim && \
         sed -Ei 's!" (autocmd cursorhold \* execute "mode")!\1!' /root/.config/nvim/configs/autocommands.vim && \
+        sed -i 's!docker run --rm -i kyokley/sqlparse!python -c "import sys, sqlparse; lines = \\"\\n\\".join(sys.stdin.readlines()); print(sqlparse.format(lines, reindent=True))"!' /root/.config/nvim/configs/keybindings.vim && \
         nvim +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
         sed -i "s!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 1!" /root/.config/nvim/configs/plugins.vim && \
         git config --global --add safe.directory /files && \
