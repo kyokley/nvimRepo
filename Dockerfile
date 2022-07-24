@@ -57,6 +57,7 @@ RUN apk update && apk add --no-cache \
         pyflakes \
         flake8 \
         bandit \
+        sqlparse \
         wheel
 
 FROM ${BASE_IMAGE} AS base
