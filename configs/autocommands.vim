@@ -153,7 +153,7 @@ augroup END
 " filetype_yaml {{{
 augroup filetype_yaml
     autocmd!
-    autocmd FileType yaml setlocal shiftwidth=4
+    autocmd FileType yaml setlocal shiftwidth=2
 augroup END
 " }}}
 
