@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=python:3.10-alpine
+ARG BASE_IMAGE=python:3.11-alpine
 
 FROM kyokley/color_blame AS color_blame
 
