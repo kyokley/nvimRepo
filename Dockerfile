@@ -1,4 +1,4 @@
-ARG BASE_IMAGE=python:3.9-alpine
+ARG BASE_IMAGE=python:3.11-alpine
 
 FROM kyokley/color_blame AS color_blame
 
@@ -57,6 +57,7 @@ RUN apk update && apk add --no-cache \
         pyflakes \
         flake8 \
         bandit \
+        ruff \
         sqlparse \
         wheel
 

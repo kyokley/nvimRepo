@@ -44,7 +44,7 @@ function! s:FindError(file_name, bad_str, error_msg, ...) abort
     " Sometimes need to remove a temporary buffer
     let l:remove_temp_buffer = get(a:000, 0, 0)
 
-    let l:line = search(a:bad_str, 'nw')
+    let l:line = search('\c' . a:bad_str, 'nw')
     if l:line != 0
         if match(getline(l:line), '\c' . a:file_name) == -1
             let l:message = a:error_msg . ' ' . a:file_name . ':' . l:line
@@ -84,7 +84,7 @@ function! RaiseExceptionForUnresolvedErrors() abort
         silent $,$delete
 
         try
-            let pyflakes_cmd = '%!' . g:python3_dir . 'flake8 -j1 --stdin-display-name ' . s:file_name . ' -'
+            let pyflakes_cmd = '%!' . g:python3_dir . 'ruff --stdin-filename ' . s:file_name . ' -'
             let bandit_cmd = '%!' . g:python3_dir . 'bandit -ll -s B322,B101 -'
 
             silent execute pyflakes_cmd
