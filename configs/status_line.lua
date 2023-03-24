@@ -1,3 +1,4 @@
+vim.cmd([[
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
 
@@ -70,3 +71,4 @@ set statusline+=%l/%L\  "cursor line/total lines
 
 set statusline+=%{LineNoIndicator()}
 set laststatus=2
+]])
