@@ -1,3 +1,4 @@
+vim.cmd([[
 " Highlights {{{
 function! ApplyHighlight() abort
     highlight MatchParen ctermbg=4
@@ -625,3 +626,5 @@ command! -bang -nargs=? -complete=dir Files
 command! -bang -nargs=? -complete=dir GFiles
     \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse']}), <bang>0)
 " }}}
+
+]])
