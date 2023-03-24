@@ -1,3 +1,4 @@
+vim.cmd([[
 " Install Plugins {{{
 filetype off
 call plug#begin('~/.config/nvim/plugged')
@@ -49,108 +50,6 @@ Plug '~/.config/nvim/manual/pyfold'
 Plug '~/.config/nvim/manual/visincr'
 Plug '~/.config/nvim/manual/django-custom'
 call plug#end()
-" }}}
-
-" Cokeline Bufferline Config {{{
-lua << EOF
-local get_hex = require('cokeline/utils').get_hex
-
-local green = vim.g.terminal_color_2
-local yellow = vim.g.terminal_color_3
-local blue = "darkblue"
-
-local components = {
-    space = { text = ' ' , bg = 'none'},
-    left_cap = {
-        text = function(buffer) return buffer.is_focused and '' or ' ' end,
-      fg = function(buffer)
-      return buffer.is_focused and blue or 'none'
-  end,
-      bg = 'none',
-    },
-    devicon = {
-      text = function(buffer) return buffer.devicon.icon .. ' ' end,
-      fg = function(buffer) return buffer.devicon.color end,
-    },
-    index = {
-      text = function(buffer) return buffer.number .. ': ' end,
-    },
-    prefix = {
-      text = function(buffer) return buffer.unique_prefix end,
-      fg = get_hex('Comment', 'fg'),
-      style = 'italic',
-    },
-    filename = {
-                    text = function(buffer)
-                        return buffer.filename
-                    end,
-                    -- fg = function(buffer)
-                    --     -- if buffer.is_focused then
-                    --     --     return "#78dce8"
-                    --     -- end
-                    --     if buffer.is_modified then
-                    --         return "#e5c463"
-                    --     end
-                    --     -- if buffer.lsp.errors ~= 0 then
-                    --     --     return "#fc5d7c"
-                    --     -- end
-                    -- end,
-                    style = function(buffer)
-                        if buffer.is_focused then
-                            return "bold"
-                        end
-                        return nil
-                    end
-    },
-    readonly = {
-                    text = function(buffer)
-                        if buffer.is_readonly then
-                            return " 🔒"
-                        end
-                        return ""
-                    end
-    },
-unsaved = {
-    text = function(buffer)
-      return buffer.is_modified and ' ●' or '  '
-    end,
-    fg = function(buffer)
-      return buffer.is_modified and "#e5c463" or nil
-    end,
-    truncation = { priority = 1 },
-  },
-    right_cap = {
-        text = function(buffer) return buffer.is_focused and '' or ' ' end,
-      fg = function(buffer)
-      return buffer.is_focused and blue or 'none'
-  end,
-      bg = 'none',
-    },
-  }
-
-require('cokeline').setup({
-  default_hl = {
-    fg = function(buffer)
-      return buffer.is_focused and get_hex('Normal', 'fg') or 'none'
-    end,
-    bg = function(buffer)
-      return buffer.is_focused and blue or 'none'
-    end,
-  },
-
-  components = {
-      components.space,
-      components.left_cap,
-      components.devicon,
-      components.index,
-      components.prefix,
-      components.filename,
-      components.readonly,
-      components.unsaved,
-      components.right_cap,
-      },
-})
-EOF
 " }}}
 
 " Context Settings {{{
@@ -304,3 +203,104 @@ nnoremap <silent> <leader>8 :<C-u>call ProjectGrep(1, expand("<cword>"))<CR>
 
 nnoremap <leader>a :<C-u>call ProjectGrep(0)<CR>
 " }}}
+]])
+
+-- Cokeline Bufferline Config {{{
+local get_hex = require('cokeline/utils').get_hex
+
+local green = vim.g.terminal_color_2
+local yellow = vim.g.terminal_color_3
+local blue = "darkblue"
+
+local components = {
+    space = { text = ' ' , bg = 'none'},
+    left_cap = {
+        text = function(buffer) return buffer.is_focused and '' or ' ' end,
+      fg = function(buffer)
+      return buffer.is_focused and blue or 'none'
+  end,
+      bg = 'none',
+    },
+    devicon = {
+      text = function(buffer) return buffer.devicon.icon .. ' ' end,
+      fg = function(buffer) return buffer.devicon.color end,
+    },
+    index = {
+      text = function(buffer) return buffer.number .. ': ' end,
+    },
+    prefix = {
+      text = function(buffer) return buffer.unique_prefix end,
+      fg = get_hex('Comment', 'fg'),
+      style = 'italic',
+    },
+    filename = {
+                    text = function(buffer)
+                        return buffer.filename
+                    end,
+                    -- fg = function(buffer)
+                    --     -- if buffer.is_focused then
+                    --     --     return "#78dce8"
+                    --     -- end
+                    --     if buffer.is_modified then
+                    --         return "#e5c463"
+                    --     end
+                    --     -- if buffer.lsp.errors ~= 0 then
+                    --     --     return "#fc5d7c"
+                    --     -- end
+                    -- end,
+                    style = function(buffer)
+                        if buffer.is_focused then
+                            return "bold"
+                        end
+                        return nil
+                    end
+    },
+    readonly = {
+                    text = function(buffer)
+                        if buffer.is_readonly then
+                            return " 🔒"
+                        end
+                        return ""
+                    end
+    },
+unsaved = {
+    text = function(buffer)
+      return buffer.is_modified and ' ●' or '  '
+    end,
+    fg = function(buffer)
+      return buffer.is_modified and "#e5c463" or nil
+    end,
+    truncation = { priority = 1 },
+  },
+    right_cap = {
+        text = function(buffer) return buffer.is_focused and '' or ' ' end,
+      fg = function(buffer)
+      return buffer.is_focused and blue or 'none'
+  end,
+      bg = 'none',
+    },
+  }
+
+require('cokeline').setup({
+  default_hl = {
+    fg = function(buffer)
+      return buffer.is_focused and get_hex('Normal', 'fg') or 'none'
+    end,
+    bg = function(buffer)
+      return buffer.is_focused and blue or 'none'
+    end,
+  },
+
+  components = {
+      components.space,
+      components.left_cap,
+      components.devicon,
+      components.index,
+      components.prefix,
+      components.filename,
+      components.readonly,
+      components.unsaved,
+      components.right_cap,
+      },
+})
+-- }}}
