@@ -55,89 +55,6 @@ Plug '~/.config/nvim/manual/django-custom'
 call plug#end()
 " }}}
 
-" Context Settings {{{
-let g:context_add_mappings = 0
-let g:context_enabled = 0
-" }}}
-
-" QuickSilver Config {{{
-let g:QSMatchFn = 'fuzzy'
-let g:QSIgnore = ".*\.pyc$;.*\.swp$;__pycache__$"
-" }}}
-
-" NERDTree {{{
-let NERDChristmasTree=1
-let NERDTreeHijackNetrw=1
-let NERDTreeIgnore=['\.pyc$', '\.swp$']
-" }}}
-
-" Python configs {{{
-let g:loaded_python_provider = 0
-let g:python3_dir = substitute(system("dirname $(pyenv which python3)"), '\n\+$', '', '') . '/'
-
-let g:python3_host_prog = g:python3_dir . 'python'
-" }}}
-
-" SuperTab {{{
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<c-n>"
-" }}}
-
-" Rainbow Config {{{
-let g:rainbow_active = 1
-let g:rainbow_conf = {
-    \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-    \   'ctermfgs': ['darkmagenta', 'darkgreen', 'darkyellow', 'blue', 'lightred'],
-    \   'operators': '_,_',
-    \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-    \   'separately': {
-    \       '*': {},
-    \       'tex': {
-    \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-    \       },
-    \       'lisp': {
-    \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-    \       },
-    \       'vim': {
-    \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-    \       },
-    \       'html': {
-    \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-    \       },
-    \       'css': 0,
-    \       'diff': 0,
-    \   }
-    \}
-" }}}
-
-" ALE Config {{{
-let g:ale_python_flake8_use_global = 1
-let g:ale_python_flake8_executable = g:python3_dir . 'flake8'
-let g:ale_completion_enabled = 0
-let g:ale_completion_delay = 100
-let g:ale_lint_on_enter = 1
-let g:ale_enabled = 1
-let g:ale_set_signs = 1
-let g:ale_sign_offset = 2000
-let g:ale_set_highlights = 1
-let g:ale_sign_warning = '->'
-let g:ale_linters = {
-            \ 'python': ['flake8'],
-            \}
-" Check functions.vim for highlighting settings
-" }}}
-
-" GitGutter {{{
-let g:gitgutter_map_keys = 0
-let g:gitgutter_enabled = 1
-" }}}
-
-" Jedi {{{
-let g:jedi#completions_enabled = 0
-let g:jedi#documentation_command=''
-let g:jedi#show_call_signatures = "0"
-" }}}
-
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
 
@@ -207,6 +124,63 @@ nnoremap <silent> <leader>8 :<C-u>call ProjectGrep(1, expand("<cword>"))<CR>
 nnoremap <leader>a :<C-u>call ProjectGrep(0)<CR>
 " }}}
 ]])
+
+-- Context Settings {{{
+vim.g.context_add_mappings = 0
+vim.g.context_enabled = 0
+-- }}}
+
+-- QuickSilver Config {{{
+vim.g['QSMatchFn'] = "fuzzy"
+vim.g['QSIgnore'] = ".*.pyc$;.*.swp$;__pycache__$"
+-- }}}
+
+-- NERDTree {{{
+vim.g['NERDChristmasTree'] = 1
+vim.g['NERDTreeHijackNetrw'] = 1
+vim.g['NERDTreeIgnore'] = {'.pyc$', '.swp$'}
+-- }}}
+
+-- Python configs {{{
+vim.g.loaded_python_provider = 0
+vim.g.python3_dir = vim.fn.substitute(vim.fn.system("dirname $(pyenv which python3)"), '\\n\\+$', '', '') .. '/'
+vim.g.python3_host_prog = vim.g.python3_dir .. 'python'
+-- }}}
+
+-- ALE Config {{{
+vim.g.ale_python_flake8_use_global = 1
+vim.g.ale_python_flake8_executable = vim.g.python3_dir .. 'flake8'
+vim.g.ale_completion_enabled = 0
+vim.g.ale_completion_delay = 100
+vim.g.ale_lint_on_enter = 1
+vim.g.ale_enabled = 1
+vim.g.ale_set_signs = 1
+vim.g.ale_sign_offset = 2000
+vim.g.ale_set_highlights = 1
+vim.g.ale_sign_warning = '->'
+vim.g.ale_linters = {python = {'flake8'}}
+-- Check functions.vim for highlighting settings
+-- }}}
+
+-- GitGutter {{{
+vim.g.gitgutter_map_keys = 0
+vim.g.gitgutter_enabled = 1
+-- }}}
+
+-- SuperTab {{{
+vim.g['SuperTabDefaultCompletionType'] = "context"
+vim.g['SuperTabContextDefaultCompletionType'] = "<c-n>"
+-- }}}
+
+-- Rainbow Config {{{
+vim.g.rainbow_active = 1
+-- }}}
+
+-- Jedi {{{
+vim.g['jedi#completions_enabled'] = 0
+vim.g['jedi#documentation_command'] = ''
+vim.g['jedi#show_call_signatures '] = "0"
+-- }}}
 
 -- Cokeline Bufferline Config {{{
 local get_hex = require('cokeline/utils').get_hex

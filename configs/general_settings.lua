@@ -38,12 +38,10 @@ vim.opt.list = true
 vim.opt.cursorline = true
 
 vim.cmd([[
-let $PYTHONUNBUFFERED=1
-
-set background=dark
-
 colorscheme CandyPaper
 ]])
+
+vim.o.background = 'dark'
 
 vim.opt.incsearch = true
 vim.opt.hlsearch = true

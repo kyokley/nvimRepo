@@ -151,6 +151,13 @@ augroup filetype_vim
 augroup END
 " }}}
 
+" filetype_lua {{{
+augroup filetype_lua
+    autocmd!
+    autocmd FileType lua setlocal foldmethod=marker
+augroup END
+" }}}
+
 " filetype_yaml {{{
 augroup filetype_yaml
     autocmd!
