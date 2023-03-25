@@ -11,26 +11,10 @@ RUN apk update && \
             automake \
             cmake \
             g++ \
-            gettext-dev \
             git \
-            icu-dev \
-            libintl \
-            libtool \
-            jansson-dev \
-            lua-md5 \
-            m4 \
-            make \
             musl-dev \
             pkgconf \
-            python3-dev \
-            unzip \
-            xclip \
             && \
-        git clone https://github.com/neovim/neovim.git && \
-        cd neovim && \
-        make && \
-        make install && \
-        cd - && \
         git clone https://github.com/universal-ctags/ctags.git && \
         cd ctags && \
         ./autogen.sh && \
@@ -65,13 +49,11 @@ FROM ${BASE_IMAGE} AS base
 
 RUN apk update && apk add --no-cache \
         musl-dev \
+        neovim \
         g++ \
         xclip \
         && \
         pip install wheel pynvim pip --upgrade --no-cache-dir
-
-COPY --from=builder /usr/local/bin/nvim /usr/local/bin/nvim
-COPY --from=builder /usr/local/share/nvim /usr/local/share/nvim
 
 WORKDIR /files
 ENTRYPOINT ["nvim"]
@@ -98,14 +80,14 @@ COPY --from=builder /usr/local/bin/ctags /usr/local/bin/ctags
 
 COPY . /root/.config/nvim
 
-RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/venv/bin/'#" /root/.config/nvim/configs/plugins.vim && \
+RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/venv/bin/'#" /root/.config/nvim/configs/plugins.lua && \
         sed -i 's!endif!source $HOME/.config/nvim/configs/docker.lua\nendif!' /root/.config/nvim/init.vim && \
-        sed -i 's!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 0!' /root/.config/nvim/configs/plugins.vim && \
-        sed -i 's!autocmd BufEnter \* let \&titlestring = "nvim " \. expand("%:p")!autocmd BufEnter * let \&titlestring = exists("git_root") \? "dvim (" . g:git_root . ") " . expand("%:p")[len("/files") + 1:] : "dvim " . expand("%:p")!' /root/.config/nvim/configs/autocommands.vim && \
-        sed -Ei 's!" (autocmd cursorhold \* execute "mode")!\1!' /root/.config/nvim/configs/autocommands.vim && \
-        sed -i 's!docker run --rm -i kyokley/sqlparse!python -c "import sys, sqlparse; lines = \\"\\n\\".join(sys.stdin.readlines()); print(sqlparse.format(lines, reindent=True))"!' /root/.config/nvim/configs/keybindings.vim && \
+        sed -i 's!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 0!' /root/.config/nvim/configs/plugins.lua && \
+        sed -i 's!autocmd BufEnter \* let \&titlestring = "nvim " \. expand("%:p")!autocmd BufEnter * let \&titlestring = exists("git_root") \? "dvim (" . g:git_root . ") " . expand("%:p")[len("/files") + 1:] : "dvim " . expand("%:p")!' /root/.config/nvim/configs/autocommands.lua && \
+        sed -Ei 's!" (autocmd cursorhold \* execute "mode")!\1!' /root/.config/nvim/configs/autocommands.lua && \
+        sed -i 's!docker run --rm -i kyokley/sqlparse!python -c "import sys, sqlparse; lines = \\"\\n\\".join(sys.stdin.readlines()); print(sqlparse.format(lines, reindent=True))"!' /root/.config/nvim/configs/keybindings.lua && \
         nvim +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
-        sed -i "s!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 1!" /root/.config/nvim/configs/plugins.vim && \
+        sed -i "s!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 1!" /root/.config/nvim/configs/plugins.lua && \
         git config --global --add safe.directory /files && \
         find /root -name '*.git' -exec rm -rf {} \+
 
