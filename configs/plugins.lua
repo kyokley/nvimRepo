@@ -57,9 +57,9 @@ Plug('junegunn/fzf.vim')
 
 Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim')
-
 Plug('kyazdani42/nvim-web-devicons')
-Plug('noib3/nvim-cokeline')
+
+Plug('willothy/nvim-cokeline')
 
 Plug('~/.config/nvim/manual/togglecomment')
 Plug('~/.config/nvim/manual/pyfold')
@@ -244,6 +244,21 @@ local components = {
         end,
         bg = 'none',
     },
+diagnostics = {
+    text = function(buffer)
+      return
+        (buffer.diagnostics.errors ~= 0 and '  ' .. buffer.diagnostics.errors)
+        or (buffer.diagnostics.warnings ~= 0 and '  ' .. buffer.diagnostics.warnings)
+        or ''
+    end,
+    fg = function(buffer)
+      return
+        (buffer.diagnostics.errors ~= 0 and errors_fg)
+        or (buffer.diagnostics.warnings ~= 0 and warnings_fg)
+        or nil
+    end,
+    truncation = { priority = 1 },
+  },
 }
 
 require('cokeline').setup({
@@ -265,6 +280,7 @@ require('cokeline').setup({
         components.filename,
         components.readonly,
         components.unsaved,
+        components.diagnostics,
         components.right_cap,
     },
 })
