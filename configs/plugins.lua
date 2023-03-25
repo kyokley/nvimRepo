@@ -42,6 +42,9 @@ Plug 'shime/vim-livedown'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
 Plug 'kyazdani42/nvim-web-devicons' " If you want devicons
 Plug 'noib3/nvim-cokeline'
 
