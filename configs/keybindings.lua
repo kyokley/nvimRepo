@@ -89,7 +89,7 @@ nmap('<C-Up>', '<C-w>k')
 nmap('<C-Right>', '<C-w>l')
 nmap('<C-Left>', '<C-w>h')
 
-nmap('<leader>gb', ':<C-U>tabnew \\| terminal svn blame <C-R>=expand("%:p") <CR> \\| color_svn_blame \\| less +<C-R>=max([0, line(\'.\') - winline()]) <CR><CR>')
+nmap('<leader>sb', ':<C-U>tabnew \\| terminal svn blame <C-R>=expand("%:p") <CR> \\| color_svn_blame \\| less +<C-R>=max([0, line(\'.\') - winline()]) <CR><CR>')
 vmap('<leader>sb', ':<C-U>tabnew \\| terminal svn blame <C-R>=expand("%:p") <CR> \\| sed -n <C-R>=line("\'<") <CR>,<C-R>=line("\'>") <CR>p \\| color_svn_blame \\| less <CR>')
 
 nmap('<leader>gb', ':<C-U>tabnew \\| terminal git blame <C-R>=expand("%:p") <CR> \\| color_git_blame \\| less +<C-R>=max([0, line(\'.\') - winline()]) <CR><CR>')
