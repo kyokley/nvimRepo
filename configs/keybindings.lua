@@ -69,8 +69,12 @@ nmap('<S-h>', ':bprev<CR>')
 xmap('<S-l>', '5l')
 xmap('<S-h>', '5h')
 nmap('<S-y>', 'y$')
-nmap('<S-Left>', ':bprev<CR>')
-nmap('<S-Right>', ':bnext<CR>')
+
+-- nmap('<S-Left>', ':bprev<CR>')
+-- nmap('<S-Right>', ':bnext<CR>')
+-- Use cokeline buffer ordering
+nmap('<S-h>', '<Plug>(cokeline-focus-prev)')
+nmap('<S-l>', '<Plug>(cokeline-focus-next)')
 
 nmap('<leader>h', ':nohlsearch<CR>')
 
@@ -119,3 +123,12 @@ silent_tmap('<C-t>', '<C-\\><C-n>:bd!<CR>')
 silent_nmap('<C-p>', ':Telescope git_files theme=dropdown<CR>')
 silent_nmap('<leader>8', ':Telescope grep_string theme=dropdown<CR>')
 silent_nmap('<leader>a', ':Telescope live_grep theme=dropdown<CR>')
+
+-- {{{ FZF
+-- silent_nmap('<C-p>', ":<C-u>exe finddir('.git', ';') != '' ? 'GFiles' : findfile('.git', ';') != '' ? 'GFiles' : 'Files'<CR>")
+--
+-- silent_nmap('<leader>8', ':<C-u>call ProjectGrep(1, expand("<cword>"))<CR>')
+--
+-- silent_nmap('<leader>a', ':<C-u>call ProjectGrep(0)<CR>')
+-- }}}
+
