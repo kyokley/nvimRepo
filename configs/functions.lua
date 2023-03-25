@@ -1,3 +1,4 @@
+vim.cmd([[
 " Highlights {{{
 function! ApplyHighlight() abort
     highlight MatchParen ctermbg=4
@@ -625,3 +626,54 @@ command! -bang -nargs=? -complete=dir Files
 command! -bang -nargs=? -complete=dir GFiles
     \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse']}), <bang>0)
 " }}}
+
+]])
+
+
+function _map(mode, shortcut, command, is_silent)
+  vim.api.nvim_set_keymap(mode, shortcut, command, {noremap = true, silent = is_silent})
+end
+
+function nmap(shortcut, command)
+  _map('n', shortcut, command, false)
+end
+
+function silent_nmap(shortcut, command)
+  _map('n', shortcut, command, true)
+end
+
+function imap(shortcut, command)
+  _map('i', shortcut, command, false)
+end
+
+function xmap(shortcut, command)
+  _map('x', shortcut, command, false)
+end
+
+function silent_xmap(shortcut, command)
+  _map('x', shortcut, command, true)
+end
+
+function vmap(shortcut, command)
+  _map('v', shortcut, command, false)
+end
+
+function cmap(shortcut, command)
+  _map('c', shortcut, command, false)
+end
+
+function tmap(shortcut, command)
+  _map('t', shortcut, command, false)
+end
+
+function silent_tmap(shortcut, command)
+  _map('t', shortcut, command, true)
+end
+
+function omap(shortcut, command)
+  _map('o', shortcut, command, false)
+end
+
+function silent_omap(shortcut, command)
+  _map('o', shortcut, command, true)
+end

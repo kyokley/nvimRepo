@@ -1,3 +1,4 @@
+vim.cmd([[
 " ApplyHighlight {{{
 augroup ApplyHighlight
     autocmd!
@@ -168,3 +169,4 @@ augroup filetype_fzf
     " autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
 " }}}
+]])
