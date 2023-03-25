@@ -177,3 +177,20 @@ augroup filetype_fzf
 augroup END
 " }}}
 ]])
+
+-- {{{ Telescope Prompts
+local telescope_augroup = vim.api.nvim_create_augroup('telescope_cmds', {clear = true})
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'TelescopePrompt',
+  group = telescope_augroup,
+  command = "call deoplete#custom#buffer_option('auto_complete', v:false)"
+})
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'TelescopePrompt',
+    group = telescope_augroup,
+    callback = function()
+        vim.bo.asyncomplete_enable = 0
+    end
+})
+-- }}}
