@@ -1,18 +1,4 @@
 vim.cmd([[
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? '[OK]' : printf(
-    \   '[%dW %dE]',
-    \   all_non_errors,
-    \   all_errors
-    \)
-endfunction
-
-
 "statusline setup
 set statusline=
 set statusline =%#identifier#
@@ -54,9 +40,6 @@ set statusline+=%*
 set statusline+=%=      "left/right separator
 
 set statusline+=%#warningmsg#
-set statusline+=%{LinterStatus()!='[OK]'?LinterStatus():''}
-set statusline+=%*
-set statusline+=%{LinterStatus()=='[OK]'?'[OK]':''}
 set statusline+=%{StatuslineConflictWarning()}
 set statusline+=%*
 "

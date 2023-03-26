@@ -35,7 +35,7 @@ RUN apk update && apk add --no-cache \
         pip install \
         --upgrade --no-cache-dir \
         pip \
-        python-language-server[pyflakes] \
+        python-language-server[all] \
         pynvim \
         neovim \
         pyflakes \

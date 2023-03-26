@@ -60,6 +60,7 @@ Plug('nvim-telescope/telescope.nvim')
 Plug('kyazdani42/nvim-web-devicons')
 
 Plug('willothy/nvim-cokeline')
+Plug('neovim/nvim-lspconfig')
 
 Plug('~/.config/nvim/manual/togglecomment')
 Plug('~/.config/nvim/manual/pyfold')
@@ -67,6 +68,40 @@ Plug('~/.config/nvim/manual/visincr')
 Plug('~/.config/nvim/manual/django-custom')
 vim.call('plug#end')
 -- }}}
+
+vim.diagnostic.config({ virtual_text = false, signs = false })
+
+-- Be sure to install python lsp server
+-- `pip install python-lsp-server[all]`
+require('lspconfig').pylsp.setup{
+      handlers = {
+        ["textDocument/publishDiagnostics"] = vim.lsp.with(
+          vim.lsp.diagnostic.on_publish_diagnostics, {
+            -- Disable virtual_text
+            virtual_text = false
+          }
+        ),
+      },
+    settings = {
+      pylsp = {
+          plugins = {
+              pycodestyle = {
+                  enabled = false
+              },
+              mccabe = {
+                  enabled = false
+              },
+              pyflakes = {
+                  enabled = false
+              },
+              flake8 = {
+                  enabled = true
+              },
+          },
+          configurationSources = {'flake8'},
+        }
+    }
+}
 
 -- Context Settings {{{
 vim.g.context_add_mappings = 0
@@ -102,7 +137,7 @@ vim.g.ale_sign_offset = 2000
 vim.g.ale_set_highlights = 1
 vim.g.ale_sign_warning = '->'
 vim.g.ale_linters = {python = {'flake8'}}
--- Check functions.vim for highlighting settings
+vim.g.ale_virtualtext_cursor = 'disabled'
 -- }}}
 
 -- GitGutter {{{
@@ -173,9 +208,11 @@ vim.g.vista_cursor_delay = 1000
 -- Cokeline Bufferline Config {{{
 local get_hex = require('cokeline/utils').get_hex
 
-local green = vim.g.terminal_color_2
-local yellow = vim.g.terminal_color_3
+local red = 'red'
+local yellow = 'yellow'
+local orange = 'orange'
 local blue = "darkblue"
+local green = "green"
 
 local components = {
     space = { text = ' ' , bg = 'none'},
@@ -202,17 +239,9 @@ local components = {
         text = function(buffer)
             return buffer.filename
         end,
-        -- fg = function(buffer)
-        --     -- if buffer.is_focused then
-        --     --     return "#78dce8"
-        --     -- end
-        --     if buffer.is_modified then
-        --         return "#e5c463"
-        --     end
-        --     -- if buffer.lsp.errors ~= 0 then
-        --     --     return "#fc5d7c"
-        --     -- end
-        -- end,
+        fg = function(buffer)
+            return buffer.is_modified and orange or nil
+        end,
         style = function(buffer)
             if buffer.is_focused then
                 return "bold"
@@ -244,17 +273,28 @@ local components = {
         end,
         bg = 'none',
     },
-diagnostics = {
+diagnostic_errors = {
     text = function(buffer)
       return
         (buffer.diagnostics.errors ~= 0 and '  ' .. buffer.diagnostics.errors)
-        or (buffer.diagnostics.warnings ~= 0 and '  ' .. buffer.diagnostics.warnings)
         or ''
     end,
     fg = function(buffer)
       return
-        (buffer.diagnostics.errors ~= 0 and errors_fg)
-        or (buffer.diagnostics.warnings ~= 0 and warnings_fg)
+        (buffer.diagnostics.errors ~= 0 and red)
+        or nil
+    end,
+    truncation = { priority = 1 },
+  },
+diagnostic_warnings = {
+    text = function(buffer)
+      return
+        (buffer.diagnostics.warnings ~= 0 and '  ' .. buffer.diagnostics.warnings)
+        or ''
+    end,
+    fg = function(buffer)
+      return
+        (buffer.diagnostics.warnings ~= 0 and yellow)
         or nil
     end,
     truncation = { priority = 1 },
@@ -278,9 +318,10 @@ require('cokeline').setup({
         components.index,
         components.prefix,
         components.filename,
+        components.diagnostic_errors,
+        components.diagnostic_warnings,
         components.readonly,
-        components.unsaved,
-        components.diagnostics,
+        -- components.unsaved,
         components.right_cap,
     },
 })

@@ -1,8 +1,6 @@
-vim.cmd([[
-let NERDChristmasTree=1
-let NERDTreeHijackNetrw=1
-let NERDTreeIgnore=['\.pyc$', '\.swp$']
-]])
+vim.g['NERDChristmasTree'] = 1
+vim.g['NERDTreeHijackNetrw'] = 1
+vim.g['NERDTreeIgnore'] = {'\\.pyc$', '\\.swp$'}
 
 vim.opt.number = true
 vim.opt.relativenumber = true
