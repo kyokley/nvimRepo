@@ -78,7 +78,8 @@ require('lspconfig').pylsp.setup{
         ["textDocument/publishDiagnostics"] = vim.lsp.with(
           vim.lsp.diagnostic.on_publish_diagnostics, {
             -- Disable virtual_text
-            virtual_text = false
+            virtual_text = false,
+            severity_sort = true,
           }
         ),
       },
@@ -143,6 +144,7 @@ vim.g.ale_virtualtext_cursor = 'disabled'
 -- GitGutter {{{
 vim.g.gitgutter_map_keys = 0
 vim.g.gitgutter_enabled = 1
+vim.g.gitgutter_sign_priority = 1
 -- }}}
 
 -- SuperTab {{{

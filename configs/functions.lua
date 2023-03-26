@@ -34,9 +34,16 @@ function! ApplyHighlight() abort
 
     " ALE Highlighting settings
     highlight clear ALEWarning
+    highlight clear ALEErrorLine
     highlight link ALEWarningSign WildMenu
     highlight link ALEError SpellBad
     highlight link ALEErrorSign ALEError
+
+    " Diagnostic signs
+    sign define DiagnosticSignError text=>> texthl=SpellBad linehl=SpellBad numhl=
+    sign define DiagnosticSignWarn text=>> texthl=WildMenu linehl=WildMenu numhl=
+    " sign define DiagnosticSignInfo text=I texthl=DiagnosticSignInfo linehl= numhl=
+    " sign define DiagnosticSignHint text=H texthl=DiagnosticSignHint linehl= numhl=
 
     match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 endfunction
