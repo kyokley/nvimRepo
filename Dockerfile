@@ -35,7 +35,7 @@ RUN apk update && apk add --no-cache \
         pip install \
         --upgrade --no-cache-dir \
         pip \
-        python-language-server[all] \
+        python-lsp-server[all] \
         pynvim \
         neovim \
         pyflakes \
@@ -48,9 +48,7 @@ RUN apk update && apk add --no-cache \
 FROM ${BASE_IMAGE} AS base
 
 RUN apk update && apk add --no-cache \
-        musl-dev \
         neovim \
-        g++ \
         xclip \
         && \
         pip install wheel pynvim pip --upgrade --no-cache-dir
@@ -60,13 +58,11 @@ ENTRYPOINT ["nvim"]
 
 
 FROM base AS custom
-ENV PATH="$PATH:/color_blame_venv/bin"
+ENV PATH="$PATH:/venv/bin:/color_blame_venv/bin"
 
 RUN apk update && apk add --no-cache \
-        python3-dev \
         git \
         jansson \
-        the_silver_searcher \
         fzf \
         bash \
         ripgrep \
@@ -93,7 +89,3 @@ RUN nvim +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
         sed -i "s!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 1!" /root/.config/nvim/configs/plugins.lua && \
         git config --global --add safe.directory /files && \
         find /root -name '*.git' -exec rm -rf {} \+
-
-WORKDIR /files
-
-ENTRYPOINT ["nvim"]
