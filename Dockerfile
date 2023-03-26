@@ -35,7 +35,7 @@ RUN apk update && apk add --no-cache \
         pip install \
         --upgrade --no-cache-dir \
         pip \
-        python-language-server[pyflakes] \
+        python-language-server[all] \
         pynvim \
         neovim \
         pyflakes \
@@ -80,13 +80,16 @@ COPY --from=builder /usr/local/bin/ctags /usr/local/bin/ctags
 
 COPY . /root/.config/nvim
 
-RUN sed -i "s#let g:python3_dir.*#let g:python3_dir = '/venv/bin/'#" /root/.config/nvim/configs/plugins.lua && \
+# Pre-setup steps before installing plugins
+# Specifically we need to temporarily disable deoplete
+RUN sed -i "s#^vim.g.python3_dir.*#vim.g.python3_dir = '/venv/bin/'#" /root/.config/nvim/configs/plugins.lua && \
         sed -i 's!endif!source $HOME/.config/nvim/configs/docker.lua\nendif!' /root/.config/nvim/init.vim && \
         sed -i 's!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 0!' /root/.config/nvim/configs/plugins.lua && \
         sed -i 's!autocmd BufEnter \* let \&titlestring = "nvim " \. expand("%:p")!autocmd BufEnter * let \&titlestring = exists("git_root") \? "dvim (" . g:git_root . ") " . expand("%:p")[len("/files") + 1:] : "dvim " . expand("%:p")!' /root/.config/nvim/configs/autocommands.lua && \
-        sed -Ei 's!" (autocmd cursorhold \* execute "mode")!\1!' /root/.config/nvim/configs/autocommands.lua && \
-        sed -i 's!docker run --rm -i kyokley/sqlparse!python -c "import sys, sqlparse; lines = \\"\\n\\".join(sys.stdin.readlines()); print(sqlparse.format(lines, reindent=True))"!' /root/.config/nvim/configs/keybindings.lua && \
-        nvim +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
+        sed -i 's!docker run --rm -i kyokley/sqlparse!python -c "import sys, sqlparse; lines = \\"\\n\\".join(sys.stdin.readlines()); print(sqlparse.format(lines, reindent=True))"!' /root/.config/nvim/configs/keybindings.lua
+
+# Install plugins and re-enable deoplete
+RUN nvim +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
         sed -i "s!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 1!" /root/.config/nvim/configs/plugins.lua && \
         git config --global --add safe.directory /files && \
         find /root -name '*.git' -exec rm -rf {} \+
