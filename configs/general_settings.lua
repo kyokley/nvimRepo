@@ -55,7 +55,7 @@ vim.opt.backup = false
 
 vim.opt.diffopt = {'internal', 'algorithm:patience'}
 
-vim.opt.inccommand = split
+vim.opt.inccommand = 'split'
 vim.opt.guicursor = ''
 
 vim.opt.termguicolors = true
