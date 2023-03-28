@@ -576,18 +576,6 @@ endfunction
 
 command! -bar -bang -nargs=0 Wa call SyncWriteAll()
 
-function! IsGitDir() abort
-    if finddir('.git', ';') != ''
-        return 1
-    else
-        if findfile('.git', ';') != ''
-            return 1
-        else
-            return 0
-        endif
-    endif
-endfunction
-
 function! ProjectGrep(word_regex, ...) abort
     if a:0 > 1
         throw "Too many args"
@@ -640,7 +628,7 @@ command! -bang -nargs=? -complete=dir GFiles
 
 
 function _map(mode, shortcut, command, is_silent)
-  vim.api.nvim_set_keymap(mode, shortcut, command, {noremap = true, silent = is_silent})
+  vim.keymap.set(mode, shortcut, command, {remap = false, silent = is_silent})
 end
 
 function nmap(shortcut, command)

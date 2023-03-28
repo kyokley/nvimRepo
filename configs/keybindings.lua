@@ -120,14 +120,14 @@ silent_omap('ai', ':<c-u>call AroundIndentation()<cr>')
 silent_nmap('<C-t>', ':call FloatTerm()<CR>')
 silent_tmap('<C-t>', '<C-\\><C-n>:bd!<CR>')
 
-silent_nmap('<C-p>', ':Telescope git_files theme=dropdown<CR>')
-silent_nmap('<leader>8', ':exe \'Telescope grep_string theme=dropdown cwd=\' . luaeval("vim.fn[\'FindRootDirectory\']() ~= \'\' and vim.fn[\'FindRootDirectory\']() or vim.fn.getcwd()") . \'<CR>\'')
--- silent_nmap('<leader>a', ':Telescope live_grep theme=dropdown cwd=' .. vim.fn['FindRootDirectory']() ~= '' and vim.fn['FindRootDirectory']() or vim.fn.getcwd() .. '<CR>')
+local telescope = require('telescope.builtin')
+silent_nmap('<C-p>', function()
+    telescope.git_files({theme='dropdown'})
+end)
 
--- {{{ FZF
--- silent_nmap('<C-p>', ":<C-u>exe finddir('.git', ';') != '' ? 'GFiles' : findfile('.git', ';') != '' ? 'GFiles' : 'Files'<CR>")
---
--- silent_nmap('<leader>8', ':<C-u>call ProjectGrep(1, expand("<cword>"))<CR>')
---
--- silent_nmap('<leader>a', ':<C-u>call ProjectGrep(0)<CR>')
--- }}}
+silent_nmap('<leader>8', function()
+    telescope.grep_string({theme = 'dropdown', cwd=vim.fn['FindRootDirectory']() ~= '' and vim.fn['FindRootDirectory']() or vim.fn.getcwd()})
+end)
+silent_nmap('<leader>a', function()
+    telescope.live_grep({theme = 'dropdown', cwd=vim.fn['FindRootDirectory']() ~= '' and vim.fn['FindRootDirectory']() or vim.fn.getcwd()})
+end)
