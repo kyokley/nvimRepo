@@ -62,8 +62,6 @@ Plug('kyazdani42/nvim-web-devicons')
 Plug('willothy/nvim-cokeline')
 Plug('neovim/nvim-lspconfig')
 
-Plug('ahmedkhalf/project.nvim')
-
 Plug('~/.config/nvim/manual/togglecomment')
 Plug('~/.config/nvim/manual/pyfold')
 Plug('~/.config/nvim/manual/visincr')
@@ -329,13 +327,4 @@ require('cokeline').setup({
         components.right_cap,
     },
 })
--- }}}
-
--- Project {{{
-require("project_nvim").setup {
-    -- your configuration comes here
-    -- or leave it empty to use the default settings
-    -- refer to the configuration section below
-  }
-require('telescope').load_extension('projects')
 -- }}}
