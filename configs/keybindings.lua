@@ -121,8 +121,8 @@ silent_nmap('<C-t>', ':call FloatTerm()<CR>')
 silent_tmap('<C-t>', '<C-\\><C-n>:bd!<CR>')
 
 silent_nmap('<C-p>', ':Telescope git_files theme=dropdown<CR>')
-silent_nmap('<leader>8', ':Telescope grep_string theme=dropdown<CR>')
-silent_nmap('<leader>a', ':Telescope live_grep theme=dropdown<CR>')
+silent_nmap('<leader>8', ':exe \'Telescope grep_string theme=dropdown cwd=\' . luaeval("vim.fn[\'FindRootDirectory\']() ~= \'\' and vim.fn[\'FindRootDirectory\']() or vim.fn.getcwd()") . \'<CR>\'')
+-- silent_nmap('<leader>a', ':Telescope live_grep theme=dropdown cwd=' .. vim.fn['FindRootDirectory']() ~= '' and vim.fn['FindRootDirectory']() or vim.fn.getcwd() .. '<CR>')
 
 -- {{{ FZF
 -- silent_nmap('<C-p>', ":<C-u>exe finddir('.git', ';') != '' ? 'GFiles' : findfile('.git', ';') != '' ? 'GFiles' : 'Files'<CR>")
