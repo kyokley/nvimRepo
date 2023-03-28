@@ -131,4 +131,3 @@ silent_nmap('<leader>a', ':Telescope live_grep theme=dropdown<CR>')
 --
 -- silent_nmap('<leader>a', ':<C-u>call ProjectGrep(0)<CR>')
 -- }}}
-
