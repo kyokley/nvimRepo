@@ -575,72 +575,11 @@ function! SyncWriteAll()
 endfunction
 
 command! -bar -bang -nargs=0 Wa call SyncWriteAll()
-
-function! IsGitDir() abort
-    if finddir('.git', ';') != ''
-        return 1
-    else
-        if findfile('.git', ';') != ''
-            return 1
-        else
-            return 0
-        endif
-    endif
-endfunction
-
-function! ProjectGrep(word_regex, ...) abort
-    if a:0 > 1
-        throw "Too many args"
-    elseif a:0 == 0
-        let l:args = input('Rg: ')
-        if l:args == ''
-            return
-        endif
-    else
-        let l:args = shellescape(a:1)
-    endif
-
-    let l:cmd = 'rg --column --line-number --no-heading --color=always --smart-case'
-
-    if a:word_regex == 1
-        let l:cmd = l:cmd . ' --word-regexp'
-    endif
-    let l:cmd = l:cmd . ' -- ' . l:args
-
-    let l:cwd = getcwd()
-
-    try
-        if FindRootDirectory() != ''
-            execute 'lcd ' . FindRootDirectory()
-        endif
-        return fzf#vim#grep(
-                \   l:cmd,
-                \   1,
-                \   fzf#vim#with_preview({'options': ['--layout=reverse'],
-                \                         'dir': systemlist('git rev-parse --show-toplevel')[0]
-                \   }))
-    finally
-        execute 'lcd ' . l:cwd
-    endtry
-endfunction
-
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
-
-
-command! -bang -nargs=? -complete=dir Files
-    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse']}), <bang>0)
-command! -bang -nargs=? -complete=dir GFiles
-    \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse']}), <bang>0)
-" }}}
-
 ]])
 
 
 function _map(mode, shortcut, command, is_silent)
-  vim.api.nvim_set_keymap(mode, shortcut, command, {noremap = true, silent = is_silent})
+  vim.keymap.set(mode, shortcut, command, {remap = false, silent = is_silent})
 end
 
 function nmap(shortcut, command)
