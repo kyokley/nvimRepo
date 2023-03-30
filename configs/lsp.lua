@@ -1,5 +1,5 @@
 -- Be sure to install python lsp server
--- `pip install python-lsp-server[all]`
+-- `pip install python-lsp-server[all] python-lsp-ruff`
 require('lspconfig').pylsp.setup{
       handlers = {
         ["textDocument/publishDiagnostics"] = vim.lsp.with(
@@ -13,20 +13,12 @@ require('lspconfig').pylsp.setup{
     settings = {
       pylsp = {
           plugins = {
-              pycodestyle = {
-                  enabled = false
-              },
-              mccabe = {
-                  enabled = false
-              },
-              pyflakes = {
-                  enabled = false
-              },
-              flake8 = {
-                  enabled = true
-              },
+              ruff = {
+                  enabled = true,
+                  extendIgnore = {'E501'},
+                  perFileIgnores = {['__init__.py'] = {'F401'}}
+              }
           },
-          configurationSources = {'flake8'},
         }
     }
 }
@@ -87,6 +79,9 @@ cmp.setup {
       else
         fallback()
       end
+    end, { 'i', 's' }),
+    ['<Esc>'] = cmp.mapping(function(fallback)
+        cmp.abort()
     end, { 'i', 's' }),
   }),
   sources = {

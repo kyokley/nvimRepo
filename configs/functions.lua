@@ -1,6 +1,7 @@
 vim.cmd([[
 " Highlights {{{
 function! ApplyHighlight() abort
+    highlight EndOfBuffer guibg=none ctermbg=none
     highlight MatchParen ctermbg=4
 
     highlight Normal ctermbg=none guibg=NONE
