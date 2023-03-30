@@ -54,6 +54,7 @@ Plug('junegunn/fzf', {
     end
 })
 Plug('junegunn/fzf.vim')
+Plug('tomasiser/vim-code-dark')
 
 Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim')

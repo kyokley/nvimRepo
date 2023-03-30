@@ -36,7 +36,7 @@ vim.opt.list = true
 vim.opt.cursorline = true
 
 vim.cmd([[
-colorscheme CandyPaper
+colorscheme codedark
 ]])
 
 vim.o.background = 'dark'
