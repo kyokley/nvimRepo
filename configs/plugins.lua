@@ -62,6 +62,11 @@ Plug('kyazdani42/nvim-web-devicons')
 Plug('willothy/nvim-cokeline')
 Plug('neovim/nvim-lspconfig')
 
+Plug('hrsh7th/nvim-cmp') -- Autocompletion plugin
+Plug('hrsh7th/cmp-nvim-lsp') -- LSP source for nvim-cmp
+Plug('saadparwaiz1/cmp_luasnip') -- Snippets source for nvim-cmp
+Plug('L3MON4D3/LuaSnip') -- Snippets plugin
+
 Plug('~/.config/nvim/manual/togglecomment')
 Plug('~/.config/nvim/manual/pyfold')
 Plug('~/.config/nvim/manual/visincr')
@@ -70,39 +75,6 @@ vim.call('plug#end')
 -- }}}
 
 vim.diagnostic.config({ virtual_text = false, signs = false })
-
--- Be sure to install python lsp server
--- `pip install python-lsp-server[all]`
-require('lspconfig').pylsp.setup{
-      handlers = {
-        ["textDocument/publishDiagnostics"] = vim.lsp.with(
-          vim.lsp.diagnostic.on_publish_diagnostics, {
-            -- Disable virtual_text
-            virtual_text = false,
-            severity_sort = true,
-          }
-        ),
-      },
-    settings = {
-      pylsp = {
-          plugins = {
-              pycodestyle = {
-                  enabled = false
-              },
-              mccabe = {
-                  enabled = false
-              },
-              pyflakes = {
-                  enabled = false
-              },
-              flake8 = {
-                  enabled = true
-              },
-          },
-          configurationSources = {'flake8'},
-        }
-    }
-}
 
 -- Context Settings {{{
 vim.g.context_add_mappings = 0
