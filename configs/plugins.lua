@@ -20,7 +20,7 @@ Plug('numirias/semshi', {
         vim.cmd('UpdateRemotePlugins')
     end
 })
-Plug('ervandew/supertab')
+-- Plug('ervandew/supertab')
 Plug('tomlion/vim-solidity')
 Plug('luochen1990/rainbow')
 Plug('kyokley/vim-colorschemes')
@@ -65,6 +65,9 @@ Plug('neovim/nvim-lspconfig')
 
 Plug('hrsh7th/nvim-cmp') -- Autocompletion plugin
 Plug('hrsh7th/cmp-nvim-lsp') -- LSP source for nvim-cmp
+Plug('hrsh7th/cmp-buffer')
+Plug('hrsh7th/cmp-path')
+Plug('hrsh7th/cmp-cmdline')
 Plug('saadparwaiz1/cmp_luasnip') -- Snippets source for nvim-cmp
 Plug('L3MON4D3/LuaSnip') -- Snippets plugin
 
