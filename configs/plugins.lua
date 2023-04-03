@@ -110,7 +110,7 @@ vim.g.ale_set_signs = 1
 vim.g.ale_sign_offset = 2000
 vim.g.ale_set_highlights = 1
 vim.g.ale_sign_warning = '->'
-vim.g.ale_linters = {python = {'flake8'}}
+vim.g.ale_linters = {python = {'ruff'}}
 vim.g.ale_virtualtext_cursor = 'disabled'
 -- }}}
 
