@@ -68,8 +68,10 @@ Plug('hrsh7th/cmp-nvim-lsp') -- LSP source for nvim-cmp
 Plug('hrsh7th/cmp-buffer')
 Plug('hrsh7th/cmp-path')
 Plug('hrsh7th/cmp-cmdline')
+Plug('hrsh7th/cmp-nvim-lua')
 Plug('saadparwaiz1/cmp_luasnip') -- Snippets source for nvim-cmp
 Plug('L3MON4D3/LuaSnip') -- Snippets plugin
+Plug('rafamadriz/friendly-snippets') -- Snippets plugin
 
 Plug('~/.config/nvim/manual/togglecomment')
 Plug('~/.config/nvim/manual/pyfold')
