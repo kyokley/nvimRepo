@@ -1,8 +1,10 @@
+local lspconfig = require('lspconfig')
+
 -- Be sure to install python lsp server
 -- `pip install python-lsp-server[all] python-lsp-ruff`
 -- Install lua lsp server with
 -- `pamac install lua-language-server`
-require('lspconfig').pylsp.setup{
+lspconfig.pylsp.setup{
       handlers = {
         ["textDocument/publishDiagnostics"] = vim.lsp.with(
           vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -24,7 +26,7 @@ require('lspconfig').pylsp.setup{
         }
     }
 }
-require('lspconfig').lua_ls.setup({
+lspconfig.lua_ls.setup({
     settings = {
     Lua = {
       runtime = {
@@ -80,8 +82,6 @@ local kind_icons = {
 
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
