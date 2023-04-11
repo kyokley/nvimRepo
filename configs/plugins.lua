@@ -212,7 +212,9 @@ local components = {
     },
     prefix = {
         text = function(buffer) return buffer.unique_prefix end,
-        fg = get_hex('Comment', 'fg'),
+        fg = function(buffer)
+            return buffer.is_modified and orange or nil
+        end,
         style = 'italic',
     },
     filename = {
