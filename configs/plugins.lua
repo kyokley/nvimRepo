@@ -80,7 +80,7 @@ Plug('~/.config/nvim/manual/django-custom')
 vim.call('plug#end')
 -- }}}
 
-vim.diagnostic.config({ virtual_text = false, signs = false })
+vim.diagnostic.config({ virtual_text = true, signs = false })
 
 -- Context Settings {{{
 vim.g.context_add_mappings = 0

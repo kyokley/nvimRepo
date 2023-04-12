@@ -5,15 +5,6 @@ local lspconfig = require('lspconfig')
 -- Install lua lsp server with
 -- `pamac install lua-language-server`
 lspconfig.pylsp.setup{
-      handlers = {
-        ["textDocument/publishDiagnostics"] = vim.lsp.with(
-          vim.lsp.diagnostic.on_publish_diagnostics, {
-            -- Disable virtual_text
-            virtual_text = true,
-            severity_sort = true,
-          }
-        ),
-      },
     settings = {
       pylsp = {
           plugins = {
