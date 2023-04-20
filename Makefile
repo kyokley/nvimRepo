@@ -8,7 +8,7 @@ ifeq ($(NO_CACHE), 1)
 	docker build --no-cache --target=custom -t kyokley/neovim-custom .
 else
 	docker build --target=base -t kyokley/neovim .
-	docker build --progress=plain --target=custom -t kyokley/neovim-custom .
+	docker build --target=custom -t kyokley/neovim-custom .
 endif
 
 publish: build
