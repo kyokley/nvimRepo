@@ -60,8 +60,11 @@ Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim')
 Plug('kyazdani42/nvim-web-devicons')
 
+Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 Plug('willothy/nvim-cokeline')
 Plug('neovim/nvim-lspconfig')
+Plug('williamboman/mason.nvim', {
+    ['do'] = ':MasonUpdate'})
 
 Plug('hrsh7th/nvim-cmp') -- Autocompletion plugin
 Plug('hrsh7th/cmp-nvim-lsp') -- LSP source for nvim-cmp
@@ -81,6 +84,10 @@ vim.call('plug#end')
 -- }}}
 
 vim.diagnostic.config({ virtual_text = true, signs = false })
+local success, mason = pcall(require, 'mason')
+if success then
+    mason.setup()
+end
 
 -- Context Settings {{{
 vim.g.context_add_mappings = 0
