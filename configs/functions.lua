@@ -1,6 +1,7 @@
 vim.cmd([[
 " Highlights {{{
 function! ApplyHighlight() abort
+    highlight EndOfBuffer guibg=none ctermbg=none
     highlight MatchParen ctermbg=4
 
     highlight Normal ctermbg=none guibg=NONE
@@ -44,6 +45,25 @@ function! ApplyHighlight() abort
     sign define DiagnosticSignWarn text=>> texthl=WildMenu linehl=WildMenu numhl=
     " sign define DiagnosticSignInfo text=I texthl=DiagnosticSignInfo linehl= numhl=
     " sign define DiagnosticSignHint text=H texthl=DiagnosticSignHint linehl= numhl=
+
+" gray
+highlight CmpItemMenu ctermbg=none ctermfg=gray
+highlight CmpItemMenuDefault ctermbg=none ctermfg=gray
+highlight CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
+" blue
+highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6 ctermbg=none ctermfg=darkblue
+highlight! link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch
+" light blue
+highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE ctermbg=none ctermfg=blue
+highlight! link CmpItemKindInterface CmpItemKindVariable
+highlight! link CmpItemKindText CmpItemKindVariable
+" pink
+highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0 ctermbg=none ctermfg=red
+highlight! link CmpItemKindMethod CmpItemKindFunction
+" front
+highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4 ctermbg=none ctermfg=yellow
+highlight! link CmpItemKindProperty CmpItemKindKeyword
+highlight! link CmpItemKindUnit CmpItemKindKeyword
 
     match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 endfunction

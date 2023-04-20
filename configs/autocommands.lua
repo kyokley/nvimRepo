@@ -54,8 +54,8 @@ augroup END
 " filetype_python {{{
 augroup filetype_python
     autocmd!
-    autocmd FileType python setlocal foldmethod=indent
-    autocmd FileType python setlocal foldlevel=99
+    autocmd FileType python setlocal foldmethod=expr
+    autocmd FileType python setlocal foldexpr=nvim_treesitter#foldexpr()
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 augroup END
 " }}}

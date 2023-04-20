@@ -61,6 +61,7 @@ FROM base AS custom
 ENV PATH="$PATH:/venv/bin:/color_blame_venv/bin"
 
 RUN apk update && apk add --no-cache \
+        g++ \
         git \
         jansson \
         fzf \
@@ -85,7 +86,8 @@ RUN sed -i "s#^vim.g.python3_dir.*#vim.g.python3_dir = '/venv/bin/'#" /root/.con
         sed -i 's!docker run --rm -i kyokley/sqlparse!python -c "import sys, sqlparse; lines = \\"\\n\\".join(sys.stdin.readlines()); print(sqlparse.format(lines, reindent=True))"!' /root/.config/nvim/configs/keybindings.lua
 
 # Install plugins and re-enable deoplete
-RUN nvim +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
+RUN nvim --headless +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
         sed -i "s!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 1!" /root/.config/nvim/configs/plugins.lua && \
         git config --global --add safe.directory /files && \
-        find /root -name '*.git' -exec rm -rf {} \+
+        find /root -name '*.git' -exec rm -rf {} \+ && \
+        nvim --headless +'TSInstallSync python' +qa

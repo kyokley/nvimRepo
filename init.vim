@@ -3,6 +3,7 @@ let $PYTHONUNBUFFERED = 1
 
 if !exists('g:vscode')
     source $HOME/.config/nvim/configs/plugins.lua
+    source $HOME/.config/nvim/configs/lsp.lua
     source $HOME/.config/nvim/configs/functions.lua
     source $HOME/.config/nvim/configs/autocommands.lua
     source $HOME/.config/nvim/configs/general_settings.lua

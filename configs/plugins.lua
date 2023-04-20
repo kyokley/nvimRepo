@@ -20,7 +20,7 @@ Plug('numirias/semshi', {
         vim.cmd('UpdateRemotePlugins')
     end
 })
-Plug('ervandew/supertab')
+-- Plug('ervandew/supertab')
 Plug('tomlion/vim-solidity')
 Plug('luochen1990/rainbow')
 Plug('kyokley/vim-colorschemes')
@@ -54,13 +54,27 @@ Plug('junegunn/fzf', {
     end
 })
 Plug('junegunn/fzf.vim')
+Plug('tomasiser/vim-code-dark')
 
 Plug('nvim-lua/plenary.nvim')
 Plug('nvim-telescope/telescope.nvim')
 Plug('kyazdani42/nvim-web-devicons')
 
+Plug('nvim-treesitter/nvim-treesitter', {['do'] = ':TSUpdate'})
 Plug('willothy/nvim-cokeline')
 Plug('neovim/nvim-lspconfig')
+Plug('williamboman/mason.nvim', {
+    ['do'] = ':MasonUpdate'})
+
+Plug('hrsh7th/nvim-cmp') -- Autocompletion plugin
+Plug('hrsh7th/cmp-nvim-lsp') -- LSP source for nvim-cmp
+Plug('hrsh7th/cmp-buffer')
+Plug('hrsh7th/cmp-path')
+Plug('hrsh7th/cmp-cmdline')
+Plug('hrsh7th/cmp-nvim-lua')
+Plug('saadparwaiz1/cmp_luasnip') -- Snippets source for nvim-cmp
+Plug('L3MON4D3/LuaSnip') -- Snippets plugin
+Plug('rafamadriz/friendly-snippets') -- Snippets plugin
 
 Plug('~/.config/nvim/manual/togglecomment')
 Plug('~/.config/nvim/manual/pyfold')
@@ -69,40 +83,11 @@ Plug('~/.config/nvim/manual/django-custom')
 vim.call('plug#end')
 -- }}}
 
-vim.diagnostic.config({ virtual_text = false, signs = false })
-
--- Be sure to install python lsp server
--- `pip install python-lsp-server[all]`
-require('lspconfig').pylsp.setup{
-      handlers = {
-        ["textDocument/publishDiagnostics"] = vim.lsp.with(
-          vim.lsp.diagnostic.on_publish_diagnostics, {
-            -- Disable virtual_text
-            virtual_text = false,
-            severity_sort = true,
-          }
-        ),
-      },
-    settings = {
-      pylsp = {
-          plugins = {
-              pycodestyle = {
-                  enabled = false
-              },
-              mccabe = {
-                  enabled = false
-              },
-              pyflakes = {
-                  enabled = false
-              },
-              flake8 = {
-                  enabled = true
-              },
-          },
-          configurationSources = {'flake8'},
-        }
-    }
-}
+vim.diagnostic.config({ virtual_text = true, signs = false })
+local success, mason = pcall(require, 'mason')
+if success then
+    mason.setup()
+end
 
 -- Context Settings {{{
 vim.g.context_add_mappings = 0
@@ -137,7 +122,7 @@ vim.g.ale_set_signs = 1
 vim.g.ale_sign_offset = 2000
 vim.g.ale_set_highlights = 1
 vim.g.ale_sign_warning = '->'
-vim.g.ale_linters = {python = {'flake8'}}
+vim.g.ale_linters = {python = {'ruff'}}
 vim.g.ale_virtualtext_cursor = 'disabled'
 -- }}}
 
@@ -234,7 +219,9 @@ local components = {
     },
     prefix = {
         text = function(buffer) return buffer.unique_prefix end,
-        fg = get_hex('Comment', 'fg'),
+        fg = function(buffer)
+            return buffer.is_modified and orange or nil
+        end,
         style = 'italic',
     },
     filename = {
