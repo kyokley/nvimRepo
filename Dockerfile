@@ -90,4 +90,4 @@ RUN nvim --headless +'PlugInstall! --sync' +'UpdateRemotePlugins' +qa && \
         sed -i "s!let g:deoplete#enable_at_startup.*!let g:deoplete#enable_at_startup = 1!" /root/.config/nvim/configs/plugins.lua && \
         git config --global --add safe.directory /files && \
         find /root -name '*.git' -exec rm -rf {} \+ && \
-        nvim --headless +'TSInstallSync python' +qa
+        nvim --headless +'TSInstallSync python bash' +qa

@@ -158,6 +158,14 @@ augroup filetype_lua
 augroup END
 " }}}
 
+" filetype_sh {{{
+augroup filetype_sh
+    autocmd!
+    autocmd FileType sh setlocal foldmethod=expr
+    autocmd FileType sh setlocal foldexpr=nvim_treesitter#foldexpr()
+augroup END
+" }}}
+
 " filetype_yaml {{{
 augroup filetype_yaml
     autocmd!
