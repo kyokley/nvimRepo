@@ -1,4 +1,3 @@
-let $MYVIMRC = $HOME."/.config/nvim/init.vim"
 let $PYTHONUNBUFFERED = 1
 
 if !exists('g:vscode')
