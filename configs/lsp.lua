@@ -1,20 +1,15 @@
 local vim = vim
 local lspconfig = require('lspconfig')
 
--- Be sure to install python lsp server
--- `pip install python-lsp-server[all] python-lsp-ruff`
+-- Be sure to install ruff lsp server
+-- `pip install ruff-lsp`
 -- Install lua lsp server with
 -- `pamac install lua-language-server`
-lspconfig.pylsp.setup{
-    settings = {
-      pylsp = {
-          plugins = {
-              ruff = {
-                  enabled = true,
-                  extendIgnore = {'E501'},
-                  perFileIgnores = {['__init__.py'] = {'F401'}}
-              }
-          },
+lspconfig.ruff_lsp.setup{
+    init_options = {
+        settings = {
+            -- Any extra CLI arguments for `ruff` go here.
+            args = {},
         }
     }
 }
@@ -77,7 +72,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
-local servers = {'pylsp', 'lua_ls'}
+local servers = {'ruff_lsp', 'lua_ls'}
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = my_custom_on_attach,
