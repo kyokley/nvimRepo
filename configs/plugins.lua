@@ -1,3 +1,5 @@
+local vim = vim
+
 -- Install Plugins {{{
 local Plug = vim.fn['plug#']
 

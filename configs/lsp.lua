@@ -1,3 +1,4 @@
+local vim = vim
 local lspconfig = require('lspconfig')
 
 -- Be sure to install python lsp server
