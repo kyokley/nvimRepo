@@ -30,8 +30,6 @@ Plug('whiteinge/diffconflicts')
 Plug('kshenoy/vim-signature')
 Plug('junegunn/vader.vim')
 Plug('w0rp/ale')
-Plug('davidhalter/jedi-vim')
-Plug('zchee/deoplete-jedi')
 Plug('Shougo/deoplete.nvim', {
     ['do'] = function()
         vim.cmd('UpdateRemotePlugins')
@@ -141,12 +139,6 @@ vim.g['SuperTabContextDefaultCompletionType'] = "<c-n>"
 
 -- Rainbow Config {{{
 vim.g.rainbow_active = 1
--- }}}
-
--- Jedi {{{
-vim.g['jedi#completions_enabled'] = 0
-vim.g['jedi#documentation_command'] = ''
-vim.g['jedi#show_call_signatures '] = "0"
 -- }}}
 
 -- Deoplete {{{
