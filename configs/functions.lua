@@ -1,3 +1,5 @@
+local vim = vim
+
 vim.cmd([[
 " Highlights {{{
 function! ApplyHighlight() abort

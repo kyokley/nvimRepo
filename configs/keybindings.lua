@@ -1,3 +1,5 @@
+local vim = vim
+
 -- Keybindings!!!!!!!!!!!!!!
 nmap('<Leader>c', ':set cursorline!<CR>')
 
