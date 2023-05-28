@@ -1,3 +1,5 @@
+local vim = vim
+
 vim.g['NERDChristmasTree'] = 1
 vim.g['NERDTreeHijackNetrw'] = 1
 vim.g['NERDTreeIgnore'] = {'\\.pyc$', '\\.swp$'}
