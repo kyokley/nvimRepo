@@ -3,8 +3,6 @@ local lspconfig = require('lspconfig')
 
 -- Be sure to install ruff lsp server
 -- `pip install ruff-lsp`
--- Install lua lsp server with
--- `pamac install lua-language-server`
 lspconfig.ruff_lsp.setup{
     init_options = {
         settings = {
@@ -13,27 +11,65 @@ lspconfig.ruff_lsp.setup{
         }
     }
 }
+
+-- Be sure to install python lsp server
+-- `pip install python-lsp-server`
+lspconfig.pylsp.setup{
+    settings = {
+        pylsp = {
+            plugins = {
+                autopep8 = {
+                    enabled = false,
+                },
+                flake8 = {
+                    enabled = false,
+                },
+                mccabe = {
+                    enabled = false,
+                },
+                pycodestyle = {
+                    enabled = false,
+                },
+                pydocstyle = {
+                    enabled = false,
+                },
+                pyflakes = {
+                    enabled = false,
+                },
+                pylint = {
+                    enabled = false,
+                },
+                yapf = {
+                    enabled = false,
+                },
+            }
+        }
+    }
+}
+
+-- Install lua lsp server with
+-- `pamac install lua-language-server`
 lspconfig.lua_ls.setup({
     settings = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
-      },
+        Lua = {
+            runtime = {
+                -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                version = 'LuaJIT',
+            },
+            diagnostics = {
+                -- Get the language server to recognize the `vim` global
+                globals = {'vim'},
+            },
+            workspace = {
+                -- Make the server aware of Neovim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+                enable = false,
+            },
+        },
     },
-  },
 })
 
 
