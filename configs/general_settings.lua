@@ -38,7 +38,6 @@ vim.opt.list = true
 vim.opt.cursorline = true
 
 vim.g.codedark_italics = 1
-vim.g.codedark_italics = 1
 vim.cmd.colorscheme("codedark")
 
 vim.o.background = 'dark'

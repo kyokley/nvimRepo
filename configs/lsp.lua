@@ -104,17 +104,17 @@ local kind_icons = {
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 -- Add additional capabilities supported by nvim-cmp
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- local servers = { 'clangd', 'rust_analyzer', 'pyright', 'tsserver' }
-local servers = {'ruff_lsp', 'lua_ls'}
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities,
-  }
-end
+-- local servers = {'ruff_lsp', 'lua_ls'}
+-- for _, lsp in ipairs(servers) do
+--   lspconfig[lsp].setup {
+--     -- on_attach = my_custom_on_attach,
+--     capabilities = capabilities,
+--   }
+-- end
 
 
 -- luasnip setup
