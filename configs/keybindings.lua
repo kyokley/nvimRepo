@@ -1,3 +1,5 @@
+local vim = vim
+
 -- Keybindings!!!!!!!!!!!!!!
 nmap('<Leader>c', ':set cursorline!<CR>')
 
@@ -100,9 +102,6 @@ nmap('<leader>gb', ':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> |
 vmap('<leader>gb', ':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> | sed -n <C-R>=line("\'<") <CR>,<C-R>=line("\'>") <CR>p | color_git_blame | less <CR><CR>')
 nmap('<leader>gl', ':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> | sed -n <C-R>=line(".") <CR>p | awk \'{print $1}\' | tr -d \'^\' | xargs git show <CR><CR>')
 nmap('<leader>gm', ':LivedownPreview<CR>')
-
--- nmap(',v', ':source $MYVIMRC<CR>')
--- nmap(',e', ':e $MYVIMRC<CR>')
 
 nmap('<F12>', ':py3 SetBreakpoint()<cr>')
 nmap('<S-F12>', ':py3 RemoveBreakpoints()<cr>')

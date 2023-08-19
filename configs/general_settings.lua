@@ -1,3 +1,5 @@
+local vim = vim
+
 vim.g['NERDChristmasTree'] = 1
 vim.g['NERDTreeHijackNetrw'] = 1
 vim.g['NERDTreeIgnore'] = {'\\.pyc$', '\\.swp$'}
@@ -35,13 +37,8 @@ vim.opt.list = true
 
 vim.opt.cursorline = true
 
-vim.cmd([[
-" Activates italicized comments (make sure your terminal supports italics)
-let g:codedark_italics=1
-" Make the background transparent
-let g:codedark_transparent=1
-colorscheme codedark
-]])
+vim.g.codedark_italics = 1
+vim.cmd.colorscheme("codedark")
 
 vim.o.background = 'dark'
 

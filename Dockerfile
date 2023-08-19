@@ -9,18 +9,25 @@ RUN apk update && \
             alpine-sdk \
             autoconf \
             automake \
+            bash \
             cmake \
             g++ \
             git \
+            linux-headers \
             musl-dev \
             pkgconf \
+            samurai \
             && \
         git clone https://github.com/universal-ctags/ctags.git && \
         cd ctags && \
         ./autogen.sh && \
         ./configure && \
         make && \
-        make install
+        make install && \
+        cd / && \
+        git clone https://github.com/LuaLS/lua-language-server && \
+        cd lua-language-server && \
+        ./make.sh
 
 
 FROM ${BASE_IMAGE} AS py-builder
@@ -35,13 +42,14 @@ RUN apk update && apk add --no-cache \
         pip install \
         --upgrade --no-cache-dir \
         pip \
-        python-lsp-server[all] \
+        python-lsp-server \
         pynvim \
         neovim \
         pyflakes \
         flake8 \
         bandit \
         ruff \
+        ruff-lsp \
         sqlparse \
         wheel
 
@@ -58,7 +66,7 @@ ENTRYPOINT ["nvim"]
 
 
 FROM base AS custom
-ENV PATH="$PATH:/venv/bin:/color_blame_venv/bin"
+ENV PATH="$PATH:/venv/bin:/color_blame_venv/bin:/lua-language-server/bin"
 
 RUN apk update && apk add --no-cache \
         g++ \
@@ -73,6 +81,7 @@ COPY --from=color_blame /venv /color_blame_venv
 COPY --from=py-builder /venv /venv
 
 COPY --from=builder /usr/local/bin/ctags /usr/local/bin/ctags
+COPY --from=builder /lua-language-server /lua-language-server
 
 
 COPY . /root/.config/nvim
