@@ -9,18 +9,25 @@ RUN apk update && \
             alpine-sdk \
             autoconf \
             automake \
+            bash \
             cmake \
             g++ \
             git \
+            linux-headers \
             musl-dev \
             pkgconf \
+            samurai \
             && \
         git clone https://github.com/universal-ctags/ctags.git && \
         cd ctags && \
         ./autogen.sh && \
         ./configure && \
         make && \
-        make install
+        make install && \
+        cd / && \
+        git clone https://github.com/LuaLS/lua-language-server && \
+        cd lua-language-server && \
+        ./make.sh
 
 
 FROM ${BASE_IMAGE} AS py-builder
@@ -74,6 +81,7 @@ COPY --from=color_blame /venv /color_blame_venv
 COPY --from=py-builder /venv /venv
 
 COPY --from=builder /usr/local/bin/ctags /usr/local/bin/ctags
+COPY --from=builder /lua-language-server/bin/lua-language-server /usr/local/bin/lua-language-server
 
 
 COPY . /root/.config/nvim
