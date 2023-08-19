@@ -162,10 +162,6 @@ vim.g.rooter_manual_only = 1
 vim.g['semshi#error_sign'] = false
 -- }}}
 
--- Float Preview {{{
-vim.g['float_preview#docked'] = 1
--- }}}
-
 -- LineNoIndicator {{{
 -- one char wide solid vertical bar
 vim.g.line_no_indicator_chars = {

@@ -103,9 +103,6 @@ vmap('<leader>gb', ':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> |
 nmap('<leader>gl', ':<C-U>tabnew | terminal git blame <C-R>=expand("%:p") <CR> | sed -n <C-R>=line(".") <CR>p | awk \'{print $1}\' | tr -d \'^\' | xargs git show <CR><CR>')
 nmap('<leader>gm', ':LivedownPreview<CR>')
 
--- let $MYVIMRC = $HOME."/.config/nvim/init.vim"
--- nmap(',v', ':source $MYVIMRC<CR>')
-
 nmap('<F12>', ':py3 SetBreakpoint()<cr>')
 nmap('<S-F12>', ':py3 RemoveBreakpoints()<cr>')
 -- Terminator wasn't responding to S-F12 but F24 seems to work
