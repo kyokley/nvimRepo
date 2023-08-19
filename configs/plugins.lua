@@ -75,7 +75,6 @@ Plug('hrsh7th/cmp-nvim-lua')
 Plug('saadparwaiz1/cmp_luasnip') -- Snippets source for nvim-cmp
 Plug('L3MON4D3/LuaSnip') -- Snippets plugin
 Plug('rafamadriz/friendly-snippets') -- Snippets plugin
-Plug('ncm2/float-preview.nvim') -- Completion preview window
 
 Plug('~/.config/nvim/manual/togglecomment')
 Plug('~/.config/nvim/manual/pyfold')
