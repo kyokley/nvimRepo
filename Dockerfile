@@ -66,7 +66,7 @@ ENTRYPOINT ["nvim"]
 
 
 FROM base AS custom
-ENV PATH="$PATH:/venv/bin:/color_blame_venv/bin"
+ENV PATH="$PATH:/venv/bin:/color_blame_venv/bin:/lua-language-server/bin"
 
 RUN apk update && apk add --no-cache \
         g++ \
@@ -81,7 +81,7 @@ COPY --from=color_blame /venv /color_blame_venv
 COPY --from=py-builder /venv /venv
 
 COPY --from=builder /usr/local/bin/ctags /usr/local/bin/ctags
-COPY --from=builder /lua-language-server/bin/lua-language-server /usr/local/bin/lua-language-server
+COPY --from=builder /lua-language-server /lua-language-server
 
 
 COPY . /root/.config/nvim
