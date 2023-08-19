@@ -45,7 +45,9 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           context: .
           file: ./Dockerfile
-          platforms: linux/amd64,linux/arm64
+          # platforms: linux/amd64,linux/arm64
+          # Commenting out linux/arm64 for the time being as the builds take hours
+          platforms: linux/amd64
           target: custom
           push: true
           tags: ${{ secrets.DOCKER_USER }}/neovim-custom
