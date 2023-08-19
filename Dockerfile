@@ -35,13 +35,14 @@ RUN apk update && apk add --no-cache \
         pip install \
         --upgrade --no-cache-dir \
         pip \
-        python-lsp-server[all] \
+        python-lsp-server \
         pynvim \
         neovim \
         pyflakes \
         flake8 \
         bandit \
         ruff \
+        ruff-lsp \
         sqlparse \
         wheel
 
