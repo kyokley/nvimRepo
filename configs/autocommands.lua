@@ -22,7 +22,7 @@ local autoCommands = {
         {
             events = {"BufReadPost", "FileReadPost"},
             pattern = "*",
-            command = "normal zR"
+            command = "normal zx zR"
         }
     },
     file_type_fzf = {
