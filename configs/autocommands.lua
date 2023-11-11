@@ -23,6 +23,18 @@ local autoCommands = {
             events = {"BufReadPost", "FileReadPost"},
             pattern = "*",
             command = "normal zx zR"
+        },
+        -- Below is a little bit of a hack to force resetting folds for
+        -- buffers opened through telescope
+        {
+            events = {"BufEnter"},
+            callback = function()
+                if vim.opt.foldmethod == "expr" then
+                    vim.schedule(function()
+                        vim.opt.foldmethod = "expr"
+                    end)
+                end
+            end,
         }
     },
     file_type_fzf = {
