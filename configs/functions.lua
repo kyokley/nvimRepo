@@ -33,7 +33,8 @@ function! ApplyHighlight() abort
     highlight DiffChange        cterm=bold ctermbg=none ctermfg=Yellow guibg=none guifg=Yellow
     highlight DiffText        cterm=bold ctermbg=Red ctermfg=Yellow guibg=Red guifg=Yellow
 
-    highlight default link VistaFloat statusline
+    highlight! default link VistaFloat statusline
+    highlight! default link Folded ModeMsg
 
     " ALE Highlighting settings
     highlight clear ALEWarning
