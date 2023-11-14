@@ -287,7 +287,8 @@ diagnostic_warnings = {
 require('cokeline').setup({
     default_hl = {
         fg = function(buffer)
-            return buffer.is_focused and get_hex('Normal', 'fg') or 'none'
+            -- return buffer.is_focused and get_hex('Normal', 'fg') or 'none'
+            return buffer.is_focused and 'none'
         end,
         bg = function(buffer)
             return buffer.is_focused and blue or 'none'
