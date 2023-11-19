@@ -66,6 +66,7 @@ ENTRYPOINT ["nvim"]
 
 
 FROM base AS custom
+ENV COLORIZE_VERSION=0.4.0
 ENV PATH="$PATH:/venv/bin:/color_blame_venv/bin:/lua-language-server/bin"
 
 RUN apk update && apk add --no-cache \
@@ -75,14 +76,21 @@ RUN apk update && apk add --no-cache \
         fzf \
         bash \
         ripgrep \
+        libffi-dev \
         less
 
-COPY --from=color_blame /venv /color_blame_venv
 COPY --from=py-builder /venv /venv
 
 COPY --from=builder /usr/local/bin/ctags /usr/local/bin/ctags
 COPY --from=builder /lua-language-server /lua-language-server
 
+COPY --from=color_blame /venv /color_blame_venv
+COPY --from=color_blame /color_blame_src /color_blame_src
+
+WORKDIR /color_blame_src/dist
+RUN /color_blame_venv/bin/pip install colorize-*-py3-none-any.whl
+
+WORKDIR /files
 
 COPY . /root/.config/nvim
 
