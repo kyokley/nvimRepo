@@ -45,7 +45,9 @@ ruff
 python-lsp-ruff
 python-lsp-server[all]
 EOF
-cat $(pyenv root)/default-packages | sort -u > $(pyenv root)/default-packages
+cat $(pyenv root)/default-packages | sort -u > /tmp/default-packages
+rm $(pyenv root)/default-packages
+mv /tmp/default-packages $(pyenv root)/default-packages
 
 pyenv install $PY3
 
