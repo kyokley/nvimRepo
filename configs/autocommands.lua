@@ -352,13 +352,6 @@ local autoCommands = {
             pattern = "TelescopePrompt",
             command = "call deoplete#custom#buffer_option('auto_complete', v:false)",
         },
-        {
-            events = "FileType",
-            pattern = "TelescopePrompt",
-            callback = function()
-                vim.bo.asyncomplete_enable = 0
-            end,
-        },
     },
 }
 
