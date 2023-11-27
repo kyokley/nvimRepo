@@ -9,7 +9,7 @@ git submodule update --init --recursive
 
 if [ $USE_PAMAC == "true" ]
 then
-    pamac install xclip neovim uctags-git npm fzf bat
+    pamac install xclip neovim uctags-git npm fzf bat lua-language-server
 
     mkdir -p ~/.local/bin
     ln -s $(which nvim) ~/.local/bin/vim
@@ -35,7 +35,8 @@ then
     sudo update-alternatives --config vim
     sudo update-alternatives --config editor
 
-    rm -rf ctags || true
+    rm -rf /tmp/ctags || true
+    cd /tmp
     git clone https://github.com/universal-ctags/ctags.git
     cd ctags
     ./autogen.sh
@@ -44,6 +45,23 @@ then
     sudo make install # may require extra privileges depending on where to install
 
     sudo npm install -g livedown
+
+    sudo apt-get install -y ninja-build
+    rm -rf /tmp/lua-language-server || true
+    cd /tmp
+    git clone https://github.com/LuaLS/lua-language-server
+    cd lua-language-server
+    ./make.sh
+
+    sudo rm /usr/local/lib/lua-language-server || true
+    sudo mv build/bin /usr/local/lib/lua-language-server
+
+cat <<EOF | sudo tee /usr/local/bin/lua-language-server
+#!/bin/bash
+exec "/usr/local/lib/lua-language-server/lua-language-server" "\$@"
+EOF
+    sudo chmod a+x /usr/local/bin/lua-language-server
+
 fi
 
 mkdir -p ~/.config
