@@ -131,9 +131,11 @@ cmp.setup {
         end, { 'i', 's' }),
         ['<Esc>'] = cmp.mapping(function(fallback)
             cmp.abort()
+            fallback()
         end, { 'i', 's' }),
         ['<C-c>'] = cmp.mapping(function(fallback)
             cmp.abort()
+            fallback()
         end, { 'i', 's' }),
     }),
     sources = {
