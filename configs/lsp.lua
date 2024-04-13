@@ -3,17 +3,17 @@ local lspconfig = require('lspconfig')
 
 -- Be sure to install ruff lsp server
 -- `pip install ruff-lsp`
-lspconfig.ruff_lsp.setup{
-    init_options = {
-        settings = {
-            -- Any extra CLI arguments for `ruff` go here.
-            args = {},
-        }
-    }
-}
+-- lspconfig.ruff_lsp.setup{
+--     init_options = {
+--         settings = {
+--             -- Any extra CLI arguments for `ruff` go here.
+--             args = {},
+--         }
+--     }
+-- }
 
 -- Be sure to install python lsp server
--- `pip install python-lsp-server`
+-- `pip install python-lsp-server python-lsp-ruff`
 lspconfig.pylsp.setup{
     settings = {
         pylsp = {
