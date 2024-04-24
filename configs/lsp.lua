@@ -26,6 +26,11 @@ lspconfig.pylsp.setup{
                 pyflakes = { enabled = false, },
                 pylint = { enabled = false, },
                 yapf = { enabled = false, },
+                ruff = {
+                    enabled = true,
+                    formatEnabled = true,
+                    format = { "I" },
+                },
             }
         }
     }
